@@ -84,6 +84,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/customer/lead/delete/{id}', 'CustomerLeadController@destroy');
 	Route::post('/customer/lead/modify/{id}', 'CustomerLeadController@update');
 
+	//Special Order Parts
+	Route::resource('/special/parts', 'SpecialPartsOrderController');
+
+	//Buyback
+	Route::resource('/buyback', 'BuybackController');
+	Route::post('/buyback/ajax/{id}', 'BuybackController@buybackAjaxUpdate');
+	//Route::get('/special/parts/delete/{id}', 'SpecialPartsOrderController@destroy');
+
 	//category 
 	Route::get('/category', 'CategoryController@index');
 	Route::post('/category/save', 'CategoryController@store');

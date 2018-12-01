@@ -273,6 +273,14 @@
 		</script>
     @endif
 
+    @if(isset($testJsonApi))
+    	@include('apps.include.api.test')
+    @endif
+
+    @if(isset($view_buyback))
+    	@include('apps.include.json.buyback')
+    @endif
+
     <script type="text/javascript">
     	$(document).ready(function(){
     		$(".change-action").click(function(){

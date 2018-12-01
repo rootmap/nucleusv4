@@ -30,6 +30,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Category Name</th>
+                                <th>Barcode</th>
                                 <th>Name</th>
                                 <th style="width: 50px;">Quantity in Stock</th>
                                 <th>Price</th>
@@ -45,6 +46,7 @@
                             <tr>
                                 <td>{{$row->id}}</td>
                                 <td>{{$row->category_name}}</td>
+                                <td>{{$row->barcode}}</td>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->quantity}}</td>
                                 <td>{{$row->price}}</td>

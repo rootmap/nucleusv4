@@ -1,9 +1,7 @@
 @extends('apps.layout.master')
-@section('title','Customer')
+@section('title','Customer Info')
 @section('content')
 <section id="file-exporaat">
-
-
 		<div class="row">
 		<div class="col-md-6 offset-md-3">
 			<div class="card">

@@ -10,6 +10,115 @@
 
 <!-- fitness target -->
 <div class="row">
+    <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-info bg-accent-3">
+                    <h4 class="card-title" style="color: #fff;"><i class="icon-stats-dots"></i> Today System Summary</h4>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i style="color: #fff;" class="icon-minus4"></i></a></li>
+                            <li><a data-action="expand"><i class="icon-expand2" style="color: #fff;"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body collapse in" style="padding-top: 20px;">
+                    <div class="col-xl-2 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
+                        <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
+                            
+                            <div class="card-body">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#55B9DF" data-readOnly="true" data-fgColor="#55B9DF">
+                                <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
+                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header pt-1" style="border-bottom: 0px;">
+                                <span class="info lighten-1 text-bold-800">Sales</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
+                        <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
+                            
+                            <div class="card-body">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#27A2CF" data-readOnly="true" data-fgColor="#27A2CF">
+                                <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
+                                    <span class="info darken-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header pt-1" style="border-bottom: 0px;">
+                                <span class="info darken-1 text-bold-800">Ticket</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
+                        <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
+                            
+                            <div class="card-body">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#80D2EF" data-readOnly="true" data-fgColor="#80D2EF">
+                                <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
+                                    <span class="info accent-2" style="font-weight: bolder; font-size: 22px;">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header pt-1" style="border-bottom: 0px;">
+                                <span class="info accent-2 text-bold-800">In-Store Reapir</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
+                        <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
+                            
+                            <div class="card-body">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#4FC1E9" data-readOnly="true" data-fgColor="#4FC1E9">
+                                <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
+                                    <span class="info lighten-2" style="font-weight: bolder; font-size: 22px;">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header pt-1" style="border-bottom: 0px;">
+                                <span class="info lighten-2 text-bold-800">Buyback</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
+                        <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
+                            
+                            <div class="card-body">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#6EC4E4" data-readOnly="true" data-fgColor="#6EC4E4">
+                                <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
+                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header pt-1" style="border-bottom: 0px;">
+                                <span class="info lighten-1 text-bold-800">Sales Amount</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-md-12">
+                        <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
+                            
+                            <div class="card-body">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#ABDDEF" data-readOnly="true" data-fgColor="#ABDDEF">
+                                <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
+                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-header pt-1" style="border-bottom: 0px;">
+                                <span class="info lighten-1 text-bold-800">Sales Profit</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                    <br>
+                </div>
+            </div>
+   </div>
     <div class="col-xs-12">
         <div class="card">
             <div class="card-body">

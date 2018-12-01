@@ -88,6 +88,37 @@
                 </ul>
             </li>
             @endif
+            
+            @if(in_array('customermain', $dataMenuAssigned))
+            <!-- Start navigation - frontend themes -->
+            <li class="submenu">
+                <a href="javascript:void(0);">
+                    <span class="icon"><i class="fa fa-shopping-bag"></i></span>
+                    <span class="text">Special Order Parts</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul>
+                    <li class="{{ Request::path() == 'special/parts/create' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('special/parts/create')}}" class="menu-item">Add New Special Order</a></li>
+                    <li class="{{ Request::path() == 'special/parts/list' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('special/parts/list')}}" class="menu-item">Special Order List</a></li>
+                </ul>
+            </li>
+            @endif
+
+            @if(in_array('customermain', $dataMenuAssigned))
+            <!-- Start navigation - frontend themes -->
+            <li class="submenu">
+                <a href="javascript:void(0);">
+                    <span class="icon"><i class="fa fa-random"></i></span>
+                    <span class="text">Buyback</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul>
+                    <li class="{{ Request::path() == 'buyback/create' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('buyback/create')}}" class="menu-item">Add New Buyback</a></li>
+                    <li class="{{ Request::path() == 'buyback/list' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('buyback/list')}}" class="menu-item">Buyback List</a></li>
+                </ul>
+            </li>
+            @endif
+
             @if(in_array('inventory', $dataMenuAssigned))
             <li class="submenu">
                 <a href="javascript:void(0);">

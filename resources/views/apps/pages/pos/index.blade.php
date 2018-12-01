@@ -46,7 +46,14 @@
               line-height: normal;
             }
         </style>
-
+        <div class="row mb-1">
+            <form method="post" action="javascript:loadCartProBar();">
+                <div  style="margin: 0 auto; width: 50%;">
+                    <label class="col-md-12 text-xs-center"><b>Enter Barcode</b></label>
+                    <input type="text" class="form-control col-md-6" name="barcode" placeholder="Enter Your Barcode & Press Enter.">
+                </div>
+            </form>
+        </div>
         <div class="row" id="defaultProductView">
           {{-- @if(isset($product))
           @foreach($product as $pro)
@@ -66,11 +73,11 @@
         </script>
         <span id="product_place"> 
             <div class="col-md-12">
-                <h2  class="text-xs-center">Click on category to load product. <br>  <br> 
+                <h4  class="text-xs-center">Click on category to load product. <br>  <br> 
                     {{-- <a href="{{url('product')}}" class="btn btn-info">
                         <i class="icon-ios-plus-outline"></i> Create new product
                     </a> --}}
-                </h2>
+                </h4>
             </div>
             
             {{-- @for($i=1; $i<=15; $i++)
@@ -515,7 +522,10 @@
 <script src="{{url('theme/app-assets/js/scripts/forms/select/form-select2.min.js')}}" type="text/javascript"></script>
 <script>
 //editRowLive
+    var productJson=<?php echo json_encode($product); ?>;
     //
+    
+
     function liveRowCartEdit(rowID)
     {
         var rowData=$("#"+rowID).children("td:eq(1)").html();
@@ -734,6 +744,46 @@
             strHtml+=sms;
             strHtml+='</div>';
             return strHtml;
+    }
+
+    function loadCartProBar()
+    {
+        console.log("Action Perform");
+        var barcode=$("input[name=barcode]").val();
+        console.log(barcode);
+        //$('.barcode').click();
+        //$('#ajaxCart').click();
+
+        if(barcode.length==0)
+        {
+            // alert('Please Type a Barcode No.!!!');
+            $("#cartMessageProShow").html(warningMessage("Please Type a Barcode No.!!!"));
+            return false;
+        }
+        var productFound=0;
+        $.each(productJson,function(rindex,row){
+            if(row.barcode==barcode)
+            {
+                console.log(row); 
+                $("#qty").val(1);
+                $("#stoke").val(row.quantity);
+                $("#price").val(row.price);
+                $("#product_name").val(row.name);
+                //$("#rate").val(row.cost);
+                $("#imei").val(row.imei);
+                $("#brand").val(row.brand_name);
+                $("#model").val(row.model_name);
+                $("#pro_id").val(row.id);
+                productFound=1;
+            }
+        });
+
+        if(productFound==0)
+        {
+            // alert('Please Type a Barcode No.!!!');
+            $("#cartMessageProShow").html(warningMessage("Please Type a Correct Barcode No.!!!"));
+            return false;
+        }
     }
 
     var productJson=<?php echo json_encode($product); ?>; 

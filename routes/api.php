@@ -14,5 +14,13 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    //return $request->user();
+    return response('Test API', 200)
+                  ->header('Content-Type', 'application/json');
+});
+
+
+Route::get('/test', function () {
+    return response('Test API', 200)
+                  ->header('Content-Type', 'application/json');
 });

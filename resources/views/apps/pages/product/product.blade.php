@@ -33,33 +33,45 @@
                             action="{{url('product/save')}}"
                         @endif
                         >
+
 							<div class="form-body">
                                 {{ csrf_field() }}
-                                <div class="form-group">
-                                    <label for="eventRegInput1">Select Category 
-                                        <span class="text-danger">*</span>
-                                    </label>
-                                    <select class="select2 form-control" name="category_id">
-                                        <option 
-                                            @if(!isset($dataRow->category_id))
-                                                @if(empty($dataRow->category_id))
-                                                selected="selected" 
-                                                @endif
-                                            @endif
-
-                                        value="">Select a Category</option>
-                                        @if(isset($existing_cat))
-                                            @foreach($existing_cat as $cus)
+                                <div class="row">
+                                    <div class="form-group col-md-6 mb-2">
+                                        <label for="eventRegInput1">Select Category 
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="select2 form-control" name="category_id">
                                             <option 
-                                                @if(isset($dataRow->category_id))
-                                                    @if($dataRow->category_id==$cus->id)
+                                                @if(!isset($dataRow->category_id))
+                                                    @if(empty($dataRow->category_id))
                                                     selected="selected" 
                                                     @endif
-                                                @endif 
-                                            value="{{$cus->id}}">{{$cus->name}}</option>
-                                            @endforeach
-                                        @endif                          
-                                    </select>
+                                                @endif
+
+                                            value="">Select a Category</option>
+                                            @if(isset($existing_cat))
+                                                @foreach($existing_cat as $cus)
+                                                <option 
+                                                    @if(isset($dataRow->category_id))
+                                                        @if($dataRow->category_id==$cus->id)
+                                                        selected="selected" 
+                                                        @endif
+                                                    @endif 
+                                                value="{{$cus->id}}">{{$cus->name}}</option>
+                                                @endforeach
+                                            @endif                          
+                                        </select>
+                                    </div>
+                                
+                                    <div class="form-group col-md-6 mb-2">
+                                        <label for="eventRegInput1">Product Barcode <span class="text-danger">*</span></label>
+                                        <input type="text" 
+                                        @if(isset($edit))
+                                            value="{{$dataRow->barcode}}" 
+                                        @endif 
+                                        id="eventRegInput1" class="form-control border-primary" placeholder="Barcode" name="barcode">
+                                    </div>
                                 </div>
 								<div class="form-group">
 									<label for="eventRegInput1">Product Name <span class="text-danger">*</span></label>
@@ -147,6 +159,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Category Name</th>
+                                <th>Barcode</th>
                                 <th>Name</th>
                                 <th style="width: 50px;">Quantity IN Stock</th>
                                 <th>Price</th>
@@ -163,6 +176,7 @@
                             <tr>
                                 <td>{{$row->id}}</td>
                                 <td>{{$row->category_name}}</td>
+                                <td>{{$row->barcode}}</td>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->quantity}}</td>
                                 <td>{{$row->price}}</td>

@@ -166,6 +166,7 @@ class ProductController extends Controller
         $this->validate($request,[
             'category_id'=>'required|integer',
             'name'=>'required',
+            'barcode'=>'required',
             'quantity'=>'required|integer',
             'price'=>'required|numeric',
             'cost'=>'required|numeric',
@@ -194,6 +195,7 @@ class ProductController extends Controller
         $tab->category_id=$request->category_id;
         $tab->category_name=$cat_name;
         $tab->name=$request->name;
+        $tab->barcode=$request->barcode;
         $tab->quantity=$request->quantity;
         $tab->price=$request->price;
         $tab->cost=$request->cost;
@@ -480,6 +482,7 @@ class ProductController extends Controller
          $this->validate($request,[
             'category_id'=>'required|integer',
             'name'=>'required',
+            'barcode'=>'required',
             'quantity'=>'required|integer',
             'price'=>'required|numeric',
             'cost'=>'required|numeric',
@@ -527,6 +530,7 @@ class ProductController extends Controller
         $tab->category_id=$request->category_id;
         $tab->category_name=$cat_name;
         $tab->name=$request->name;
+        $tab->barcode=$request->barcode;
         $tab->quantity=$request->quantity;
         $tab->price=$request->price;
         $tab->cost=$request->cost;

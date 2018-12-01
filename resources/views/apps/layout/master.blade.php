@@ -7,6 +7,14 @@
   <meta name="description" content="Simple-pos">
   <meta name="keywords" content="POS,Simple-pos">
   <meta name="author" content="Md Mahamudur Zaman Bhuyian-Fahad">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script>
+          window.Laravel = <?php echo json_encode([
+              'csrfToken' => csrf_token(),
+          ]); ?>;
+
+
+  </script>
   <title>
     @yield('title')
     | Simple Retail POS
