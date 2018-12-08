@@ -421,6 +421,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	//-------------------Settings Started----------------------------//
+	Route::get('settings/barcode', 'BuybackController@createBarcode');
+	Route::get('settings/instorerepair', 'InStoreRepairController@create');
+	Route::get('settings/instore/merge/repair/data', 'InStoreRepairController@mergeDataTostore');
+	Route::post('settings/instore/merge/repair/store', 'InStoreRepairController@mergestoreData');
+	Route::post('settings/instore/clear/repair/store', 'InStoreRepairController@clearstoreData');
+	Route::post('settings/instorerepair', 'InStoreRepairController@store');
+	Route::post('instorerepair/model/ajax', 'InStoreRepairController@deviceModel');
+	Route::post('genarate/barcode', 'BuybackController@genarateBarcode');
 	Route::get('pos/settings', 'PosSettingController@index');
 	Route::get('pos/settings/invoice/{id}', 'PosSettingController@invoiceLayout');
 	Route::post('pos/settings/invoice/save/{id}', 'PosSettingController@invoiceLayoutSave');

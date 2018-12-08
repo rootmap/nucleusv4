@@ -50,7 +50,7 @@
             <form method="post" action="javascript:loadCartProBar();">
                 <div  style="margin: 0 auto; width: 50%;">
                     <label class="col-md-12 text-xs-center"><b>Enter Barcode</b></label>
-                    <input type="text" class="form-control col-md-6" name="barcode" placeholder="Enter Your Barcode & Press Enter.">
+                    <input type="text"  autocomplete="off" class="form-control col-md-6" name="barcode" placeholder="Enter Your Barcode & Press Enter.">
                 </div>
             </form>
         </div>
@@ -760,6 +760,7 @@
             $("#cartMessageProShow").html(warningMessage("Please Type a Barcode No.!!!"));
             return false;
         }
+        $("#cartMessageProShow").html(loadingOrProcessing("Product adding to cart, Please Wait....!!!!"));
         var productFound=0;
         $.each(productJson,function(rindex,row){
             if(row.barcode==barcode)
@@ -775,8 +776,12 @@
                 $("#model").val(row.model_name);
                 $("#pro_id").val(row.id);
                 productFound=1;
+                add_pos_cart(row.id,row.price,row.name);
             }
         });
+
+        $("input[name=barcode]").val("");
+        $("input[name=barcode]").focus();
 
         if(productFound==0)
         {

@@ -84,6 +84,22 @@
 		</script>
     @endif
 
+    @if(isset($barcodejs))
+    	@include('apps.include.json.barcode')
+    @endif    
+
+    @if(isset($instorerepairjson))
+    	@include('apps.include.json.instorerepair')
+    @endif    
+
+    @if(isset($instorerepairajax))
+    	@include('apps.include.json.instorerepairajax')
+    @endif
+
+    @if(isset($mergeJS))
+    	@include('apps.include.json.mergeJS')
+    @endif
+
     @if(isset($expenseHeadCreate))
     	<script type="text/javascript">
 			$(document).ready(function() {

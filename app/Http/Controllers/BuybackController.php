@@ -39,6 +39,66 @@ class BuybackController extends Controller
         return view('apps.pages.buyback.create',compact('productData','tender','authorizeNettender','payPaltender'));
     }
 
+    public function createBarcode()
+    {
+        return view('apps.pages.settings.barcode');
+    }
+
+    public function genarateBarcode(Request $request)
+    {
+        $this->validate($request,[
+            'barcode'=>'required',
+            'quantity'=>'required'
+        ]);
+
+        $barcodedata=$this->sdc->GenarateBarcode($request->barcode);
+
+        $htmlBarcode='<table width="100%" cellpadding="3" cellspacing="3">';
+        $d=1;
+        for($i=1; $i<=$request->quantity; $i++)
+        {
+            if($d==1)
+            {
+                $htmlBarcode .='<tr>';
+                $htmlBarcode .='<td><img src="data:image/png;base64,'.$barcodedata.'" /></td>';
+            }
+            else
+            {
+                $htmlBarcode .='<td><img src="data:image/png;base64,'.$barcodedata.'" /></td>';
+            }
+
+            if($d==3)
+            {
+                $htmlBarcode .='</tr>';
+                $d=0;
+            }
+            else
+            {
+                if($i==$request->quantity)
+                {
+                    if($d==1)
+                    {
+                        $htmlBarcode .='<td></td>';
+                        $htmlBarcode .='<td></td>';
+                    }
+                    elseif($d==2)
+                    {
+                        $htmlBarcode .='<td></td>';
+                    }
+
+                    $htmlBarcode .='</tr>';
+                }
+            }
+            
+
+            $d++;
+        }
+
+        $htmlBarcode .='</table>';
+
+        $this->sdc->PDFLayout("Print Barcode",$htmlBarcode);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

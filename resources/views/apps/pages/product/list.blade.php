@@ -14,7 +14,9 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title"><i class="icon-database"></i> Product List</h4>
-                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                <a class="heading-elements-toggle">
+                    <i class="icon-ellipsis font-medium-3"></i>
+                </a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
                         <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
@@ -55,6 +57,9 @@
                                 <td>{{($row->cost*$row->quantity)}}</td>
                                 <td>
                                         @if(in_array('Product_List_Edit', $dataMenuAssigned)) 
+                                            <button type="button" data-id="{{$row->barcode}}" class="btn btn-secondary btn-sm barcodeCreate" id="barcodeCreateDD"><i class="icon-barcode"></i></button>
+                                        @endif
+                                        @if(in_array('Product_List_Edit', $dataMenuAssigned)) 
                                             <a href="{{url('product/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
                                         @endif
                                         @if(in_array('Product_List_Delete', $dataMenuAssigned)) 
@@ -79,7 +84,7 @@
 <!-- Both borders end -->
 
 </section>
-
+@include('apps.include.modal.barcode-modal')
 @endsection
 
-@include('apps.include.datatable',['JDataTable'=>1])
+@include('apps.include.datatable',['JDataTable'=>1,'barcodejs'=>1])

@@ -290,6 +290,9 @@
                     @if(in_array('authorize/net/payment/setting', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'authorize/net/payment/setting' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/authorize/net/payment/setting')}}" class="menu-item">AuthorizeNet Account </a></li>
                     @endif 
+                    
+                    <li class="{{ Request::path() == 'settings/barcode' ? 'active' : '' }} border-bottom-purple"><a href="{{url('settings/barcode')}}" class="menu-item">Barcode Print</a></li>
+                    
                     @if(in_array('category', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'category' ? 'active' : '' }} border-bottom-purple"><a href="{{url('category')}}" class="menu-item">Category</a></li>
                     @endif 
@@ -298,7 +301,12 @@
                     @endif 
                     @if(in_array('settings/invoice/email', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == '/settings/invoice/email' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/settings/invoice/email')}}" class="menu-item">Invoice email template</a></li>
-                    @endif 
+                    @endif  
+
+                    <li class="{{ Request::path() == 'settings/instorerepair' ? 'active' : '' }} border-bottom-purple"><a href="{{url('settings/instorerepair')}}" class="menu-item">In-Store Repair Settings</a></li>
+
+                    <li class="{{ Request::path() == 'settings/instore/merge/repair/data' ? 'active' : '' }} border-bottom-purple"><a href="{{url('settings/instore/merge/repair/data')}}" class="menu-item">In-Store Repair Data Merge</a></li>
+                    
                     @if(in_array('site/navigation', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'site/navigation' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/site/navigation')}}" class="menu-item">Navigation Setting</a></li>
                     @endif 
