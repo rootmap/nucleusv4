@@ -26,17 +26,14 @@ class RetailPosSummaryController extends Controller
         $dash=$dashboard::find(1);
         //print_r($dash); die();
         $Todaydate=date('Y-m-d');
-        if(RetailPosSummaryDateWise::where('report_date',$Todaydate)->count()==0)
-        {
-            RetailPosSummaryDateWise::insert([
-               'report_date'=>$Todaydate
-            ]);
-            $tabToday=RetailPosSummaryDateWise::where('report_date',$Todaydate)->first();
-        }
-        else
-        {
-            $tabToday=RetailPosSummaryDateWise::where('report_date',$Todaydate)->first();
-        }
+        \DB::statement("call todaySystemSummaryStatus('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+        
+        
+        $tabToday=RetailPosSummaryDateWise::whereRaw('report_date=CAST(now() as date)')
+                                            ->where('store_id',$this->sdc->storeID())
+                                            ->first();
+        
+        //dd($tabToday);
 
         $CashierPunch=CashierPunch::select('id',
                                             'name',

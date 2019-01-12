@@ -94,6 +94,75 @@
 
     @if(isset($instorerepairajax))
     	@include('apps.include.json.instorerepairajax')
+    @endif    
+
+    @if(isset($posinstorerepair))
+    	{{-- Instore repair js * Start  --}}
+		@include('apps.include.json.posinstorerepair')
+		@include('apps.include.modal.jsalert')
+		{{-- Instore repair js * End  --}}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#step_1").click(function(){
+					//alert("gg");
+					$(".step1").hide();
+					$("#step_1").hide();
+
+					$("#step_2_to_step_1").show();
+					$("#step_2").show();
+					$(".step2").show();
+					$('select[name=customer_id]').val('').select2();
+					$(".step2_repair_new_customer").hide();
+
+				});
+
+				$("#step_2_to_step_1").click(function(){
+					//alert("gg");
+					$(".step1").show();
+					$("#step_1").show();
+
+					$("#step_2_to_step_1").hide();
+					$("#step_2").hide();
+					$(".step2").hide();
+
+					$('select[name=customer_id]').val('').select2();
+					$(".step2_repair_new_customer").hide();
+
+				});
+
+				$("#step_3_to_step_2").click(function(){
+					//alert("gg");
+					$(".step1").hide();
+					$("#step_1").hide();
+
+					$("#step_2_to_step_1").show();
+					$("#step_2").show();
+					$(".step2").show();
+
+					$('select[name=customer_id]').val('').select2();
+					$(".step2_repair_new_customer").hide();
+
+				});
+
+
+				$("select[name=customer_id]").change(function(){
+					var cusID=$(this).val();
+					if(cusID=="CR000")
+					{
+						$(".step2_repair_new_customer").show();
+					}
+					else
+					{
+						$(".step2_repair_new_customer").hide();
+					}
+				});
+
+				$("#step_2").click(function(){ 
+					$("#step_2_to_step_1").hide();
+				});
+			});
+			
+		</script>
     @endif
 
     @if(isset($mergeJS))
@@ -295,6 +364,31 @@
 
     @if(isset($view_buyback))
     	@include('apps.include.json.buyback')
+    @endif
+
+    @if(isset($view_repair))
+    	@include('apps.include.json.view_repair')
+    @endif
+
+    @if(isset($view_ticket))
+    	@include('apps.include.json.view_ticket')
+    @endif    
+
+    @if(isset($order_parts))
+    	<script type="text/javascript">
+    		$(document).ready(function(){
+    			$("select[name=ticket_id]").change(function(){
+    				var ticket_id=$(this).val();
+    				var defineValue=$("select[name=ticket_id] option[value="+ticket_id+"]").attr("data-value");
+    				//alert(defineValue);
+    				$("input[name=ticket_payment_status]").val(defineValue);
+    			});
+    		});
+    	</script>
+    @endif
+
+    @if(isset($ticket))
+    	@include('apps.include.json.ticket')
     @endif
 
     <script type="text/javascript">

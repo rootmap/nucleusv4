@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Tender;
+use App\Invoice;
+use App\Customer;
+use App\InvoicePayment;
 use Illuminate\Http\Request;
-
+use Mpdf\Mpdf;
 class TenderController extends Controller
 {
     /**
@@ -199,5 +202,262 @@ class TenderController extends Controller
         $tab->delete();
         $this->sdc->log("tender","Tender Type deleted");
         return redirect('tender')->with('status', $this->moduleName.' Deleted Successfully !');
+    }
+    public function Report(Invoice $invoice,request $request)
+    {
+        $invoice_id='';
+        if(isset($request->invoice_id))
+        {
+            $invoice_id=$request->invoice_id;
+        }
+        $customer_id='';
+        if(isset($request->customer_id))
+        {
+            $customer_id=$request->customer_id;
+        }
+        // dd($customer_id);
+        $start_date='';
+        if(isset($request->start_date))
+        {
+            $start_date=$request->start_date;
+        }
+
+        $end_date='';
+        if(isset($request->end_date))
+        {
+            $end_date=$request->end_date;
+        }
+
+        if(empty($start_date) && !empty($end_date))
+        {
+            $start_date=$end_date;
+        }
+
+        if(!empty($start_date) && empty($end_date))
+        {
+            $end_date=$start_date;
+        }
+
+        $tender_id='';
+        if(isset($request->tender_id))
+        {
+            $tender_id=$request->tender_id;
+        }
+
+        $dateString='';
+        if(!empty($start_date) && !empty($end_date))
+        {
+            $dateString="CAST(lsp_invoices.created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+        }
+
+        $tab=$invoice::Leftjoin('customers','invoices.customer_id','=','customers.id')
+                     ->select('invoices.*','customers.name as customer_name')
+                     ->where('invoices.store_id',$this->sdc->storeID())
+                     ->where('invoices.invoice_status','=','Paid')
+                     ->when($invoice_id, function ($query) use ($invoice_id) {
+                            return $query->where('invoices.invoice_id','=', $invoice_id);
+                     })
+                     ->when($tender_id, function ($query) use ($tender_id) {
+                            return $query->where('invoices.tender_id','=', $tender_id);
+                     })
+                     ->when($customer_id, function ($query) use ($customer_id) {
+                            return $query->where('invoices.customer_id','=', $customer_id);
+                     })
+                     ->when($dateString, function ($query) use ($dateString) {
+                            return $query->whereRaw($dateString);
+                     })
+                     ->orderBy("invoices.id","DESC")
+                     ->get();
+         //dd($tab);      
+        $tab_customer=Customer::where('store_id',$this->sdc->storeID())->get();            
+        $tab_tender=Tender::whereRaw("store_id='".$this->sdc->storeID()."' OR store_id='0'")->get();            
+        return view('apps.pages.report.tander',
+            [
+                'dataTable'=>$tab,
+                'customer' =>$tab_customer,
+                'invoice_id'=>$invoice_id,
+                'tab_tender'=>$tab_tender,
+                'customer_id'=>$customer_id,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date,
+                'tender_id'=>$tender_id
+            ]);
+    }    
+
+     public function TenderReport(Request $request)
+    {
+
+        $invoice_id='';
+        if(isset($request->invoice_id))
+        {
+            $invoice_id=$request->invoice_id;
+        }
+        $customer_id='';
+        if(isset($request->customer_id))
+        {
+            $customer_id=$request->customer_id;
+        }
+        // dd($customer_id);
+        $start_date='';
+        if(isset($request->start_date))
+        {
+            $start_date=$request->start_date;
+        }
+
+        $end_date='';
+        if(isset($request->end_date))
+        {
+            $end_date=$request->end_date;
+        }
+
+        if(empty($start_date) && !empty($end_date))
+        {
+            $start_date=$end_date;
+        }
+
+        if(!empty($start_date) && empty($end_date))
+        {
+            $end_date=$start_date;
+        }
+
+        $tender_id='';
+        if(isset($request->tender_id))
+        {
+            $tender_id=$request->tender_id;
+        }
+        // dd($invoice_status);
+        $dateString='';
+        if(!empty($start_date) && !empty($end_date))
+        {
+            $dateString="CAST(lsp_invoices.created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+        }
+
+        $tab=Invoice::Leftjoin('customers','invoices.customer_id','=','customers.id')
+                     ->select('invoices.*','customers.name as customer_name')
+                     ->where('invoices.store_id',$this->sdc->storeID())
+                     ->where('invoices.invoice_status','=', 'Paid')
+                     ->when($invoice_id, function ($query) use ($invoice_id) {
+                            return $query->where('invoices.invoice_id','=', $invoice_id);
+                     })
+                     ->when($tender_id, function ($query) use ($tender_id) {
+                            return $query->where('invoices.tender_id','=', $tender_id);
+                     })
+                     ->when($customer_id, function ($query) use ($customer_id) {
+                            return $query->where('invoices.customer_id','=', $customer_id);
+                     })
+                     ->when($dateString, function ($query) use ($dateString) {
+                            return $query->whereRaw($dateString);
+                     })
+                     ->get();
+
+      // dd($tab);
+        return $tab;
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\ProductStockin  $productStockin
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function ExcelReportTender(Request $request) 
+    {
+        // dd($request);
+        //excel 
+        $data=array();
+        $array_column=array('Invoice ID','Sold To','Tender','Status','Invoice Total Amount','Invoice Date');
+        array_push($data, $array_column);
+        $inv=$this->TenderReport($request);
+        foreach($inv as $voi):
+            $inv_arry=array($voi->invoice_id,$voi->customer_name,$voi->tender_name,$voi->invoice_status,$voi->total_amount,$voi->created_at);
+            array_push($data, $inv_arry);
+        endforeach;
+
+        $reportName="Tender Report";
+        $report_title="Tender Report";
+        $report_description="Report Genarated : ".date('d-M-Y H:i:s a');
+        /*$data = array(
+            array('data1', 'data2'),
+            array('data3', 'data4')
+        );*/
+
+        //array_unshift($data,$array_column);
+
+       // dd($data);
+
+        $excelArray=array(
+            'report_name'=>$reportName,
+            'report_title'=>$report_title,
+            'report_description'=>$report_description,
+            'data'=>$data
+        );
+
+        $this->sdc->ExcelLayout($excelArray);
+        
+    }
+
+
+    public function PdfReportTender(Request $request)
+    {
+
+        $data=array();
+        
+       
+        $reportName="Tender Report";
+        $report_title="Tender Report";
+        $report_description="Report Genarated : ".date('d-M-Y H:i:s a');
+
+        $html='<table class="table table-bordered" style="width:100%;">
+                <thead>
+                <tr>
+                <th class="text-center" style="font-size:12px;" >Invoice ID</th>
+                <th class="text-center" style="font-size:12px;" >Sold To</th>
+                <th class="text-center" style="font-size:12px;" >Tender</th>
+                <th class="text-center" style="font-size:12px;" >Status</th>
+                <th class="text-center" style="font-size:12px;" >Invoice Total Amount</th>
+                <th class="text-center" style="font-size:12px;" >Invoice Date</th>
+                </tr>
+                </thead>
+                <tbody>';
+
+
+
+                    $inv=$this->TenderReport($request);
+                    foreach($inv as $index=>$voi):
+    
+                        $html .='<tr>
+                        <td>'.$voi->invoice_id.'</td>
+                        <td>'.$voi->customer_name.'</td>
+                        <td>'.$voi->tender_name.'</td>
+                        <td>'.$voi->invoice_status.'</td>
+                        <td align="center">'.$voi->total_amount.'</td>
+                        <td>'.date('Y-m-d',strtotime($voi->created_at)).'</td>
+                        </tr>';
+
+                    endforeach;
+
+
+
+                        
+
+             
+                /*html .='<tr style="border-bottom: 5px #000 solid;">
+                <td style="font-size:12px;">Subtotal </td>
+                <td style="font-size:12px;">Total Item : 4</td>
+                <td></td>
+                <td></td>
+                <td style="font-size:12px;" class="text-right">00</td>
+                </tr>';*/
+
+                $html .='</tbody></table>';
+
+                //echo $html; die();
+
+
+
+                $this->sdc->PDFLayout($reportName,$html);
+
+
     }    
 }

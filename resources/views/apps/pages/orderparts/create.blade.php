@@ -40,12 +40,25 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
+												<label for="userinput1">Select Customer</label>
+												<select name="customer_id" class="select2 form-control">
+													@if(isset($customerList))
+														@foreach($customerList as $pro)
+															<option value="{{$pro->id}}">{{$pro->name}}</option>
+														@endforeach
+													@endif
+												</select>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-6">
+											<div class="form-group">
 												<label for="userinput1">Select Ticket</label>
 												<select name="ticket_id" class="select2 form-control">
-													@if(isset($productData))
-														@foreach($productData as $pro)
-														<option value="{{$pro->id}}">
-															{{$pro->name}}
+													@if(isset($ticketList))
+														@foreach($ticketList as $pro)
+														<option data-value="{{$pro->payment_status}}" value="{{$pro->ticket_id}}">
+															{{$pro->ticket_id}}-{{$pro->device_type}}-{{$pro->problem_name}}
 														</option>
 														@endforeach
 													@endif
@@ -57,7 +70,9 @@
 												<label for="eventRegInput3">Payment Status <span class="text-danger">*</span></label>
 												<input type="text" 
 												@if(isset($edit))
-												value="{{$dataRow->ticket_payment_status}}" 
+												value="{{$dataRow->ticket_payment_status}}" readonly="readonly" 
+												@else 
+												readonly="readonly" 
 												@endif 
 												 class="form-control border-primary" placeholder="Ticket Payment Status" name="ticket_payment_status">
 											</div>
@@ -229,4 +244,4 @@
 </section>
 @endsection
 
-@include('apps.include.datatable',['selectTwo'=>1,'dateDrop'=>1,'testJsonApi'=>1])
+@include('apps.include.datatable',['selectTwo'=>1,'dateDrop'=>1,'testJsonApi'=>1,'order_parts'=>1])

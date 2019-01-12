@@ -21,6 +21,8 @@ use App\CloseDrawer;
 use App\SendSalesEmail;
 use App\AuthorizeNetPaymentHistory;
 use App\CardInfo;
+use App\InStoreRepair;
+use App\InStoreTicket;
 use Carbon\Carbon;
 use Mpdf\Mpdf;
 use App\Pos;
@@ -40,6 +42,12 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 //paypal lib 
+
+//instore repair
+use App\InStoreRepairDevice;
+use App\InStoreRepairModel;
+use App\InStoreRepairProblem;
+use App\InStoreRepairPrice;
 
 class InvoiceController extends Controller
 {
@@ -163,6 +171,25 @@ class InvoiceController extends Controller
 
     }
 
+    public function posRepairProduct(Request $request)
+    {
+
+        //echo $_POST['model_id']; die();
+        $model_id=$request->model_id;
+        $device_id=$request->device_id;
+        $problem_id=$request->problem_id;
+        $pro=\DB::table('in_store_repair_prices')
+                  ->where('model_id',$model_id)
+                  ->where('device_id',$device_id)
+                  ->where('problem_id',$problem_id)
+                  ->first();
+
+        
+
+        //$check_product=
+        dd($request);
+    }
+
     public function paypal(Request $request)
     {
        return view('apps.pages.paypal.paywithpaypal');
@@ -260,10 +287,14 @@ class InvoiceController extends Controller
 
     public function savePayout(Request $request)
     {
+
+        $userFullName=\Auth::user()->name;
+
         if(!empty($request->payout_amount))
         {
             $tab=new Payout();
             $dataFirstAmount=substr($request->payout_amount,0,1);
+
             if($dataFirstAmount=="-")
             {
                 $tab->negative_amount=substr($request->payout_amount,1,100);
@@ -272,7 +303,9 @@ class InvoiceController extends Controller
             {
                 $tab->amount=$request->payout_amount;
             }
-            
+
+            $tab->cashier_id=$this->sdc->UserID();
+            $tab->cashier_name=$userFullName;
             $tab->reason=$request->payout_reason;
             $tab->store_id=$this->sdc->storeID();
             $tab->created_by=$this->sdc->UserID();
@@ -286,6 +319,211 @@ class InvoiceController extends Controller
         }
         
 
+    }
+
+    public function Payoutreport(Request $request)
+    {
+        //dd(1);
+
+        $cashier_id='';
+        if(isset($request->cashier_id))
+        {
+            $cashier_id=$request->cashier_id;
+        }
+
+
+        $start_date='';
+        if(isset($request->start_date))
+        {
+            $start_date=$request->start_date;
+        }
+
+        $end_date='';
+        if(isset($request->end_date))
+        {
+            $end_date=$request->end_date;
+        }
+
+        if(empty($start_date) && !empty($end_date))
+        {
+            $start_date=$end_date;
+        }
+
+        if(!empty($start_date) && empty($end_date))
+        {
+            $end_date=$start_date;
+        }
+
+        $dateString='';
+        if(!empty($start_date) && !empty($end_date))
+        {
+            $dateString="CAST(created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+        }
+
+
+
+
+        $invoice=Payout::select('id','cashier_id','cashier_name','amount','negative_amount','reason','created_at')
+                     ->where('store_id',$this->sdc->storeID())
+                     ->when($cashier_id, function ($query) use ($cashier_id) {
+                            return $query->where('cashier_id','=', $cashier_id);
+                     })
+                     ->when($dateString, function ($query) use ($dateString) {
+                            return $query->whereRaw($dateString);
+                     })
+                     ->get();
+                     //->toSql();
+
+        //dd($tender_id);              
+
+        $tab_customer=\DB::table('users')->where('store_id',$this->sdc->storeID())->get();
+
+        return view('apps.pages.report.payout',
+            [
+                'customer'=>$tab_customer,
+                'invoice'=>$invoice,
+                'cashier_id'=>$cashier_id,
+                'start_date'=>$start_date,
+                'end_date'=>$end_date
+            ]);
+    }
+
+    public function PayoutQuery($request)
+    {
+        $cashier_id='';
+        if(isset($request->cashier_id))
+        {
+            $cashier_id=$request->cashier_id;
+        }        
+
+       
+        $start_date='';
+        if(isset($request->start_date))
+        {
+            $start_date=$request->start_date;
+        }
+
+        $end_date='';
+        if(isset($request->end_date))
+        {
+            $end_date=$request->end_date;
+        }
+
+        if(empty($start_date) && !empty($end_date))
+        {
+            $start_date=$end_date;
+        }
+
+        if(!empty($start_date) && empty($end_date))
+        {
+            $end_date=$start_date;
+        }
+
+        $dateString='';
+        if(!empty($start_date) && !empty($end_date))
+        {
+            $dateString="CAST(created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+        }
+
+        $invoice=Payout::where('store_id',$this->sdc->storeID())
+                         ->when($cashier_id, function ($query) use ($cashier_id) {
+                                return $query->where('cashier_id','=', $cashier_id);
+                         })
+                         ->when($dateString, function ($query) use ($dateString) {
+                                return $query->whereRaw($dateString);
+                         })
+                         ->get();
+
+        return $invoice;
+    }
+
+    public function exportPayoutExcel(Request $request) 
+    {
+        //excel 
+        $data=array();
+        $array_column=array('ID','Cashier/Manager Name','Amount','Negative Amount','Reason','Created');
+        array_push($data, $array_column);
+        $inv=$this->PayoutQuery($request);
+
+        foreach($inv as $voi):
+            $inv_arry=array($voi->id,$voi->cashier_name,$voi->amount,$voi->negative_amount,$voi->reason,$voi->created_at);
+            array_push($data, $inv_arry);
+        endforeach;
+
+        $reportName="Payout Report";
+        $report_title="Payout Report";
+        $report_description="Report Genarated : ".date('d-M-Y H:i:s a');
+        /*$data = array(
+            array('data1', 'data2'),
+            array('data3', 'data4')
+        );*/
+
+        //array_unshift($data,$array_column);
+
+       // dd($data);
+
+        $excelArray=array(
+            'report_name'=>$reportName,
+            'report_title'=>$report_title,
+            'report_description'=>$report_description,
+            'data'=>$data
+        );
+        // dd($excelArray);
+        $this->sdc->ExcelLayout($excelArray);
+        
+    }
+
+    public function exportPayoutPDF(Request $request)
+    {
+
+        $data=array();
+        
+       
+        $reportName="Payout Report";
+        $report_title="Payout Report";
+        $report_description="Report Genarated : ".date('d-M-Y H:i:s a');
+
+        $html='<table class="table table-bordered" style="width:100%;">
+                <thead>
+                <tr>
+                <th class="text-center" style="font-size:12px;" >ID</th>
+                <th class="text-center" style="font-size:12px;" >Cashier/Manager Name</th>
+                <th class="text-center" style="font-size:12px;" >Amount</th>
+                <th class="text-center" style="font-size:12px;" >Negative Amount</th>
+                <th class="text-center" style="font-size:12px;" >Reason</th>
+                <th class="text-center" style="font-size:12px;" >Created</th>
+                </tr>
+                </thead>
+                <tbody>';
+
+                    $inv=$this->PayoutQuery($request);
+                    foreach($inv as $voi):
+                        $html .='<tr>
+                        <td style="font-size:12px;" class="text-center">'.$voi->id.'</td>
+                        <td style="font-size:12px;" class="text-center">'.$voi->cashier_name.'</td>
+                        <td style="font-size:12px;" class="text-center">'.$voi->amount.'</td>
+                        <td style="font-size:12px;" class="text-right">'.$voi->negative_amount.'</td>
+                        <td style="font-size:12px;" class="text-right">'.$voi->reason.'</td>
+                        <td style="font-size:12px;" class="text-right">'.$voi->created_at.'</td>
+                        </tr>';
+
+                    endforeach;
+
+
+                        
+
+             
+                /*html .='<tr style="border-bottom: 5px #000 solid;">
+                <td style="font-size:12px;">Subtotal </td>
+                <td style="font-size:12px;">Total Item : 4</td>
+                <td></td>
+                <td></td>
+                <td style="font-size:12px;" class="text-right">00</td>
+                </tr>';*/
+
+                $html .='</tbody></table>';
+
+                $this->sdc->PDFLayout($reportName,$html);
     }
 
     public function getPOSPaymentStatusPaypal(Request $request,$invoice_id=0,$status='fahad')
@@ -1313,7 +1551,11 @@ class InvoiceController extends Controller
 
             $closing_amount=$totalSales+$opening_amount+$totalPayout;
 
+            $userFullName=\Auth::user()->name;
+
             $tabClStr=new CloseDrawer();
+            $tabClStr->cashier_id=$this->sdc->UserID();
+            $tabClStr->cashier_name=$userFullName;
             $tabClStr->opeing_time=$getStoreDateTime;
             $tabClStr->opening_amount=$opening_amount;
             $tabClStr->closing_amount=$closing_amount;
@@ -1682,7 +1924,7 @@ class InvoiceController extends Controller
             $last_invoice_id=0;
         }
 
-        $ps=PosSetting::find(1);
+        $ps=PosSetting::where('store_id',$this->sdc->storeID())->first();
         $pro=Product::where('store_id',$this->sdc->storeID())->where('general_sale',0)->get();
         //dd($pro);
         /*->when($filter, function($query) use ($filter){
@@ -1707,16 +1949,34 @@ class InvoiceController extends Controller
                             ->where('store_status','Open')
                             ->count();
 
-        $catInfo=Category::where('store_id',$this->sdc->storeID())->get();
+        $catInfo=Category::where('store_id',$this->sdc->storeID())->get(); 
+
+        $device=InStoreRepairDevice::select('id','name')->where('store_id',$this->sdc->storeID())->get();
+        $model=InStoreRepairModel::select('id','name','device_id')->where('store_id',$this->sdc->storeID())->get();
+        $problem=InStoreRepairProblem::select('id','name','model_id')->where('store_id',$this->sdc->storeID())->get();
+        $estPrice=InStoreRepairPrice::select('id','price','device_id','model_id','problem_id','device_name','model_name','problem_name')->where('store_id',$this->sdc->storeID())->get();
+        $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','repair')->where('store_id',$this->sdc->storeID())->get();
 
         return view('apps.pages.pos.index',
-            ['product'=>$pro,
-            'tender'=>$tender,
-            'catInfo'=>$catInfo,
-            'payPaltender'=>$payPaltender,
-            'drawerStatus'=>$drawerStatus,
-            'authorizeNettender'=>$authorizeNettender,
-            'ps'=>$ps,'cart'=>$Cart,'customerData'=>$tab_customer,"last_invoice_id"=>$last_invoice_id,'CounterDisplay'=>$CounterDisplay]);
+            [
+                'product'=>$pro,
+                'tender'=>$tender,
+                'catInfo'=>$catInfo,
+                'payPaltender'=>$payPaltender,
+                'drawerStatus'=>$drawerStatus,
+                'authorizeNettender'=>$authorizeNettender,
+                'ps'=>$ps,
+                'cart'=>$Cart,
+                'customerData'=>$tab_customer,
+                "last_invoice_id"=>$last_invoice_id,
+                'CounterDisplay'=>$CounterDisplay,
+                'device'=>$device,
+                'model'=>$model,
+                'problem'=>$problem,
+                'estPrice'=>$estPrice,
+                'ticketAsset'=>$ticketAsset,
+                'ticket_id'=>time()
+            ]);
     }
 
     public function GenaratePDF()
@@ -3685,6 +3945,17 @@ class InvoiceController extends Controller
        $discount_amount=0;
        $discount_total=0;
 
+       $customer_id=$cart->customerID;
+       $customerInfo=Customer::find($customer_id);
+       $customerName=$customerInfo->name;
+
+       $ivP="Pending";
+       $DFGinvoicePaymentStatus=$cart->paymentMethodID;
+       if(!empty($DFGinvoicePaymentStatus))
+       {
+            $ivP="Paid";
+       }
+
        if($countItems>0)
        {
             $invoice_id=$cart->invoiceID;
@@ -3694,6 +3965,195 @@ class InvoiceController extends Controller
             }
 
             foreach($cart->items as $row):
+
+                
+                if(isset($row['repair']))
+                {
+                    \DB::table('in_store_repairs')->where('id',$row['repair'])
+                                                  ->update(['invoice_id'=>$invoice_id,'payment_status'=>'Paid']);
+                }
+                elseif(isset($row['ticket']))
+                {
+                    \DB::table('in_store_tickets')->where('id',$row['ticket'])
+                                                  ->update(['invoice_id'=>$invoice_id,'payment_status'=>'Paid']);
+                }
+                elseif(isset($row['repairArray']))
+                {
+
+                    $repairArray=$row['repairArray'];
+                    $device_id=$repairArray['device_id'];
+                    $model_id=$repairArray['model_id'];
+                    $problem_id=$repairArray['problem_id'];
+
+                    $device_info=\DB::table('in_store_repair_devices')->where('id',$device_id)->first();
+                    $device_name=$device_info->name;
+
+                    $model_info=\DB::table('in_store_repair_models')->where('id',$model_id)->first();
+                    $model_name=$model_info->name;
+
+                    $problem_info=\DB::table('in_store_repair_problems')->where('id',$problem_id)->first();
+                    $problem_name=$problem_info->name;
+
+                    $price=0;
+                    if(!empty($repairArray['override_repair_price']))
+                    {
+                        $price=$repairArray['override_repair_price'];
+                    }
+                    else
+                    {
+                        $price=$repairArray['repair_price'];
+                    }
+
+                    $tab=new InStoreRepair();
+                    $tab->customer_id=$customer_id;
+                    $tab->customer_name=$customerName;
+                    $tab->device_id=$repairArray['device_id'];
+                    $tab->device_name=$device_name;
+                    $tab->model_id=$repairArray['model_id'];
+                    $tab->model_name=$model_name;
+                    $tab->problem_id=$repairArray['problem_id'];
+                    $tab->problem_name=$problem_name;
+                    $tab->price=$price;
+                    $tab->repair_price=$repairArray['repair_price'];
+                    $tab->override_repair_price=$repairArray['override_repair_price'];
+                    $tab->password=$repairArray['repair_password'];
+                    $tab->imei=$repairArray['repair_imei'];
+                    $tab->tested_before_by=$repairArray['repair_tested_before_by'];
+                    $tab->tested_after_by=$repairArray['repair_tested_after_by'];
+                    $tab->tech_notes=$repairArray['repair_tech_notes'];
+                    $tab->how_did_you_hear_about_us=$repairArray['repair_how_did_you_hear_about_us'];
+                    $tab->start_time=$repairArray['repair_start_time'];
+                    $tab->end_time=$repairArray['repair_end_time'];
+                    $tab->salvage_part=$repairArray['repair_salvage_part'];
+
+                    unset($repairArray['device_id']);
+                    unset($repairArray['model_id']);
+                    unset($repairArray['problem_id']);
+                    unset($repairArray['repair_price']);
+                    unset($repairArray['override_repair_price']);
+                    unset($repairArray['repair_password']);
+                    unset($repairArray['repair_imei']);
+                    unset($repairArray['repair_tested_before_by']);
+                    unset($repairArray['repair_tested_after_by']);
+                    unset($repairArray['repair_tech_notes']);
+                    unset($repairArray['repair_how_did_you_hear_about_us']);
+                    unset($repairArray['repair_start_time']);
+                    unset($repairArray['repair_end_time']);
+                    unset($repairArray['repair_salvage_part']);
+
+                    $repair_json=json_encode($repairArray);
+
+                    $productInfo=Product::find($row['item_id']);
+                    $our_cost=$productInfo->cost;
+                    
+                    $tab->repair_json=$repair_json;
+                    $tab->invoice_id=$invoice_id;
+                    $tab->product_id=$row['item_id'];
+                    $tab->product_name=$row['item'];
+                    $tab->our_cost=$our_cost;
+                    $tab->payment_status=$ivP;
+                    $tab->store_id=$this->sdc->storeID();
+                    $tab->created_by=$this->sdc->UserID();
+                    $tab->save();
+
+                    \DB::statement("call updateDailyRepair('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
+                }
+                elseif(isset($row['ticketArray']))
+                {
+                    
+
+                    $ticketArray=$row['ticketArray'];
+
+                    $problem_id=$ticketArray['ticket_problem_id'];
+                    if($problem_id=="TP0001")
+                    {
+
+                        $checkExProb=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
+                                                            ->where('name',$ticketArray['ticket_problem_name'])
+                                                            ->count();
+                        if($checkExProb==0)
+                        {
+                            $tab=new InStoreRepairProblem();
+                            $tab->used_type="Store";
+                            $tab->name=$ticketArray['ticket_problem_name'];
+                            $tab->store_id=$this->sdc->storeID();
+                            $tab->created_by=$this->sdc->UserID();
+                            $tab->save();
+                        }
+                        else
+                        {
+                            $tab=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
+                                                            ->where('name',$ticketArray['ticket_problem_name'])
+                                                            ->first();
+                        }
+                        
+
+                        $problem_id=$tab->id;
+                    }
+
+                    $problem_info=\DB::table('in_store_repair_problems')->where('id',$problem_id)->first();
+                    $problem_name=$problem_info->name;
+
+                    //InStoreTicket
+
+
+
+                    $tic=new InStoreTicket();
+                    $tic->customer_id=$customer_id;
+                    $tic->customer_name=$customerName;
+                    $tic->ticket_id=$ticketArray['ticket_id'];
+                    $tic->device_type=$ticketArray['ticket_device_type'];
+                    $tic->problem_id=$problem_id;
+                    $tic->problem_name=$problem_name;
+                    $tic->our_cost=$ticketArray['ticket_our_cost'];
+                    $tic->retail_price=$ticketArray['ticket_retail_price'];
+                    $tic->password=$ticketArray['ticket_password'];
+                    $tic->type_n_color=$ticketArray['ticket_type_n_color'];
+                    $tic->carrier=$ticketArray['ticket_carrier'];
+                    $tic->imei=$ticketArray['ticket_imei'];
+                    $tic->how_did_you_hear_about_us=$ticketArray['ticket_how_did_you_hear_about_us'];
+                    $tic->isdropoff=$ticketArray['isdropoff'];
+                    $tic->tested_before_by=$ticketArray['ticket_tested_before_by'];
+                    $tic->tested_after_by=$ticketArray['ticket_tested_after_by'];
+                    $tic->tech_notes=$ticketArray['ticket_tech_notes'];
+
+                    unset($ticketArray['ticket_id']);
+                    unset($ticketArray['ticket_device_type']);
+                    unset($ticketArray['ticket_problem_name']);
+                    unset($ticketArray['ticket_problem_id']);
+                    unset($ticketArray['ticket_our_cost']);
+                    unset($ticketArray['ticket_retail_price']);
+                    unset($ticketArray['ticket_password']);
+                    unset($ticketArray['ticket_type_n_color']);
+                    unset($ticketArray['ticket_carrier']);
+                    unset($ticketArray['ticket_imei']);
+                    unset($ticketArray['ticket_how_did_you_hear_about_us']);
+                    unset($ticketArray['isdropoff']);
+                    unset($ticketArray['ticket_tested_before_by']);
+                    unset($ticketArray['ticket_tested_after_by']);
+                    unset($ticketArray['ticket_tech_notes']);
+
+                    $ticket_json=json_encode($ticketArray);
+
+                    $tic->ticket_json=$ticket_json;
+                    $tic->invoice_id=$invoice_id;
+                    $tic->product_id=$row['item_id'];
+                    $tic->product_name=$row['item'];
+                    $tic->ticket_status=$ivP;
+                    $tic->payment_status=$ivP;
+                    $tic->store_id=$this->sdc->storeID();
+                    $tic->created_by=$this->sdc->UserID();
+                    $tic->save();
+
+                    \DB::statement("call updateDailyTicket('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
+                   // dd($row['ticketArray']); die();
+
+                }
+
+                
+
                 $pid=$row['item_id'];
                 $quantity=$row['qty'];
                 $unitprice=$row['unitprice'];
@@ -3725,6 +4185,9 @@ class InvoiceController extends Controller
                 $total_cost_invoice+=$cost_invoice;
                 $total_profit_invoice+=$profit_invoice;
                 $total_sold_quantity+=$quantity;
+
+
+
             endforeach;
 
             
@@ -3798,6 +4261,10 @@ class InvoiceController extends Controller
             $tab->save();
             $nid=$tab->id;
 
+            \DB::statement("call updateCashierSalesSummary('".$this->sdc->UserID()."',
+                                                        '".$total_amount_invoice."',
+                                                        '".$this->sdc->storeID()."')");
+
             if($cart->customerID>0)
             {
                 $tabCus=Customer::find($cart->customerID);
@@ -3833,29 +4300,8 @@ class InvoiceController extends Controller
                'product_quantity' => \DB::raw('product_quantity - '.$total_sold_quantity)
             ]);
 
-            $Todaydate=date('Y-m-d');
-            if(RetailPosSummaryDateWise::where('report_date',$Todaydate)->count()==0)
-            {
-                RetailPosSummaryDateWise::insert([
-                   'report_date'=>$Todaydate,
-                   'sales_invoice_quantity' => \DB::raw('1'),
-                   'sales_quantity' => \DB::raw($total_sold_quantity),
-                   'sales_amount' => \DB::raw($total_amount_invoice),
-                   'sales_cost' => \DB::raw($total_cost_invoice),
-                   'sales_profit' => \DB::raw($total_profit_invoice)
-                ]);
-            }
-            else
-            {
-                RetailPosSummaryDateWise::where('report_date',$Todaydate)
-                ->update([
-                   'sales_invoice_quantity' => \DB::raw('sales_invoice_quantity + 1'),
-                   'sales_quantity' => \DB::raw('sales_quantity + '.$total_sold_quantity),
-                   'sales_amount' => \DB::raw('sales_amount + '.$total_amount_invoice),
-                   'sales_cost' => \DB::raw('sales_cost + '.$total_cost_invoice),
-                   'sales_profit' => \DB::raw('sales_profit + '.$total_profit_invoice)
-                ]);
-            }
+            //updateCheckTodaySummary
+            \DB::statement("call updateCheckTodaySummary('".$this->sdc->UserID()."','".$this->sdc->storeID()."','1','".$total_sold_quantity."','".$total_amount_invoice."','".$total_cost_invoice."','".$total_profit_invoice."','".$total_sold_quantity."')");
 
             $edQr=$this->sdc->invoiceEmailTemplate();
             $emaillayoutData=$edQr['editData'];
@@ -4218,6 +4664,32 @@ class InvoiceController extends Controller
         return redirect('sales/return/create')->with('status','Sales Return Completed Successfully.'); 
     }
 
+  
+
+    public function SaveSalesReturnInvoice(Request $request)
+    {
+
+
+        $tab=Invoice::where('invoice_id',$request->invoice_id)->first();
+        $tab->sales_return=1;
+        $tab->save();
+
+        $customer=Customer::find($request->customer_id);
+
+        $sr=new SalesReturn;
+        $sr->invoice_id=$request->invoice_id;
+        $sr->customer_id=$request->customer_id;
+        $sr->customer_name=$customer->name;
+        $sr->invoice_total=$request->sales_amount;
+        $sr->sales_return_amount=$request->return_amount;
+        $sr->sales_return_note=$request->sales_return_note;
+        $sr->store_id=$this->sdc->storeID();
+        $sr->created_by=$this->sdc->UserID();
+        $sr->save();
+
+        return response()->json(1); 
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -4326,9 +4798,9 @@ class InvoiceController extends Controller
 
 
         $Todaydate=date('Y-m-d');
-        if((RetailPosSummaryDateWise::where('report_date',$Todaydate)->count()==1) && ($invoice_date==$Todaydate))
+        if((RetailPosSummaryDateWise::whereRaw('report_date=CAST(now() as date)')->count()==1) && ($invoice_date==$Todaydate))
         {
-            RetailPosSummaryDateWise::where('report_date',$Todaydate)
+            RetailPosSummaryDateWise::whereRaw('report_date=CAST(now() as date)')
             ->update([
                'sales_invoice_quantity' => \DB::raw('sales_invoice_quantity - 1'),
                'sales_quantity' => \DB::raw('sales_quantity - '.$total_sold_quantity),
@@ -4431,31 +4903,19 @@ class InvoiceController extends Controller
            'product_quantity' => \DB::raw('product_quantity - '.$total_sold_quantity)
         ]);
 
-        if(RetailPosSummaryDateWise::where('report_date',$Todaydate)->count()==0)
-        {
-            RetailPosSummaryDateWise::insert([
-               'report_date'=>$Todaydate,
-               'sales_invoice_quantity' => \DB::raw('1'),
-               'sales_quantity' => \DB::raw($total_sold_quantity),
-               'sales_amount' => \DB::raw($total_amount_invoice),
-               'sales_cost' => \DB::raw($total_cost_invoice),
-               'sales_profit' => \DB::raw($total_profit_invoice),
-               'product_quantity' => \DB::raw($total_sold_quantity)
-            ]);
-        }
-        else
-        {
-            RetailPosSummaryDateWise::where('report_date',$Todaydate)
-            ->update([
-               'sales_invoice_quantity' => \DB::raw('sales_invoice_quantity + 1'),
-               'sales_quantity' => \DB::raw('sales_quantity + '.$total_sold_quantity),
-               'sales_amount' => \DB::raw('sales_amount + '.$total_amount_invoice),
-               'sales_cost' => \DB::raw('sales_cost + '.$total_cost_invoice),
-               'sales_profit' => \DB::raw('sales_profit + '.$total_profit_invoice)
-            ]);
-        }
+        
+
+        \DB::statement("call updateCheckTodaySummary('".$this->sdc->UserID()."','".$this->sdc->storeID()."','1','".$total_sold_quantity."','".$total_amount_invoice."','".$total_cost_invoice."','".$total_profit_invoice."','".$total_sold_quantity."')");
 
         return redirect('sales/report')->with('status', $this->moduleName.' Changed / Updated Successfully !'); 
+    }
+
+    public function loadCustomerInvoice(Request $request)
+    {
+        $customer_id=$request->customer_id;
+        $loadInvoices=Invoice::where('customer_id',$customer_id)->where('store_id',$this->sdc->storeID())->get();
+
+        return response()->json($loadInvoices);
     }
 
     /**

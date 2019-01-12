@@ -7,8 +7,10 @@ class Pos {
     public $items = null;
     public $totalQty = 0;
     public $invoiceID = null;
+    public $store_id = 0;
     public $totalPrice = 0;
     public $TaxRate = 0;
+    public $TaxType = "Full Tax";
     public $totalTax = 0;
     public $paid = 0;
     public $discount_type =0;
@@ -33,13 +35,34 @@ class Pos {
                 $this->invoiceID=$oldCart->invoiceID;
             }
 
+            if($oldCart->store_id==0)
+            {
+                $store_id=app('App\Http\Controllers\StaticDataController')->storeID();
+                $this->store_id = $store_id;
+            }
+
+           // dd($this->store_id);
+
             if($oldCart->TaxRate==0)
             {
-                    $tabCount=PosSetting::count();
+                    $store_id=app('App\Http\Controllers\StaticDataController')->storeID();
+                    $tabCount=PosSetting::where('store_id',$this->store_id)->count();
                     if($tabCount>0)
                     {
-                        $tab=PosSetting::find(1);
+                        $tab=PosSetting::where('store_id',$this->store_id)->orderBy('id','DESC')->first();
                         $this->TaxRate=$tab->sales_tax;
+                        if($this->TaxType=="Full Tax")
+                        {
+                            $this->TaxRate=$tab->sales_tax;
+                        }
+                        elseif($this->TaxType=="Part Tax")
+                        {
+                            $this->TaxRate=$tab->sales_part_tax;
+                        }
+                        elseif($this->TaxType=="No Tax")
+                        {
+                            $this->TaxRate=0;
+                        }
                     }
                     else
                     {
@@ -53,10 +76,10 @@ class Pos {
 
             if($oldCart->discount_type==0)
             {
-                    $tabCount=PosSetting::count();
+                    $tabCount=PosSetting::where('store_id',$this->store_id)->count();
                     if($tabCount>0)
                     {
-                        $tab=PosSetting::find(1);
+                        $tab=PosSetting::where('store_id',$this->store_id)->orderBy('id','DESC')->first();
                         $this->discount_type=$tab->discount_type;
                     }
                     else
@@ -71,10 +94,10 @@ class Pos {
 
             if($oldCart->sales_discount==0)
             {
-                    $tabCount=PosSetting::count();
+                    $tabCount=PosSetting::where('store_id',$this->store_id)->count();
                     if($tabCount>0)
                     {
-                        $tab=PosSetting::find(1);
+                        $tab=PosSetting::where('store_id',$this->store_id)->orderBy('id','DESC')->first();
                         $this->sales_discount=$tab->sales_discount;
                     }
                     else
@@ -86,6 +109,8 @@ class Pos {
             {
                 $this->sales_discount=$oldCart->sales_discount;
             }
+
+            $this->calculateTax();
 
             $this->items = $oldCart->items;
             $this->invoiceID = $oldCart->invoiceID;
@@ -104,6 +129,49 @@ class Pos {
     public function genarateInvoiceID()
     {
         $this->invoiceID = time();
+        if($this->store_id==0)
+        {
+            $store_id=app('App\Http\Controllers\StaticDataController')->storeID();
+            $this->store_id = $store_id;
+        }
+    }
+
+    public function genarateINewTax()
+    {
+        if($this->store_id==0)
+        {
+            $store_id=app('App\Http\Controllers\StaticDataController')->storeID();
+            $this->store_id = $store_id;
+        }
+        
+        $tabCount=PosSetting::where('store_id',$this->store_id)->count();
+        if($tabCount>0)
+        {
+            $tab=PosSetting::where('store_id',$this->store_id)->orderBy('id','DESC')->first();
+            $this->TaxRate=$tab->sales_tax;
+            if($this->TaxType=="Full Tax")
+            {
+                $this->TaxRate=$tab->sales_tax;
+            }
+            elseif($this->TaxType=="Part Tax")
+            {
+                $this->TaxRate=$tab->sales_part_tax;
+            }
+            elseif($this->TaxType=="No Tax")
+            {
+                $this->TaxRate=0;
+            }
+        }
+        else
+        {
+            $this->TaxRate=0;
+        }
+    }
+
+    public function assignNewTaxType($taxType)
+    {
+        $this->TaxType=$taxType;
+        $this->genarateINewTax();
     }
 
     public function calculateTax()
@@ -202,6 +270,86 @@ class Pos {
             }
         }
         $storeditem['qty'] ++;
+        $storeditem['price'] = $price * $storeditem['qty'];
+        $storeditem['tax'] = (($storeditem['price'] * $this->TaxRate)/100);
+        $this->items[$id] = $storeditem;
+        $this->totalQty++;
+        $this->totalPrice += $price;
+        $this->totalTax += $storeditem['tax'];
+        $this->calculateTax();
+    }
+
+    public function addCustomRepairPrice($item, $id,$price,$repair_id) {
+
+        $storeditem = ['qty' => 0, 'price' => $price,'tax' =>0, 'unitprice' => $price, 'item' => $item->name, 'item_id' => $id,'repair'=>$repair_id];
+        if ($this->items) {
+            if (array_key_exists($id, $this->items)) {
+                $storeditem = $this->items[$id];
+            }
+        }
+        $storeditem['qty'] ++;
+        $storeditem['price'] = $price * $storeditem['qty'];
+        $storeditem['tax'] = (($storeditem['price'] * $this->TaxRate)/100);
+        $this->items[$id] = $storeditem;
+        $this->totalQty++;
+        $this->totalPrice += $price;
+        $this->totalTax += $storeditem['tax'];
+        $this->calculateTax();
+    }
+
+    public function addCustomTicketPrice($item, $id,$price,$ticket_id) {
+
+        $storeditem = ['qty' => 0, 'price' => $price,'tax' =>0, 'unitprice' => $price, 'item' => $item->name, 'item_id' => $id,'ticket'=>$ticket_id];
+        if ($this->items) {
+            if (array_key_exists($id, $this->items)) {
+                $storeditem = $this->items[$id];
+            }
+        }
+        $storeditem['qty'] ++;
+        $storeditem['price'] = $price * $storeditem['qty'];
+        $storeditem['tax'] = (($storeditem['price'] * $this->TaxRate)/100);
+        $this->items[$id] = $storeditem;
+        $this->totalQty++;
+        $this->totalPrice += $price;
+        $this->totalTax += $storeditem['tax'];
+        $this->calculateTax();
+    }
+
+    public function addCustomPriceRepair($item, $id,$price,$repairArray=array()) {
+
+        $storeditem = ['qty' => 0, 'price' => $price,'tax' =>0, 'unitprice' => $price, 'item' => $item->name, 'item_id' => $id,'repairArray'=>array()];
+        if ($this->items) {
+            if (array_key_exists($id, $this->items)) {
+                $storeditem = $this->items[$id];
+            }
+        }
+
+
+
+        $storeditem['qty'] ++;
+        $storeditem['repairArray'] = $repairArray;
+        $storeditem['price'] = $price * $storeditem['qty'];
+        $storeditem['tax'] = (($storeditem['price'] * $this->TaxRate)/100);
+        $this->items[$id] = $storeditem;
+        $this->totalQty++;
+        $this->totalPrice += $price;
+        $this->totalTax += $storeditem['tax'];
+        $this->calculateTax();
+    }
+
+    public function addCustomPriceTicket($item, $id,$price,$repairArray=array()) {
+
+        $storeditem = ['qty' => 0, 'price' => $price,'tax' =>0, 'unitprice' => $price, 'item' => $item->name, 'item_id' => $id,'ticketArray'=>array()];
+        if ($this->items) {
+            if (array_key_exists($id, $this->items)) {
+                $storeditem = $this->items[$id];
+            }
+        }
+
+
+
+        $storeditem['qty'] ++;
+        $storeditem['ticketArray'] = $repairArray;
         $storeditem['price'] = $price * $storeditem['qty'];
         $storeditem['tax'] = (($storeditem['price'] * $this->TaxRate)/100);
         $this->items[$id] = $storeditem;

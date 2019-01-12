@@ -34,7 +34,7 @@
 					                    			<fieldset class="">
 														<div class="input-group">
 															<span class="input-group-addon" style="width: 120px; background: white;" id="basic-addon11"><b>Status</b></span>
-															<input readonly="readonly" name="buyback_status_name" style="background: white; " ondblclick="liveselectedit(this);" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$dataTable->buyback_status_name}}">
+															<input readonly="readonly" name="buyback_status_name" style="background: white; " ondblclick="liveStatusSelectedit(this);" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$dataTable->buyback_status_name}}">
 															<select name="buyback_status_id" class="form-control" style="display: none;">
 																<option selected="selected" value="1">New</option>
 														        <option value="2">In Progress</option>
@@ -46,8 +46,34 @@
 														        <option value="8">Customer Reply</option>
 															</select>
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="liveStatusSelectsave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
 															</span>
+														</div>
+													</fieldset>
+						                        </div>
+				                    		</div>
+
+				                    		<div class="row invoice_no" style="margin-bottom: 15px; 
+				                    		@if($dataTable->invoice_id==0) 
+				                    			display: none; 
+				                    		@endif 
+				                    		">
+				                    			<div class="col-md-12">
+					                    			<fieldset class="">
+														<div class="input-group">
+															<span class="input-group-addon"  style="width: 120px; background: white;" id="basic-addon11"><b>Invoice No</b></span>
+															<select class="select2" style="width: 200px;" name="invoice_id" class="form-control">
+																<option value="">Select a Invoice</option>
+																@if(count($invoiceData)>0)
+																	@foreach($invoiceData as $row)
+																		<option 
+																			@if($dataTable->invoice_id==$row->invoice_id) 
+																				selected="selected" 
+																			@endif 
+																		value="{{$row->invoice_id}}">Invoice - {{$row->invoice_id}}</option>
+																	@endforeach
+														        @endif
+															</select>
 														</div>
 													</fieldset>
 						                        </div>

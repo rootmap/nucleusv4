@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\SpecialPartsOrder;
 use App\Product;
+use App\Customer;
+use App\InStoreTicket;
 use Illuminate\Http\Request;
 
 class SpecialPartsOrderController extends Controller
@@ -30,8 +32,10 @@ class SpecialPartsOrderController extends Controller
      */
     public function create()
     {
+        $ticketList=InStoreTicket::where('store_id',$this->sdc->storeID())->get();
+        $customerList=Customer::where('store_id',$this->sdc->storeID())->get();
         $productData=Product::select('id','name')->where('store_id',$this->sdc->storeID())->get();
-        return view('apps.pages.orderparts.create',compact('productData'));
+        return view('apps.pages.orderparts.create',compact('productData','ticketList','customerList'));
     }
 
     /**
@@ -43,6 +47,7 @@ class SpecialPartsOrderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
+            'customer_id'=>'required',
             'ticket_id'=>'required',
             'ticket_payment_status'=>'required',
             'quantity'=>'required',
@@ -59,7 +64,11 @@ class SpecialPartsOrderController extends Controller
                 $taxAble=1;
             }
 
+            $customer=Customer::find($request->customer_id);
+
             $tab=new SpecialPartsOrder;
+            $tab->customer_id=$request->customer_id;
+            $tab->customer_name=$customer->name;
             $tab->ticket_id=$request->ticket_id;
             $tab->ticket_payment_status=$request->ticket_payment_status;
             $tab->description=$request->description;
@@ -119,6 +128,7 @@ class SpecialPartsOrderController extends Controller
     public function update(Request $request, SpecialPartsOrder $SpecialPartsOrder,$id=0)
     {
         $this->validate($request,[
+            'customer_id'=>'required',
             'ticket_id'=>'required',
             'ticket_payment_status'=>'required',
             'quantity'=>'required',
@@ -136,7 +146,11 @@ class SpecialPartsOrderController extends Controller
                 $taxAble=1;
             }
 
+            $customer=Customer::find($request->customer_id);
+
             $tab=SpecialPartsOrder::find($id);
+            $tab->customer_id=$request->customer_id;
+            $tab->customer_name=$customer->name;
             $tab->ticket_id=$request->ticket_id;
             $tab->ticket_payment_status=$request->ticket_payment_status;
             $tab->description=$request->description;

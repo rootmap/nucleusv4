@@ -55,6 +55,20 @@
 							</div>
 							<div class="form-body">
 	                			<div class="form-group row last">
+	                        		<label class="col-md-4 label-control">Sales Part Tax Rate (%)</label>
+	                        		<div class="col-md-7">
+										<div class="form-group">
+											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Sales Part Tax Rate(%)" 
+											@if(isset($ps))
+												value="{{$ps->sales_part_tax?$ps->sales_part_tax:0}}"  
+											@endif 
+											 name="sales_part_tax">
+										</div>
+									</div>
+		                        </div>
+							</div>
+							<div class="form-body">
+	                			<div class="form-group row last">
 	                        		<label class="col-md-4 label-control">Discount  (%)</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">

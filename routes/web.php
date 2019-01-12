@@ -90,6 +90,43 @@ Route::group(['middleware' => 'auth'], function () {
 	//Buyback
 	Route::resource('/buyback', 'BuybackController');
 	Route::post('/buyback/ajax/{id}', 'BuybackController@buybackAjaxUpdate');
+	Route::get('/buyback/print/{id}', 'BuybackController@buybackPrint');
+
+	Route::get('/report/buyback', 'BuybackController@report');
+	Route::post('/report/buyback', 'BuybackController@report');
+	Route::post('/report/excel/buyback', 'BuybackController@exportExcel');
+	Route::post('/report/pdf/buyback', 'BuybackController@exportPDF');
+
+	//Close Store 
+	Route::get('/store/close/report', 'CloseDrawerController@report');
+	Route::post('/store/close/report', 'CloseDrawerController@report');
+	Route::post('/store/close/excel/report', 'CloseDrawerController@exportExcel');
+	Route::post('/store/close/pdf/report', 'CloseDrawerController@exportPDF');
+
+	Route::get('/report/payout', 'InvoiceController@Payoutreport');
+	Route::post('/report/payout', 'InvoiceController@Payoutreport');
+	Route::post('/report/excel/payout', 'InvoiceController@exportPayoutExcel');
+	Route::post('/report/pdf/payout', 'InvoiceController@exportPayoutPDF');
+
+	Route::get('/lcd/status/report', 'InStoreRepairController@reportLCDStatus');
+	Route::post('/lcd/status/report', 'InStoreRepairController@reportLCDStatus');
+	Route::post('/lcd/status/excel/report', 'InStoreRepairController@exportExcelLCDStatus');
+	Route::post('/lcd/status/pdf/report', 'InStoreRepairController@exportPDFLCDStatus');
+
+	Route::get('/salvage/report', 'InStoreRepairController@reportSalvage');
+	Route::post('/salvage/report', 'InStoreRepairController@reportSalvage');
+	Route::post('/salvage/excel/report', 'InStoreRepairController@exportExcelSalvage');
+	Route::post('/salvage/pdf/report', 'InStoreRepairController@exportPDFSalvage');
+
+	Route::get('/report/highestseller', 'HigherCashierSaleController@reporthighestCashierSales');
+	Route::post('/report/highestseller', 'HigherCashierSaleController@reporthighestCashierSales');
+	Route::post('/report/highestseller/excel/report', 'HigherCashierSaleController@exportExcelhighestCashierSales');
+	Route::post('/report/highestseller/pdf/report', 'HigherCashierSaleController@exportPDFhighestCashierSales');
+
+	Route::get('/report/highestseller/Summary', 'HigherCashierSaleSummaryController@reporthighestCashierSales');
+	Route::post('/report/highestseller/Summary', 'HigherCashierSaleSummaryController@reporthighestCashierSales');
+	Route::post('/report/highestseller/Summary/excel/report', 'HigherCashierSaleSummaryController@exportExcelhighestCashierSales');
+	Route::post('/report/highestseller/Summary/pdf/report', 'HigherCashierSaleSummaryController@exportPDFhighestCashierSales');
 	//Route::get('/special/parts/delete/{id}', 'SpecialPartsOrderController@destroy');
 
 	//category 
@@ -150,6 +187,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/product/report', 'ProductController@report');
 	Route::post('/product/save', 'ProductController@store');
 	Route::post('/product/ajax/save', 'ProductController@storeAjax');
+	Route::post('/product/ajax/ticket/save', 'ProductController@storeTicketAjax');
+	Route::post('/product/ajax/repair/save', 'ProductController@storeRepairAjax');
 	Route::get('/product/edit/{id}', 'ProductController@edit');
 	Route::get('/product/delete/{id}', 'ProductController@destroy');
 	Route::post('/product/modify/{id}', 'ProductController@update');
@@ -178,6 +217,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/tender/excel/report', 'TenderController@exportExcel');
 	Route::get('/tender/pdf/report', 'TenderController@invoicePDF');
+
+	Route::get('/report/tender', 'TenderController@Report');
+	Route::post('/report/tender', 'TenderController@Report');
+	Route::post('/report/excel/tender', 'TenderController@ExcelReportTender');
+	Route::post('/report/pdf/tender', 'TenderController@PdfReportTender');
 	// ------------------------tender route end------------------//
 
 	// ------------------------Role Wise Menu route start------------------//
@@ -192,7 +236,17 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/role/edit/{id}', 'RoleController@edit');
 	Route::get('/role/delete/{id}', 'RoleController@destroy');
 	Route::post('/role/modify/{id}', 'RoleController@update');
+	Route::post('/add-to-repair/cart', 'InvoiceController@posRepairProduct');
 	// ------------------------tender route end------------------//
+
+	// ------------------------Repair Asset route start------------------//
+	Route::get('/settings/instore/asset/{asset}', 'RepairTicketAssetController@index');
+	Route::get('/settings/instore/asset/{asset}/create', 'RepairTicketAssetController@create');
+	Route::post('/settings/instore/asset/{asset}/save', 'RepairTicketAssetController@store');
+	Route::get('/settings/instore/asset/{asset}/edit/{id}', 'RepairTicketAssetController@edit');
+	Route::get('/settings/instore/asset/{asset}/delete/{id}', 'RepairTicketAssetController@destroy');
+	Route::post('/settings/instore/asset/{asset}/modify/{id}', 'RepairTicketAssetController@update');
+	// ------------------------Repair Asset route end------------------//
 
 	// ------------------------AssignUserRole route start------------------//
 	Route::get('/AssignUserRole', 'AssignUserRoleController@index');
@@ -295,6 +349,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sales/edit/{id}', 'InvoiceController@edit');
 	Route::get('/sales/delete/{id}', 'InvoiceController@destroy');
 	Route::post('/sales/modify/{id}', 'InvoiceController@update');
+	Route::post('/sales/return/invoice/ajax', 'InvoiceController@loadCustomerInvoice');
+	Route::post('/sales/return/save/ajax', 'InvoiceController@SaveSalesReturnInvoice');
 
 	// Route::get('/sales/excel/report', 'InvoiceController@exportExcel');
 	// Route::get('/sales/pdf/report', 'InvoiceController@salesPDF');
@@ -391,6 +447,33 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/paypal/payment/report', 'InvoicePaymentController@Paypalindex');
 	Route::post('/paypal/payment/excel/report', 'InvoicePaymentController@PaypalexportExcel');
 	Route::post('/paypal/payment/pdf/report', 'InvoicePaymentController@PaypalinvoicePDF');
+
+	Route::get('/repair/delete/{id}', 'InStoreRepairController@destroy');
+	Route::post('/repair/ajax/{id}', 'InStoreRepairController@repairAjaxUpdate');
+	Route::get('/repair/create', 'InStoreRepairController@createR');
+	Route::get('/repair/view/{repair_id}', 'InStoreRepairController@show');
+	Route::post('/repair/save', 'InStoreRepairController@storeR');
+	Route::get('/repair/list', 'InStoreRepairController@index');
+	Route::get('/repair/report', 'InStoreRepairController@report');
+	Route::post('/repair/report', 'InStoreRepairController@report');
+	Route::post('/repair/excel/report', 'InStoreRepairController@exportExcel');
+	Route::post('/repair/pdf/report', 'InStoreRepairController@exportPDF');
+	//Route::get('/sales/invoice/print/pdf/{invoice_id}', 'InvoiceController@invoicePDF');
+	Route::get('/repair/print/{repair_id}', 'InStoreRepairController@showRepairPDF');
+	Route::get('/pos/repair/{repair_id}', 'InvoiceProductController@RepairPOS');
+
+	Route::get('/ticket/delete/{id}', 'InStoreTicketController@destroy');
+	Route::post('/ticket/ajax/{id}', 'InStoreTicketController@ticketAjaxUpdate');
+	Route::get('/ticket/view/{ticket_id}', 'InStoreTicketController@show');
+	Route::get('/ticket/create', 'InStoreTicketController@create');
+	Route::post('/ticket/save', 'InStoreTicketController@store');
+	Route::get('/ticket/list', 'InStoreTicketController@index');
+	Route::get('/ticket/report', 'InStoreTicketController@report');
+	Route::post('/ticket/report', 'InStoreTicketController@report');
+	Route::post('/ticket/excel/report', 'InStoreTicketController@exportExcel');
+	Route::post('/ticket/pdf/report', 'InStoreTicketController@exportPDF');
+	Route::get('/ticket/print/{ticket_id}', 'InStoreTicketController@showTicketPDF');
+	Route::get('/pos/ticket/{ticket_id}', 'InvoiceProductController@TicketPOS');
 	//------------------Report route end--------------------//
 
 	//------------------warranty route start--------------------//
@@ -411,8 +494,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/warranty/pdf/report', 'WarrantyController@invoicePDF');
 	//------------------warranty route end--------------------//
 
-
-	
 
 	//------------------variancereport route start--------------------//
 	//Route::get('/variance/report', 'HomeController@variancereport')->name('variancereport');
@@ -436,10 +517,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('pos/settings/update/{id}', 'PosSettingController@update');
 
 	Route::get('site/navigation', 'SiteSettingController@navigation');
+
+	Route::post('settings/tax/settype', 'InvoiceProductController@setTaxType');
 	
 	Route::get('setting/printer/print-paper/size', 'PrinterPrintSizeController@index');
 	Route::post('setting/printer/print-paper/size/save', 'PrinterPrintSizeController@store');
-	Route::post('setting/printer/print-paper/size/update/{id}', 'PrinterPrintSizeController@update');
+	Route::post('setting/printer/print-paper/size/update/{id}', 'PrinterPrintSizeController@update');	
+
 	
 	Route::post('site/navigation/save', 'SiteSettingController@navigationstore');
 	Route::post('site/navigation/update/{id}', 'SiteSettingController@navigationupdate');	

@@ -137,20 +137,52 @@
                 @if(isset($catInfo) && count($catInfo)>0)
                     <?php $i=1; ?>
                     @foreach($catInfo as $cat)
-                    <div class="col-md-3">
-                        <div class="card mb-1">
-                            <div class="card-body collapse in">
-                                <div class="bg-info bg-lighten-{{$i}} height-10"></div>
-                                <div class="p-1">
-                                    <h5 class="text-xs-center">
-                                        <a href="javascript:loadCatProduct({{$cat->id}});" style="text-decoration: none;">
-                                            <i class="icon-chevron-circle-right"></i> {{$cat->name}}
-                                        </a>
-                                    </h5>         
-                                </div>
-                            </div>    
+                    @if($cat->name=="Repair")
+                        <div class="col-md-3">
+                            <div class="card mb-1">
+                                <div class="card-body collapse in">
+                                    <div class="bg-info bg-lighten-{{$i}} height-10"></div>
+                                    <div class="p-1">
+                                        <h5 class="text-xs-center">
+                                            <a href="javascript:void(0);"  data-toggle="modal" data-target="#instoreRepairModal" style="text-decoration: none;">
+                                                <i class="icon-cogs"></i> {{$cat->name}}
+                                            </a>
+                                        </h5>         
+                                    </div>
+                                </div>    
+                            </div>
                         </div>
-                    </div>
+                    @elseif($cat->name=="Ticket")
+                        <div class="col-md-3">
+                            <div class="card mb-1">
+                                <div class="card-body collapse in">
+                                    <div class="bg-info bg-lighten-{{$i}} height-10"></div>
+                                    <div class="p-1">
+                                        <h5 class="text-xs-center">
+                                            <a href="javascript:void(0);"  data-toggle="modal" data-target="#instoreTicketModal" style="text-decoration: none;">
+                                                <i class="icon-cogs"></i> {{$cat->name}}
+                                            </a>
+                                        </h5>         
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-md-3">
+                            <div class="card mb-1">
+                                <div class="card-body collapse in">
+                                    <div class="bg-info bg-lighten-{{$i}} height-10"></div>
+                                    <div class="p-1">
+                                        <h5 class="text-xs-center">
+                                            <a href="javascript:loadCatProduct({{$cat->id}});" style="text-decoration: none;">
+                                                <i class="icon-chevron-circle-right"></i> {{$cat->name}}
+                                            </a>
+                                        </h5>         
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                    @endif
                     <?php 
                     $i++; 
                     if($i==5)
@@ -223,21 +255,28 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <h5>
+                            
                         </h5>
+                        @if(isset($ps))
+                            <input type="hidden" name="taxRate" id="taxRate" value="{{$ps->sales_tax}}">
+                        @else
+                            <input type="hidden" name="taxRate" id="taxRate" value="0">
+                        @endif
                         
                         <div class="form-group" style="margin-bottom: 0px !important;">
                             <!-- basic buttons -->
-                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Discount"><i class="icon-pencil2"></i> Discount</button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Discount"><i class="icon-cogs"></i> Discount</button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#TaxManagement"><i class="icon-cog"></i> Change Tax</button>
                             <a href="javascript:void(0);" class="btn btn-secondary btn-sm"> Invoice#@if(isset($cart->invoiceID))    
                                 {{$cart->invoiceID}}
                                 @else
                                 0
                             @endif </a>
                             <a href="{{url('sales/invoice/print/pdf/'.$last_invoice_id)}}" class="btn btn-secondary btn-sm"> <i class="icon-printer"></i> Last Receipt</a>
-                            <button type="button" class="btn btn-secondary btn-sm" id="description"><i class="icon-edit2"></i> <span id="npt">Note</span></button>
+                            {{-- <button type="button" class="btn btn-secondary btn-sm" id="description"><i class="icon-edit2"></i> <span id="npt">Note</span></button>
                             <div class="form-group row" style="margin-top: 5px; display: none;" id="show_description">
                                 <textarea class="form-control" id="title1" rows="2" placeholder="Description"></textarea>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -416,7 +455,7 @@
                                     <i class="icon-stack3"></i> Change Sales View
                                 </button>
                             </div>
-                            <div class="col-xs-8 col-sm-9 col-md-8 col-lg-8 button button6">
+                            <div class="col-xs-4 col-sm-6 col-md-4 col-lg-4 button button6">
                                 <button id="counterStatusChange" type="button" class="btn btn-info btn-darken-2 btn-responsive btn1"> <i class="icon-air-play"></i>  
                                     @if(isset($CounterDisplay))
                                         @if($CounterDisplay==1)   
@@ -427,6 +466,11 @@
                                     @else
                                         <span>Start Your Counter Display</span>
                                     @endif
+                                </button>
+                            </div>
+                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6">
+                                <button type="button" class="btn btn-info btn-responsive btn1"  data-toggle="modal" data-target="#salesReturn">     
+                                    <i class="icon-document"></i> Sales Return
                                 </button>
                             </div>
                         </div>
@@ -456,11 +500,15 @@
            @include('apps.include.modal.cash-out')
            @include('apps.include.modal.cashoutModal')
            @include('apps.include.modal.discountModal')
+           @include('apps.include.modal.taxModal')
            @include('apps.include.modal.CustomerCardModal')
            @include('apps.include.modal.paymodal')
            @include('apps.include.modal.open-drawer')
            @include('apps.include.modal.close-drawer')
            @include('apps.include.modal.time_clock')
+           @include('apps.include.modal.instorerepair',compact('ticketAsset'))
+           @include('apps.include.modal.instoreticket',compact('ticketAsset','problem'))
+           @include('apps.include.modal.salesReturn')
 
 
         </div>
@@ -523,8 +571,11 @@
 <script>
 //editRowLive
     var productJson=<?php echo json_encode($product); ?>;
+    var modelJson=<?php echo json_encode($model); ?>;
+    var problemJson=<?php echo json_encode($problem); ?>;
+    var estPriceJson=<?php echo json_encode($estPrice); ?>;
     //
-    
+
 
     function liveRowCartEdit(rowID)
     {
@@ -542,8 +593,6 @@
             $("#"+rowID).children("td:eq(1)").html(inputDataQuantity);
             $("#"+rowID).children("td:eq(2)").find("span").html(inputDataPrice);
             $("#"+rowID).children("td:eq(4)").children("a:eq(0)").show();
-
-
         }
         
     }
@@ -791,7 +840,6 @@
         }
     }
 
-    var productJson=<?php echo json_encode($product); ?>; 
     function loadCatProduct(cid)
     {
         var cid=parseInt(cid);
@@ -827,7 +875,7 @@
         }
     }
 
-    function add_pos_cart(ProductID,ProductPrice,ProductName)
+    function add_pos_cart(ProductID,ProductPrice,ProductName,repairJson=null,dataType=null)
     {
             //alert(ProductName);
             $("#cartMessageProShow").html(loadingOrProcessing("Processing, Please Wait....!!!!"));
@@ -840,7 +888,7 @@
             //var ProductPrice=$(this).attr('data-price');
             //var ProductName=$(this).html();
             @if(isset($ps))
-            var taxRate="{{$ps->sales_tax}}";
+            var taxRate=$("#taxRate").val();
             @else
             var taxRate=0;
             @endif
@@ -867,8 +915,8 @@
                     $("#dataCart tr[id="+ProductID+"]").find("td:eq(3)").children("span").html(NewPrice);
                     $("#dataCart tr[id="+ProductID+"]").find("td:eq(2)").attr("data-tax",taxAmount);
 
-                    console.log(NewQuantity);
-                    console.log(NewPrice);
+                    //console.log(NewQuantity);
+                    //console.log(NewPrice);
 
                 }
                 else
@@ -891,13 +939,38 @@
             $("#cartMessageProShow").html(loadingOrProcessing("Adding To Cart, Please Wait...!!!!")); 
             //------------------------Ajax POS Start-------------------------//
             var AddPOSUrl="{{url('sales/cart/add')}}/"+ProductID;
+
+            var postDatas={'product_id':ProductID,'price':ProductPrice,'_token':"{{csrf_token()}}"};
+            //console.log(repairJson);
+            if(repairJson)
+            {
+                if(Object.keys(repairJson).length>0)
+                {
+                    if(dataType==null)
+                    {
+                        
+                        postDatas['repair'] = repairJson;
+                    }
+                    else
+                    {
+                        postDatas[dataType] = repairJson;
+                    }
+                    //postDatas.push(repairJson);
+                }
+            }
+            
+
+
+            console.log(postDatas);
+            //$.merge( [ 0, 1, 2 ], [ 2, 3, 4 ] )
+
             $.ajax({
                 'async': false,
                 'type': "POST",
                 'global': false,
                 'dataType': 'json',
                 'url': AddPOSUrl,
-                'data': {'product_id':ProductID,'price':ProductPrice,'_token':"{{csrf_token()}}"},
+                'data': postDatas,
                 'success': function (data) {
                     //tmp = data;
                     $("#cartMessageProShow").html(successMessage("Product Added To Cart Successfully.")); 
@@ -942,6 +1015,8 @@
             });
             //-----------------Ajax New Product End------------------//
         });
+
+
 
 
         @if($drawerStatus==0) 
@@ -1670,7 +1745,7 @@
 
         $(".GAddProductToCart").click(function(){
             @if(isset($ps))
-            var taxRate="{{$ps->sales_tax}}";
+            var taxRate=$("#taxRate").val();
             @else
             var taxRate=0;
             @endif
@@ -1782,13 +1857,13 @@
         });
 
 
-$(".add-pos-cart").click(function(){
+        $(".add-pos-cart").click(function(){
             //alert('sss');
             var ProductID=$(this).attr('data-id');
             var ProductPrice=$(this).attr('data-price');
             var ProductName=$(this).html();
             @if(isset($ps))
-            var taxRate="{{$ps->sales_tax}}";
+            var taxRate=$("#taxRate").val();
             @else
             var taxRate=0;
             @endif
@@ -1848,39 +1923,40 @@ $(".add-pos-cart").click(function(){
 
         });
 
-$("input[name=amount_to_pay]").keyup(function(){
-    var customerID=$.trim($("select[name=customer_id]").val());
-    if(customerID.length==0)
-    {
-        alert("Please select a customer to make payment.");
-        return false;
-    }
-    console.log($(this).val());
-    var dues=$("#posCartSummary tr:eq(5)").find("td:eq(1)").children("span").html();
-    var amp=$(this).val();
-    if($.isNumeric($.trim(amp)))
-    {
-        var newAMP=amp;
-    }
-    else
-    {
-        var newAMP=0;
-    }
+    $("input[name=amount_to_pay]").keyup(function(){
+        var customerID=$.trim($("select[name=customer_id]").val());
+        if(customerID.length==0)
+        {
+            alert("Please select a customer to make payment.");
+            return false;
+        }
+        console.log($(this).val());
+        var dues=$("#posCartSummary tr:eq(5)").find("td:eq(1)").children("span").html();
+        var amp=$(this).val();
+        if($.isNumeric($.trim(amp)))
+        {
+            var newAMP=amp;
+        }
+        else
+        {
+            var newAMP=0;
+        }
 
-    $(this).val(newAMP);
+        $(this).val(newAMP);
 
-    var mkdues=$.trim(dues)-$.trim(newAMP);
-    var newdues=parseFloat(mkdues).toFixed(2);
+        var mkdues=$.trim(dues)-$.trim(newAMP);
+        var newdues=parseFloat(mkdues).toFixed(2);
 
-    $("#prmDue").html(newdues);
+        $("#prmDue").html(newdues);
 
-});
+    });
+
 });
 
 function editRowLive(id)
 {
     @if(isset($ps))
-        var taxRate="{{$ps->sales_tax}}";
+        var taxRate=$("#taxRate").val();
     @else
         var taxRate=0;
     @endif
@@ -2089,84 +2165,20 @@ function editRowLive(id)
     }
 
 </script>
-<script type="text/javascript">
-    $("#punch").click(function(){
-            $(".hideDIv").hide();
-            $("#punchMSG").hide();
-            //------------------------Ajax POS Start-------------------------//
-            var timevalue=$("#punch_time").val();
-            var timeLen=timevalue.length;
-            if(timeLen==19)
-            {
-                $("#punchMSG").show();
-                $("#punchMSG").html(loadingOrProcessing("Processing Your Attendance Info, Please wait....."));
-                var AddPOSUrl="{{url('attendance/punch/save')}}";
-                $.ajax({
-                    'async': false,
-                    'type': "POST",
-                    'global': false,
-                    'dataType': 'json',
-                    'url': AddPOSUrl,
-                    'data': {'date':timevalue,'_token':"{{csrf_token()}}"},
-                    'success': function (data) {
-                        //tmp = data;
-                        $("#punchMSG").show();
-                        $("#punchMSG").html(successMessage("Your Attendance Saved Successfully."));
-                        console.log("Attendance Processing : "+data);
-                        
-                        if(data.length>0)
-                        {
-                            $(".hideDIv").show();
-                            $("#punchLogTimes").html("");
-                            $.each(data,function(key,row){
-                                var elapsed_time=row.elapsed_time;
-                                if(row.out_time=="00:00:00")
-                                {
-                                    elapsed_time="00:00:00";
-                                }
-                                var htmlStr='<tr><td>'+row.in_date+'</td><td>'+row.in_time+'</td><td>'+row.out_date+'</td><td>'+row.out_time+'</td><td>'+elapsed_time+'</td></tr>';
-                                $("#punchLogTimes").append(htmlStr);
-                            });
-                        }
-                        
-//punchLogTimes
+{{-- Instore repair js * Start  --}}
+@include('apps.include.json.posinstorerepair')
+{{-- Instore repair js * End  --}}
 
-                    }
-                });
-            }
-            else
-            {
-                $("#punchMSG").show();
-                $("#punchMSG").html(warningMessage("Invalid Time Format Please Contact With Site Administrator."));
-                return false;
-            }
-            
-            //------------------------Ajax POS End---------------------------//
-            //attendance/punch/json
-            //attendanceJson
-    });
-</script>
-<!-- <tfoot id="posCartSummary">
-                                    <tr>
-                                        <th>Sub-Total</th>
-                                        <td></td>
-                                        <td colspan="3">$<span>0.00</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Sales Tax</th>
-                                        <td></td>
-                                        <td colspan="3">$<span>0.00</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Total</th>
-                                        <td></td>
-                                        <td colspan="3">$<span>0.00</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Due</th>
-                                        <td></td>
-                                        <td colspan="3">$<span>0.00</span></td>
-                                    </tr>
-                                </tfoot> -->
-                                @endsection
+{{-- Punch js * Start  --}}
+@include('apps.include.json.punch')
+{{-- Punch js * End  --}}
+
+{{-- Punch js * Start  --}}
+@include('apps.include.json.tax')
+{{-- Punch js * End  --}}
+
+{{-- Punch js * Start  --}}
+@include('apps.include.json.salesreturn')
+{{-- Punch js * End  --}}
+@endsection
 

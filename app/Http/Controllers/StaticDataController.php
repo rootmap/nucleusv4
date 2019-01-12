@@ -57,7 +57,7 @@ class StaticDataController extends Facade {
 
     public static function storeName() 
     {
-        return "Simple Retail Pos";
+        return "NucleusV4";
     }
 
     public static function slideCheck()
@@ -81,7 +81,9 @@ class StaticDataController extends Facade {
     public static function UserID() 
     {
         return Auth::user()->id;
-    }
+    }    
+
+
 
     public static function dataMenuAssigned()
     {

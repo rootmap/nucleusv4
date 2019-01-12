@@ -245,19 +245,132 @@ class ProductController extends Controller
 
     public function storeAjax(Request $request)
     {
+        $checkExProduct=Product::where('name',$request->name)
+                               ->where('general_sale',1)
+                               ->where('store_id',$this->sdc->storeID())
+                               ->count();
 
-        $tab=new Product;
-        $tab->name=$request->name;
-        $tab->detail=$request->detail;
-        $tab->quantity=1;
-        $tab->price=$request->price;
-        $tab->cost=$request->cost_price;
-        $tab->general_sale=1;
-        $tab->store_id=$this->sdc->storeID();
-        $tab->created_by=$this->sdc->UserID();
-        $tab->save();
+        if($checkExProduct>0)
+        {
+            $tab=Product::where('name',$request->name)
+                        ->where('general_sale',1)
+                        ->where('store_id',$this->sdc->storeID())
+                        ->first();
+        }
+        else
+        {
+            $tab=new Product;
+            $tab->name=$request->name;
+            $tab->detail=$request->detail;
+            $tab->quantity=1;
+            $tab->price=$request->price;
+            $tab->cost=$request->cost_price;
+            $tab->general_sale=1;
+            $tab->store_id=$this->sdc->storeID();
+            $tab->created_by=$this->sdc->UserID();
+            $tab->save();
+        }
+        
         $pid=$tab->id;
         $this->sdc->log("product","Product created from POS for general sale.");
+        return response()->json($pid);
+    }
+
+    public function storeTicketAjax(Request $request)
+    {
+        $catID=0;
+        $catName="";
+        $catInfoCount=Category::where('store_id',$this->sdc->storeID())->where('name','Ticket')->count();
+        if($catInfoCount>0)
+        {
+            $catInfo=Category::where('store_id',$this->sdc->storeID())->where('name','Ticket')->first();
+            $catID=$catInfo->id;
+            $catName=$catInfo->name;
+        }
+
+        $checkExProduct=Product::where('name',$request->name)
+                               ->where('general_sale',1)
+                               ->where('category_id',$catID)
+                               ->where('category_name',$catName)
+                               ->where('store_id',$this->sdc->storeID())
+                               ->count();
+
+        if($checkExProduct>0)
+        {
+            $tab=Product::where('name',$request->name)
+                        ->where('general_sale',1)
+                        ->where('category_id',$catID)
+                        ->where('category_name',$catName)
+                        ->where('store_id',$this->sdc->storeID())
+                        ->first();
+        }
+        else
+        {
+            $tab=new Product;
+            $tab->name=$request->name;
+            $tab->detail=$request->detail;
+            $tab->quantity=1;
+            $tab->category_id=$catID;
+            $tab->category_name=$catName;
+            $tab->price=$request->price;
+            $tab->cost=$request->cost_price;
+            $tab->general_sale=1;
+            $tab->store_id=$this->sdc->storeID();
+            $tab->created_by=$this->sdc->UserID();
+            $tab->save();
+        }
+
+        $pid=$tab->id;
+        $this->sdc->log("product","Ticket Product created from POS for general sale.");
+        return response()->json($pid);
+    }
+
+    public function storeRepairAjax(Request $request)
+    {
+        $catID=0;
+        $catName="";
+        $catInfoCount=Category::where('store_id',$this->sdc->storeID())->where('name','Ticket')->count();
+        if($catInfoCount>0)
+        {
+            $catInfo=Category::where('store_id',$this->sdc->storeID())->where('name','Ticket')->first();
+            $catID=$catInfo->id;
+            $catName=$catInfo->name;
+        }
+
+        $checkExProduct=Product::where('name',$request->name)
+                               ->where('general_sale',1)
+                               ->where('category_id',$catID)
+                               ->where('category_name',$catName)
+                               ->where('store_id',$this->sdc->storeID())
+                               ->count();
+
+        if($checkExProduct>0)
+        {
+            $tab=Product::where('name',$request->name)
+                        ->where('general_sale',1)
+                        ->where('category_id',$catID)
+                        ->where('category_name',$catName)
+                        ->where('store_id',$this->sdc->storeID())
+                        ->first();
+        }
+        else
+        {
+            $tab=new Product;
+            $tab->name=$request->name;
+            $tab->detail=$request->detail;
+            $tab->quantity=1;
+            $tab->category_id=$catID;
+            $tab->category_name=$catName;
+            $tab->price=$request->price;
+            $tab->cost=$request->cost_price;
+            $tab->general_sale=1;
+            $tab->store_id=$this->sdc->storeID();
+            $tab->created_by=$this->sdc->UserID();
+            $tab->save();
+        }
+
+        $pid=$tab->id;
+        $this->sdc->log("product","Repair Product created from POS for general sale.");
         return response()->json($pid);
     }
 

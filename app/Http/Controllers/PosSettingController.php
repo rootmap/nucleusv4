@@ -31,6 +31,7 @@ class PosSettingController extends Controller
             $tab->invoice_layout="1";
             $tab->pos_item="16";
             $tab->sales_tax="3.00";
+            $tab->sales_part_tax="1.50";
             $tab->sales_discount="5.00";
             $tab->discount_type="2";
             $tab->store_id=$store_id;
@@ -201,6 +202,7 @@ class PosSettingController extends Controller
     public function store(Request $request)
     {
         $sales_tax=$request->sales_tax?$request->sales_tax:0;
+        $sales_part_tax=$request->sales_part_tax?$request->sales_part_tax:0;
         $sales_discount=$request->sales_discount?$request->sales_discount:0;
         $pos_item=$request->pos_item?$request->pos_item:0;
         $invoice_layout=$request->invoice_layout?$request->invoice_layout:0;
@@ -209,6 +211,7 @@ class PosSettingController extends Controller
         $tab=new PosSetting;
         $tab->pos_item=$pos_item;
         $tab->sales_tax=$sales_tax;
+        $tab->sales_part_tax=$sales_part_tax;
         $tab->invoice_layout=$invoice_layout;
         $tab->sales_discount=$sales_discount;
         $tab->discount_type=$discount_type;
@@ -283,6 +286,7 @@ class PosSettingController extends Controller
     public function update(Request $request, PosSetting $posSetting,$id=0)
     {
         $sales_tax=$request->sales_tax?$request->sales_tax:0;
+        $sales_part_tax=$request->sales_part_tax?$request->sales_part_tax:0;
         $sales_discount=$request->sales_discount?$request->sales_discount:0;
         $pos_item=$request->pos_item?$request->pos_item:0;
         $invoice_layout=$request->invoice_layout?$request->invoice_layout:0;
@@ -291,6 +295,7 @@ class PosSettingController extends Controller
         $tab=$posSetting::find($id);
         $tab->pos_item=$pos_item;
         $tab->sales_tax=$sales_tax;
+        $tab->sales_part_tax=$sales_part_tax;
         $tab->invoice_layout=$invoice_layout;
         $tab->sales_discount=$sales_discount;
         $tab->discount_type=$discount_type;

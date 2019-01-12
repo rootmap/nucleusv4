@@ -31,9 +31,9 @@
 							<tr>
 								<th>ID</th>
 								<th>Ticket ID</th>
-								<th>Payment Status</th>
+								<th>Payment</th>
+								<th>Customer</th>
 								<th>Order Detail</th>
-								<th>Quantity</th>
 								<th>Ordered</th>
 								<th>Status</th>
 								<th>Action</th>
@@ -46,8 +46,8 @@
 								<td>{{$row->id}}</td>
 								<td>{{$row->ticket_id}}</td>
 								<td>{{$row->ticket_payment_status}}</td>
+								<td>{{$row->customer_name}}</td>
 								<td>{{$row->description}}</td>
-								<td>{{$row->quantity}}</td>
 								<td>{{$row->ordered}}</td>
 								<td>{{$row->order_status}}</td>
 								<td>

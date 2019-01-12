@@ -27,9 +27,9 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#55B9DF" data-readOnly="true" data-fgColor="#55B9DF">
+                                <input type="text" value="{{$tod->sales_invoice_quantity}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#55B9DF" data-readOnly="true" data-fgColor="#55B9DF">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_invoice_quantity}}</span>
                                 </div>
                             </div>
                             
@@ -42,9 +42,9 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#27A2CF" data-readOnly="true" data-fgColor="#27A2CF">
+                                <input type="text" value="{{$tod->ticket}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#27A2CF" data-readOnly="true" data-fgColor="#27A2CF">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info darken-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                    <span class="info darken-1" style="font-weight: bolder; font-size: 22px;">{{$tod->ticket}}</span>
                                 </div>
                             </div>
                             
@@ -57,9 +57,9 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#80D2EF" data-readOnly="true" data-fgColor="#80D2EF">
+                                <input type="text" value="{{$tod->in_store_reapir}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#80D2EF" data-readOnly="true" data-fgColor="#80D2EF">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info accent-2" style="font-weight: bolder; font-size: 22px;">100</span>
+                                    <span class="info accent-2" style="font-weight: bolder; font-size: 22px;">{{$tod->in_store_reapir}}</span>
                                 </div>
                             </div>
                             
@@ -72,9 +72,9 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#4FC1E9" data-readOnly="true" data-fgColor="#4FC1E9">
+                                <input type="text" value="{{$tod->buyback}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#4FC1E9" data-readOnly="true" data-fgColor="#4FC1E9">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-2" style="font-weight: bolder; font-size: 22px;">100</span>
+                                    <span class="info lighten-2" style="font-weight: bolder; font-size: 22px;">{{$tod->buyback}}</span>
                                 </div>
                             </div>
                             
@@ -87,9 +87,9 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#6EC4E4" data-readOnly="true" data-fgColor="#6EC4E4">
+                                <input type="text" value="{{$tod->sales_amount}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#6EC4E4" data-readOnly="true" data-fgColor="#6EC4E4">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_amount}}</span>
                                 </div>
                             </div>
                             
@@ -102,9 +102,9 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#ABDDEF" data-readOnly="true" data-fgColor="#ABDDEF">
+                                <input type="text" value="{{$tod->sales_profit}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#ABDDEF" data-readOnly="true" data-fgColor="#ABDDEF">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">100</span>
+                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_profit}}</span>
                                 </div>
                             </div>
                             

@@ -52,7 +52,7 @@
 								<td>{{$row->carrier}}</td>
 								<td>{{$row->imei}}</td>
 								<td>{{$row->condition}}</td>
-								<td>{{$row->price}}</td>
+								<td>{{number_format($row->price,2)}}</td>
 								<td>{{$row->payment_method_name}}</td>
 								<td>{{$row->keep_this_on}}</td>
 								<td>{{date('Y-m-d',strtotime($row->created_at))}}</td>
@@ -62,7 +62,9 @@
                                         <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
                                         <span aria-labelledby="btnSearchDrop4" class="dropdown-menu mt-1 dropdown-menu-right">
                                             <a href="{{url('buyback/'.$row->id)}}" title="View Buyback" class="dropdown-item"><i class="icon-file-text"></i> View Buyback</a>
+                                            <a href="{{url('buyback/print/'.$row->id)}}" title="Edit" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                             <a href="{{url('buyback/'.$row->id.'/edit')}}" title="Edit" class="dropdown-item"><i class="icon-pencil22"></i> Edit</a>
+
                                             <a href="javascript:void(0);" onclick="$(this).children('form').submit();" title="Delete"  class="dropdown-item">
                                             	<i class="icon-cross"></i> Delete
                                             	<form style="height: 0px; width: 0px;" method="POST" action="{{url('buyback/'.$row->id)}}">

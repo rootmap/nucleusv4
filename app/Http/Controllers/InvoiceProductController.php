@@ -8,6 +8,8 @@ use App\InvoiceProduct;
 use App\InvoicePayment;
 use App\Invoice;
 use App\Tender;
+use App\InStoreTicket;
+use App\InStoreRepair;
 use App\Customer;
 use App\PosSetting;
 use Illuminate\Http\Request;
@@ -15,7 +17,10 @@ use Illuminate\Support\Facades\Session;
 
 class InvoiceProductController extends Controller
 {
-    
+        private $moduleName="In Store Repair Settings ";
+    private $sdc;
+    public function __construct(){ $this->sdc = new StaticDataController(); }
+
     public function getDBCart(Request $request)
     {
         $datas=\DB::table('sessions')->where('user_id',\Auth::user()->id)->first();
@@ -23,23 +28,82 @@ class InvoiceProductController extends Controller
         dd(unserialize(base64_decode($datas->payload)));
     }
 
+    public function setTaxType(Request $request)
+    {
+        $setTaxType=$request->setTaxType;
+        $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
+        $cart = new Pos($oldCart);
+        $cart->assignNewTaxType($setTaxType);
+
+        $request->session()->put('Pos', $cart);
+        return response()->json($cart);
+    }
+
+    public function RepairPOS(Request $request, $repair_id=0)
+    {
+
+        $tab_invoice=InStoreRepair::where('id',$repair_id)
+                                  ->where('store_id',$this->sdc->storeID())
+                                  ->first();
+
+        $product = Product::find($tab_invoice->product_id);
+        $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
+        $cart = new Pos($oldCart);
+        $cart->addCustomRepairPrice($product, $product->id,$tab_invoice->price,$repair_id);
+        $request->session()->put('Pos', $cart);
+        return redirect('pos')->with('success','Repair Product Added In Cart Successfully.');
+    }
+
+    public function TicketPOS(Request $request, $ticket_id=0)
+    {
+
+        $tab_invoice=InStoreTicket::where('id',$ticket_id)
+                                  ->where('store_id',$this->sdc->storeID())
+                                  ->first();
+
+        $product = Product::find($tab_invoice->product_id);
+        $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
+        $cart = new Pos($oldCart);
+        $cart->addCustomTicketPrice($product, $product->id,$tab_invoice->retail_price,$ticket_id);
+        $request->session()->put('Pos', $cart);
+        return redirect('pos')->with('success','Repair Product Added In Cart Successfully.');
+    }
+
 
     public function getAddToCart(Request $request, $pid) {
 
-        if(isset($request->price))
+        if(isset($request->repair))
         {
             $product = Product::find($pid);
             $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
             $cart = new Pos($oldCart);
-            $cart->addCustomPrice($product, $product->id,$request->price);
+            $cart->addCustomPriceRepair($product, $product->id,$request->price,$request->repair);
+        }
+        elseif(isset($request->ticket))
+        {
+            $product = Product::find($pid);
+            $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
+            $cart = new Pos($oldCart);
+            $cart->addCustomPriceTicket($product, $product->id,$request->price,$request->ticket);
         }
         else
         {
-            $product = Product::find($pid);
-            $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
-            $cart = new Pos($oldCart);
-            $cart->add($product, $product->id);
+            if(isset($request->price))
+            {
+                $product = Product::find($pid);
+                $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
+                $cart = new Pos($oldCart);
+                $cart->addCustomPrice($product, $product->id,$request->price);
+            }
+            else
+            {
+                $product = Product::find($pid);
+                $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
+                $cart = new Pos($oldCart);
+                $cart->add($product, $product->id);
+            }
         }
+        
 
         
         $request->session()->put('Pos', $cart);
