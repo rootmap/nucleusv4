@@ -8,7 +8,10 @@
 
 	 
 	            <div class="card-header">
-	                <h4 class="card-title" id="striped-label-layout-card-center"><i class="icon-cogs2"></i> 
+	                <h4 class="card-title" id="striped-label-layout-card-center">
+	                	<i style="font-size: 25px; color: #fff;" class="fa icon-rtmat">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                        </i>
 	                New Repair
 	            	</h4>
 	                <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
@@ -293,25 +296,25 @@
 
 							<div class="form-actions center">
 
-	                              <button type="button" class="btn btn-info" id="step1">
+	                              <button type="button" class="btn btn-green" id="step1">
 				                      <i class="icon-forward"></i> Next
 				                  </button>
 				                  <button type="button" class="btn btn-warning" id="step2_step1" style="display: none; margin-right: 10px;">
 				                      <i class="icon-backward"></i> Back
 				                  </button>
-				                  <button type="button" class="btn btn-info" id="step2" style="display: none; margin-right: 10px;">
+				                  <button type="button" class="btn btn-green" id="step2" style="display: none; margin-right: 10px;">
 				                      <i class="icon-forward"></i> Next as Recomended
 				                  </button>
-				                  <button type="button" class="btn btn-info" id="step2_override" style="display: none;">
+				                  <button type="button" class="btn btn-green" id="step2_override" style="display: none;">
 				                      <i class="icon-forward"></i> Override Price
 				                  </button>
 				                  <button type="button" class="btn btn-warning" id="step3_step2" style="display: none; margin-right: 10px;">
 				                      <i class="icon-backward"></i> Back
 				                  </button>
-				                  <button type="submit" class="btn btn-info" id="finish" style="display: none; ">
+				                  <button type="submit" class="btn btn-green" id="finish" style="display: none; ">
 				                      <i class="icon-forward"></i> Finish &amp; Add to Cart
 				                  </button>
-				                  <button type="reset" class="btn btn-info" id="reset_repair" style="display: none; ">
+				                  <button type="reset" class="btn btn-green" id="reset_repair" style="display: none; ">
 				                      <i class="icon-clear"></i>Reset
 				                  </button>
 

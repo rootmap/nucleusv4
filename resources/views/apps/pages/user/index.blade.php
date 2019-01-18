@@ -150,11 +150,11 @@
 		                        
 
 							<div class="form-actions center">
-								<button type="reset" class="btn btn-info btn-lighten-2 mr-1">
+								<button type="reset" class="btn btn-green btn-lighten-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 							

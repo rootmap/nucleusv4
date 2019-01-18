@@ -81,7 +81,7 @@
 														<div class="input-group">
 															<span class="input-group-addon"  style="@if($data->payment_status=="Pending") width: 210px; @else width: 120px; @endif text-align: left; background: white;" id="basic-addon11"><b>Payment Status @if($data->payment_status=="Pending") - (Pending) @endif</b></span>
 															@if($data->payment_status=="Pending")
-																<a class="btn btn-info btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" href="{{url('pos/repair/'.$data->repair_id)}}"> 
+																<a class="btn btn-green btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" href="{{url('pos/repair/'.$data->repair_id)}}"> 
 																	<i class="icon-dollar"></i>{{$data->price}} to POS
 																</a>
 															@else
@@ -110,7 +110,7 @@
 														        <option value="Yes">No</option>
 															</select>
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -128,7 +128,7 @@
 														        <option value="Complete">Complete</option>
 															</select>
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -147,7 +147,7 @@
 																@endfor
 															</select>
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -165,7 +165,7 @@
 														        <option value="Bad">Bad</option>
 															</select>
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="liveSelectsave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -185,7 +185,7 @@
 															<span class="input-group-addon" style="width: 120px; text-align: left; background: white;" id="basic-addon11"><b>Name</b></span>
 															<input readonly="readonly" name="customer_name" style="background: white;" ondblclick="liveedit(this);" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->customer_name}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -199,7 +199,7 @@
 															<span class="input-group-addon"  style="width: 120px; text-align: left; background: white;" id="basic-addon11"><b>Address</b></span>
 															<input readonly="readonly"  style="background: white;" ondblclick="liveedit(this);" name="address" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$customer->address}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -213,7 +213,7 @@
 															<span class="input-group-addon"  style="width: 120px; text-align: left; background: white;" id="basic-addon11"><b>Phone</b></span>
 															<input readonly="readonly"  style="background: white;" ondblclick="liveedit(this);" name="phone" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$customer->phone}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -227,7 +227,7 @@
 															<span class="input-group-addon"  style="width: 120px; text-align: left; background: white;" id="basic-addon11"><b>Email</b></span>
 															<input readonly="readonly"  style="background: white;" ondblclick="liveedit(this);" name="email" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$customer->email}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -250,7 +250,7 @@
 															<span class="input-group-addon" style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>Password</b></span>
 															<input readonly="readonly" name="password"  style="background: white;" ondblclick="liveedit(this);" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->password}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -264,7 +264,7 @@
 															<span class="input-group-addon"  style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>IMEI</b></span>
 															<input readonly="readonly" name="imei"  ondblclick="liveedit(this);"    style="background: white;" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->imei}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -278,7 +278,7 @@
 															<span class="input-group-addon"  style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>Tested Before By</b></span>
 															<input readonly="readonly"  ondblclick="liveedit(this);"  style="background: white;"  name="tested_before_by" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->tested_before_by}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -292,7 +292,7 @@
 															<span class="input-group-addon"  style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>Tested After By</b></span>
 															<input readonly="readonly" name="tested_after_by"  ondblclick="liveedit(this);"  style="background: white;" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->tested_after_by}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -364,7 +364,7 @@
 															<span class="input-group-addon" style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>Tech Notes</b></span>
 															<input readonly="readonly"  style="background: white;" ondblclick="liveedit(this);" name="tech_notes" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->tech_notes}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -378,7 +378,7 @@
 															<span class="input-group-addon"  style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>How did you hear about us ?</b></span>
 															<input readonly="readonly"  style="background: white;" ondblclick="liveedit(this);" name="how_did_you_hear_about_us" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->how_did_you_hear_about_us}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -392,7 +392,7 @@
 															<span class="input-group-addon"  style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>Start Time</b></span>
 															<input readonly="readonly" name="start_time" style="background: white;" ondblclick="liveedit(this);" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->start_time}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>
@@ -406,7 +406,7 @@
 															<span class="input-group-addon"  style="width: 140px; text-align: left; background: white;" id="basic-addon11"><b>End Time</b></span>
 															<input readonly="readonly" name="end_time" style="background: white;" ondblclick="liveedit(this);" type="text" class="form-control" placeholder="Button on right" aria-describedby="button-addon6" value="{{$data->end_time}}">
 															<span class="input-group-btn" id="button-addon6" style="display: none;">
-																<button onclick="livesave(this)" class="btn btn-primary bg-info border-info" type="button"><i class="icon-check"></i></button>
+																<button onclick="livesave(this)" class="btn btn-primary bg-green border-green" type="button"><i class="icon-check"></i></button>
 															</span>
 														</div>
 													</fieldset>

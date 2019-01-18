@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-info bg-accent-3">
+                <div class="card-header card-green bg-accent-3">
                     <h4 class="card-title" style="color: #fff;"><i class="icon-stats-dots"></i> Today System Summary</h4>
                     <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                     <div class="heading-elements">
@@ -27,14 +27,14 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="{{$tod->sales_invoice_quantity}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#55B9DF" data-readOnly="true" data-fgColor="#55B9DF">
+                                <input type="text" value="{{$tod->sales_invoice_quantity}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#66BB6A" data-readOnly="true" data-fgColor="#66BB6A">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_invoice_quantity}}</span>
+                                    <span class="green lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_invoice_quantity}}</span>
                                 </div>
                             </div>
                             
                             <div class="card-header pt-1" style="border-bottom: 0px;">
-                                <span class="info lighten-1 text-bold-800">Sales</span>
+                                <span class="green lighten-1 text-bold-800">Sales</span>
                             </div>
                         </div>
                     </div>
@@ -42,14 +42,14 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="{{$tod->ticket}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#27A2CF" data-readOnly="true" data-fgColor="#27A2CF">
+                                <input type="text" value="{{$tod->ticket}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#43A047" data-readOnly="true" data-fgColor="#43A047">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info darken-1" style="font-weight: bolder; font-size: 22px;">{{$tod->ticket}}</span>
+                                    <span class="green darken-1" style="font-weight: bolder; font-size: 22px;">{{$tod->ticket}}</span>
                                 </div>
                             </div>
                             
                             <div class="card-header pt-1" style="border-bottom: 0px;">
-                                <span class="info darken-1 text-bold-800">Ticket</span>
+                                <span class="green darken-1 text-bold-800">Ticket</span>
                             </div>
                         </div>
                     </div>
@@ -57,14 +57,14 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="{{$tod->in_store_reapir}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#80D2EF" data-readOnly="true" data-fgColor="#80D2EF">
+                                <input type="text" value="{{$tod->in_store_reapir}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#69F0AE" data-readOnly="true" data-fgColor="#69F0AE">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info accent-2" style="font-weight: bolder; font-size: 22px;">{{$tod->in_store_reapir}}</span>
+                                    <span class="green accent-2" style="font-weight: bolder; font-size: 22px;">{{$tod->in_store_reapir}}</span>
                                 </div>
                             </div>
                             
                             <div class="card-header pt-1" style="border-bottom: 0px;">
-                                <span class="info accent-2 text-bold-800">In-Store Reapir</span>
+                                <span class="green accent-2 text-bold-800">In-Store Reapir</span>
                             </div>
                         </div>
                     </div>
@@ -72,14 +72,14 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="{{$tod->buyback}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#4FC1E9" data-readOnly="true" data-fgColor="#4FC1E9">
+                                <input type="text" value="{{$tod->buyback}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#81C784" data-readOnly="true" data-fgColor="#81C784">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-2" style="font-weight: bolder; font-size: 22px;">{{$tod->buyback}}</span>
+                                    <span class="green lighten-2" style="font-weight: bolder; font-size: 22px;">{{$tod->buyback}}</span>
                                 </div>
                             </div>
                             
                             <div class="card-header pt-1" style="border-bottom: 0px;">
-                                <span class="info lighten-2 text-bold-800">Buyback</span>
+                                <span class="green lighten-2 text-bold-800">Buyback</span>
                             </div>
                         </div>
                     </div>
@@ -87,14 +87,14 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="{{$tod->sales_amount}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#6EC4E4" data-readOnly="true" data-fgColor="#6EC4E4">
+                                <input type="text" value="{{$tod->sales_amount}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#66BB6A" data-readOnly="true" data-fgColor="#66BB6A">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_amount}}</span>
+                                    <span class="green lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_amount}}</span>
                                 </div>
                             </div>
                             
                             <div class="card-header pt-1" style="border-bottom: 0px;">
-                                <span class="info lighten-1 text-bold-800">Sales Amount</span>
+                                <span class="green lighten-1 text-bold-800">Sales Amount</span>
                             </div>
                         </div>
                     </div>
@@ -102,14 +102,14 @@
                         <div class="my-1 text-xs-center" style="margin-bottom: 0px !important;">
                             
                             <div class="card-body">
-                                <input type="text" value="{{$tod->sales_profit}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#ABDDEF" data-readOnly="true" data-fgColor="#ABDDEF">
+                                <input type="text" value="{{$tod->sales_profit}}" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".10" data-linecap="round" data-width="130" data-height="130" data-inputColor="#66BB6A" data-readOnly="true" data-fgColor="#66BB6A">
                                 <div class="card-header pt-1" style="border-bottom: 0px; background:transparent; position: absolute; top: 49px; width: 100%; text-align: center; left: 0px;">
-                                    <span class="info lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_profit}}</span>
+                                    <span class="green lighten-1" style="font-weight: bolder; font-size: 22px;">{{$tod->sales_profit}}</span>
                                 </div>
                             </div>
                             
                             <div class="card-header pt-1" style="border-bottom: 0px;">
-                                <span class="info lighten-1 text-bold-800">Sales Profit</span>
+                                <span class="green lighten-1 text-bold-800">Sales Profit</span>
                             </div>
                         </div>
                     </div>
@@ -126,15 +126,15 @@
                     <div class="col-xl-3 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
                         <div class="my-1  text-xs-center">
                             <div class="card-header mb-2 pt-0">
-                                <span class="info">Product</span>
+                                <span class="green">Product</span>
                                 <h3 class="font-large-2 text-bold-200">{{$dash->product_item_quantity}}</h3>
                             </div>
                             <div class="card-body">
-                                <input type="text" value="65" class="knob hide-value responsive angle-offset" data-angleOffset="40" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#e1e1e1" data-readOnly="true" data-fgColor="#00BCD4" data-knob-icon="icon-mobile">
+                                <input type="text" value="65" class="knob hide-value responsive angle-offset" data-angleOffset="40" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#4CAF50" data-readOnly="true" data-fgColor="#4CAF50" data-knob-icon="icon-mobile">
                                 <ul class="list-inline clearfix mt-1 mb-0">
                                     <li>
                                         <h2 class="grey darken-1 text-bold-400">{{$tod->product_item_quantity}}</h2>
-                                        <span class="info">Today Added In System</span>
+                                        <span class="green">Today Added In System</span>
                                     </li>
                                 </ul>
                             </div>
@@ -143,15 +143,15 @@
                     <div class="col-xl-3 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
                         <div class="my-1 text-xs-center">
                             <div class="card-header mb-2 pt-0">
-                                <span class="info lighten-1">Stock In</span>
+                                <span class="green lighten-1">Stock In</span>
                                 <h3 class="font-large-2 text-bold-200">{{$dash->stockin_invoice_quantity}}</h3>
                             </div>
                             <div class="card-body">
-                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#55B9DF" data-readOnly="true" data-fgColor="#55B9DF" data-knob-icon="icon-truck3">
+                                <input type="text" value="70" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#66BB6A" data-readOnly="true" data-fgColor="#66BB6A" data-knob-icon="icon-truck3">
                                 <ul class="list-inline clearfix mt-1 mb-0">
                                     <li>
                                         <h2 class="grey darken-1 text-bold-400">{{$tod->stockin_invoice_quantity}}</h2>
-                                        <span class="info lighten-1">Today Stock In</span>
+                                        <span class="green lighten-1">Today Stock In</span>
                                     </li>
                                 </ul>
                             </div>
@@ -160,15 +160,15 @@
                     <div class="col-xl-3 col-lg-6 col-md-12 border-right-blue-grey border-right-lighten-5">
                         <div class="my-1 text-xs-center">
                             <div class="card-header mb-2 pt-0">
-                                <span class="info darken-1">Customer</span>
+                                <span class="green darken-1">Customer</span>
                                 <h3 class="font-large-2 text-bold-200">{{$dash->customer_quantity}}</h3>
                             </div>
                             <div class="card-body">
-                                <input type="text" value="81" class="knob hide-value responsive angle-offset" data-angleOffset="20" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#27A2CF" data-readOnly="true" data-fgColor="#27A2CF" data-knob-icon="icon-users">
+                                <input type="text" value="81" class="knob hide-value responsive angle-offset" data-angleOffset="20" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#43A047" data-readOnly="true" data-fgColor="#43A047" data-knob-icon="icon-users">
                                 <ul class="list-inline clearfix mt-1 mb-0">
                                     <li>
                                         <h2 class="grey darken-1 text-bold-400">{{$tod->customer_quantity}}</h2>
-                                        <span class="info darken-1">Today Added in System</span>
+                                        <span class="green darken-1">Today Added in System</span>
                                     </li>
                                 </ul>
                             </div>
@@ -177,15 +177,15 @@
                     <div class="col-xl-3 col-lg-6 col-md-12">
                         <div class="my-1 text-xs-center">
                             <div class="card-header mb-2 pt-0">
-                                <span class="info accent-1">Warranty</span>
+                                <span class="green accent-1">Warranty</span>
                                 <h3 class="font-large-2 text-bold-200">{{$dash->warranty_invoice_quantity}}</h3>
                             </div>
                             <div class="card-body">
-                                <input type="text" value="75" class="knob hide-value responsive angle-offset" data-angleOffset="20" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#80D2EF" data-readOnly="true" data-fgColor="#80D2EF" data-knob-icon="icon-page-break">
+                                <input type="text" value="75" class="knob hide-value responsive angle-offset" data-angleOffset="20" data-thickness=".15" data-linecap="round" data-width="130" data-height="130" data-inputColor="#B9F6CA" data-readOnly="true" data-fgColor="#B9F6CA" data-knob-icon="icon-page-break">
                                 <ul class="list-inline clearfix mt-1 mb-0">
                                     <li>
                                         <h2 class="grey darken-1 text-bold-400">{{$tod->warranty_invoice_quantity}}</h2>
-                                        <span class="info accent-1">Today Provide Warranty</span>
+                                        <span class="green accent-1">Today Provide Warranty</span>
                                     </li>
                                 </ul>
                             </div>
@@ -214,19 +214,19 @@
             <div class="card-body">
                 <div class="card-block text-xs-center">
                     <div class="card-header mb-2">
-                        <span class="info lighten-2">Total Invoice / Sales Amount</span>
+                        <span class="green lighten-2">Total Invoice / Sales Amount</span>
                         <h3 class="font-large-2 grey darken-1 text-bold-400" style="font-size: 30px !important;">${{$dash->sales_amount}}</h3>
                     </div>
                     <div class="card-body">
-                        <input type="text" value="75" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".15" data-linecap="round" data-width="150" data-height="150" data-inputColor="#4FC1E9" data-readOnly="true" data-fgColor="#4FC1E9" data-knob-icon="icon-dollar">
+                        <input type="text" value="75" class="knob hide-value responsive angle-offset" data-angleOffset="0" data-thickness=".15" data-linecap="round" data-width="150" data-height="150" data-inputColor="#81C784" data-readOnly="true" data-fgColor="#81C784" data-knob-icon="icon-dollar">
                         <ul class="list-inline clearfix mt-2 mb-0">
                             <li class="border-right-grey border-right-lighten-2 pr-2">
                                 <h2 class="grey darken-1 text-bold-400">${{$dash->sales_cost}}</h2>
-                                <span class="info lighten-2">Total Cost</span>
+                                <span class="green lighten-2">Total Cost</span>
                             </li>
                             <li class="pl-2">
                                 <h2 class="grey darken-1 text-bold-400">${{$dash->sales_profit}}</h2>
-                                <span class="info lighten-2">Total Profit</span>
+                                <span class="green lighten-2">Total Profit</span>
                             </li>
                         </ul>
                     </div>
@@ -243,7 +243,7 @@
     </style>
 
     <div class="col-xl-4 col-lg-6 col-md-12">
-        {{-- <div class="card bg-info">
+        {{-- <div class="card bg-green">
             <div class="card-body">
                 <div class="card-block">
                     <h4 class="card-title">Product Sold Heighest Time</h4>
@@ -275,14 +275,14 @@
                 <div class="card-block">
                     <div class="media">
                         <div class="media-body text-xs-left">
-                            <h3 class="info accent-2">${{$tod->sales_amount}}</h3>
+                            <h3 class="green accent-2">${{$tod->sales_amount}}</h3>
                             <span>Today Total Sales</span>
                         </div>
                         <div class="media-right media-middle">
-                            <i class="icon-cart4 info accent-2 font-large-2 float-xs-right"></i>
+                            <i class="icon-cart4 green accent-2 font-large-2 float-xs-right"></i>
                         </div>
                     </div>
-                    <progress class="progress progress-sm progress-info bg-accent-2 mt-1 mb-0" value="80" max="100"></progress>
+                    <progress class="progress progress-sm progress-green bg-accent-2 mt-1 mb-0" value="80" max="100"></progress>
                 </div>
             </div>
         </div>
@@ -291,14 +291,14 @@
                 <div class="card-block">
                     <div class="media">
                         <div class="media-body text-xs-left">
-                            <h3 class="info lighten-3">${{$tod->sales_cost}}</h3>
+                            <h3 class="green lighten-3">${{$tod->sales_cost}}</h3>
                             <span>Today Total Cost</span>
                         </div>
                         <div class="media-right media-middle">
-                            <i class="icon-shop2 info lighten-3 font-large-2 float-xs-right"></i>
+                            <i class="icon-shop2 green lighten-3 font-large-2 float-xs-right"></i>
                         </div>
                     </div>
-                    <progress class="progress progress-sm progress-info bg-lighten-3 mt-1 mb-0" value="35" max="100"></progress>
+                    <progress class="progress progress-sm progress-green bg-lighten-3 mt-1 mb-0" value="35" max="100"></progress>
                 </div>
             </div>
         </div>
@@ -307,14 +307,14 @@
                 <div class="card-block">
                     <div class="media">
                         <div class="media-body text-xs-left">
-                            <h3 class="info">${{$tod->sales_profit}}</h3>
+                            <h3 class="green">${{$tod->sales_profit}}</h3>
                             <span>Today Total Profit</span>
                         </div>
                         <div class="media-right media-middle">
-                            <i class="icon-banknote info font-large-2 float-xs-right"></i>
+                            <i class="icon-banknote green font-large-2 float-xs-right"></i>
                         </div>
                     </div>
-                    <progress class="progress progress-sm progress-info mt-1 mb-0" value="35" max="100"></progress>
+                    <progress class="progress progress-sm progress-green mt-1 mb-0" value="35" max="100"></progress>
                 </div>
             </div>
         </div>
@@ -376,7 +376,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="card">
-            <div class="card-header card-info bg-accent-3">
+            <div class="card-header card-success bg-darken-2">
                 <h4 class="card-title" style="color: #fff;"><i class="icon-stats-dots"></i> Other Reports</h4>
                 <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                 <div class="heading-elements">
@@ -394,7 +394,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Invoice Profit</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-lighten-1"><i class="icon-credit-card icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-lighten-1"><i class="icon-credit-card icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -404,7 +404,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Payment Report</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-lighten-2"><i class="icon-undo icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-lighten-2"><i class="icon-undo icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -414,7 +414,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Customer Report</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-lighten-3"><i class="icon-bar-chart icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-lighten-3"><i class="icon-bar-chart icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -424,7 +424,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Product Status</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-lighten-4"><i class="icon-pie-chart icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-lighten-4"><i class="icon-pie-chart icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -434,7 +434,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Sales Report</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-darken-1"><i class="icon-bar-chart icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-darken-1"><i class="icon-bar-chart icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -444,7 +444,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Stockin Order</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-darken-2"><i class="icon-line-chart icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-darken-2"><i class="icon-line-chart icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -454,7 +454,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Paypal Payment</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-darken-3"><i class="icon-paypal icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-darken-3"><i class="icon-paypal icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -464,7 +464,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Product Profit</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-darken-4"><i class="icon-desktop icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-darken-4"><i class="icon-desktop icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -474,7 +474,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Expense Report</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-accent-1"><i class="icon-money icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-accent-1"><i class="icon-money icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -484,7 +484,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Card Payment</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-accent-2"><i class="icon-dollar icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-accent-2"><i class="icon-dollar icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -494,7 +494,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Variance Report</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-accent-3"><i class="icon-shopping-cart icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-accent-3"><i class="icon-shopping-cart icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -507,7 +507,7 @@
                         <div class="mini-stat-type-2 shadow quick_link_box2">
                             <h6 class="text-xs-center text-strong text-inverse">Sales Return</h6>
                             <p class="text-xs-center">
-                                <span class="overview-icon bg-info bg-lighten-4"><i class="icon-exchange icon-spin"></i></span>
+                                <span class="overview-icon bg-green bg-lighten-4"><i class="icon-exchange icon-spin"></i></span>
                             </p>
                         </div>
                     </a>
@@ -526,7 +526,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="card">
-            <div class="card-header card-info bg-lighten-1" style="color: #fff;">
+            <div class="card-header  card-success bg-darken-3" style="color: #fff;">
                 <h4 class="card-title"><i class="icon-clock-o"></i> Today Cashier Punch Log</h4>
                 <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                 <div class="heading-elements">
@@ -539,7 +539,7 @@
             <div class="card-body collapse in">
                 <div class="card-block card-dashboard">
                     <table class="table table-striped table-bordered zero-configuration">
-                        <thead class="bg-info bg-lighten-3" style="color: #fff;">
+                        <thead class="bg-green bg-lighten-3" style="color: #fff;">
                             <tr>
                                 <th>SL</th>
                                 <th>Cashier Name</th>
@@ -582,7 +582,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="card">
-            <div class="card-header card-info bg-darken-1" style="color: #fff;">
+            <div class="card-header  card-success bg-darken-1" style="color: #fff;">
                 <h4 class="card-title"><i class="icon-history"></i> Recent System Access Log</h4>
                 <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
                 <div class="heading-elements">
@@ -595,7 +595,7 @@
             <div class="card-body collapse in">
                 <div class="card-block card-dashboard">
                     <table class="table table-striped table-bordered zero-configuration">
-                        <thead class="bg-info bg-lighten-3" style="color: #fff;">
+                        <thead class="bg-green bg-lighten-3" style="color: #fff;">
                             <tr>
                                 <th>SL</th>
                                 <th>User</th>
@@ -659,7 +659,7 @@
             padding-right: 10px;
         }
 
-        div.dataTables_info{
+        div.dataTables_green{
             padding-left: 10px;
         }
 

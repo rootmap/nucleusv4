@@ -38,7 +38,7 @@
 											@endforeach
 										@endif
 									</select>
-									<input type="text"   class="form-control border-primary" placeholder="Enter Device Name" name="device_name">
+									<input type="text"   class="form-control border-green" placeholder="Enter Device Name" name="device_name">
 								</div>
 
 								<div class="form-group step1">
@@ -54,7 +54,7 @@
 											@endforeach
 										@endif
 									</select>
-									<input type="text" class="form-control border-primary" placeholder="Enter Model Name" name="model_name">
+									<input type="text" class="form-control border-green" placeholder="Enter Model Name" name="model_name">
 								</div>
 
 								<div class="form-group step1">
@@ -70,34 +70,34 @@
 											@endforeach
 										@endif
 									</select>
-									<input type="text" class="form-control border-primary" placeholder="Enter Problem Name" name="problem_name">
+									<input type="text" class="form-control border-green" placeholder="Enter Problem Name" name="problem_name">
 								</div>
 
 								<div class="form-group step2" style="display: none;">
 									<label for="userinput1">Price <span class="text-danger">*</span></label>
-									<input type="text" class="form-control border-primary" placeholder="Enter Price Name" name="price" value="0">
+									<input type="text" class="form-control border-green" placeholder="Enter Price Name" name="price" value="0">
 								</div>
 
 								<div class="form-group step3" style="display: none;">
 									<label for="userinput1">Barcode <span class="text-danger">*</span></label>
-									<input type="text" class="form-control border-primary" placeholder="Enter Barcode Name" name="barcode" value="{{time()}}">
+									<input type="text" class="form-control border-green" placeholder="Enter Barcode Name" name="barcode" value="{{time()}}">
 								</div>
 
 								<div class="form-group step3" style="display: none;">
 									<label for="userinput1">Product Name <span class="text-danger">*</span></label>
-									<input type="text" class="form-control border-primary"  readonly="readonly" placeholder="Enter Product Name" name="name">
+									<input type="text" class="form-control border-green"  readonly="readonly" placeholder="Enter Product Name" name="name">
 								</div>
 								<div class="row step3" style="display: none;">
 									<div class="col-md-6">
 										<div class="form-group step3" style="display: none;">
 											<label for="userinput1">Retail Price <span class="text-danger">*</span></label>
-											<input type="text" class="form-control border-primary" readonly="readonly" placeholder="Enter Retail Price" name="retail_price">
+											<input type="text" class="form-control border-green" readonly="readonly" placeholder="Enter Retail Price" name="retail_price">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group step3" style="display: none;">
 											<label for="userinput1">Our Cost <span class="text-danger">*</span></label>
-											<input type="text" class="form-control border-primary" placeholder="Enter Our Cost" name="our_cost">
+											<input type="text" class="form-control border-green" placeholder="Enter Our Cost" name="our_cost">
 										</div>
 									</div>
 								</div>
@@ -105,19 +105,19 @@
 
 								<div class="form-group step3" style="display: none;">
 									<label for="userinput1">Quantity <span class="text-danger">*</span></label>
-									<input type="text" class="form-control border-primary" placeholder="Enter Quantity" name="quantity" value="1">
+									<input type="text" class="form-control border-green" placeholder="Enter Quantity" name="quantity" value="1">
 								</div>
 
 								<div class="form-group step3" style="display: none;">
 									<label for="userinput1">Description <span class="text-danger">*</span></label>
-									<input type="text" class="form-control border-primary" placeholder="Enter Description" name="description">
+									<input type="text" class="form-control border-green" placeholder="Enter Description" name="description">
 								</div>
 															
 
 								</div>
 
 								<div class="form-actions center">
-									<button type="button" id="step1" class="btn btn-info btn-accent-2">
+									<button type="button" id="step1" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Next
 									</button>
 
@@ -125,7 +125,7 @@
 										<i class="icon-check2"></i> Back
 									</button>
 
-									<button type="button" style="display: none;" id="step2" class="btn btn-info btn-accent-2">
+									<button type="button" style="display: none;" id="step2" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Next
 									</button>
 
@@ -136,7 +136,7 @@
 									<button type="button" style="display: none;" id="step3_step2" class="btn btn-warning btn-accent-2">
 										<i class="icon-check2"></i> Back
 									</button>
-									<button type="submit" style="display: none;" id="step3" class="btn btn-info btn-accent-2">
+									<button type="submit" style="display: none;" id="step3" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Save & Finish
 									</button>
 									

@@ -74,7 +74,7 @@
 												@else 
 												readonly="readonly" 
 												@endif 
-												 class="form-control border-primary" placeholder="Ticket Payment Status" name="ticket_payment_status">
+												 class="form-control border-green" placeholder="Ticket Payment Status" name="ticket_payment_status">
 											</div>
 										</div>
 									</div>
@@ -87,7 +87,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->description}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Description" name="description">
+												 class="form-control border-green" placeholder="Description" name="description">
 											</div>
 										</div>
 									</div>	
@@ -99,7 +99,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->part_url}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Parts URL" name="part_url">
+												 class="form-control border-green" placeholder="Parts URL" name="part_url">
 											</div>
 										</div>
 									</div>								
@@ -112,7 +112,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->quantity}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Quuantity" name="quantity">
+												 class="form-control border-green" placeholder="Quuantity" name="quantity">
 											</div>
 										</div>
 										<div class="col-md-4">
@@ -122,7 +122,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->cost_price}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Cost Price" name="cost_price">
+												 class="form-control border-green" placeholder="Cost Price" name="cost_price">
 											</div>
 										</div>
 										<div class="col-md-4">
@@ -132,7 +132,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->sold_price}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Sold Price" name="sold_price">
+												 class="form-control border-green" placeholder="Sold Price" name="sold_price">
 											</div>
 										</div>
 									</div>								
@@ -154,7 +154,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->trackingnum}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Trackingnum" name="trackingnum">
+												 class="form-control border-green" placeholder="Trackingnum" name="trackingnum">
 											</div>
 										</div>
 									</div>
@@ -167,7 +167,7 @@
 													@if(isset($edit))
 													value="{{$dataRow->notes}}" 
 													@endif 
-													 class="form-control border-primary" placeholder="Notes" name="notes">
+													 class="form-control border-green" placeholder="Notes" name="notes">
 												</div>
 											</div>
 									</div>
@@ -180,7 +180,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->ordered}}" 
 												@endif 
-												 class="form-control border-primary DropDateWithformat" placeholder="Ordered" name="ordered">
+												 class="form-control border-green DropDateWithformat" placeholder="Ordered" name="ordered">
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -190,7 +190,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->received}}" 
 												@endif 
-												 class="form-control border-primary DropDateWithformat" placeholder="Received" name="received">
+												 class="form-control border-green DropDateWithformat" placeholder="Received" name="received">
 											</div>
 										</div>
 
@@ -215,15 +215,15 @@
 								</div>
 
 								<div class="form-actions center">
-									<button type="button" class="btn btn-info btn-darken-2 mr-1">
+									<button type="button" class="btn btn-green btn-darken-2 mr-1">
 										<i class="icon-cross2"></i> Cancel
 									</button>
 									@if(isset($edit))
-									<button type="submit" class="btn btn-info btn-accent-2">
+									<button type="submit" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Update
 									</button>
 									@else
-									<button type="submit" class="btn btn-info btn-accent-2">
+									<button type="submit" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Save
 									</button>
 									@endif

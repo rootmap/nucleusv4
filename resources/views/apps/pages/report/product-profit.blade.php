@@ -63,16 +63,16 @@
 	                                <div class="col-md-12">
 	                                    
 	                                    <div class="input-group" style="margin-top:32px;">
-	                                        <button type="submit" class="btn btn-info btn-darken-1 mr-1">
+	                                        <button type="submit" class="btn btn-green btn-darken-1 mr-1">
 												<i class="icon-check2"></i> Generate Report
 											</button>
-											<a href="javascript:void(0);" data-url="{{url('product/profit/excel/report')}}" class="btn btn-info btn-darken-2 mr-1 change-action">
+											<a href="javascript:void(0);" data-url="{{url('product/profit/excel/report')}}" class="btn btn-green btn-darken-2 mr-1 change-action">
 												<i class="icon-file-excel-o"></i> Generate Excel
 											</a>
-											<a href="javascript:void(0);" data-url="{{url('product/profit/pdf/report')}}" class="btn btn-info btn-darken-3 mr-1 change-action">
+											<a href="javascript:void(0);" data-url="{{url('product/profit/pdf/report')}}" class="btn btn-green btn-darken-3 mr-1 change-action">
 												<i class="icon-file-pdf-o"></i> Generate PDF
 											</a>
-											<a href="{{url('product/profit/report')}}" style="margin-left: 5px;" class="btn btn-info btn-darken-4">
+											<a href="{{url('product/profit/report')}}" style="margin-left: 5px;" class="btn btn-green btn-darken-4">
 												<i class="icon-refresh"></i> Reset
 											</a>
 	                                    </div>
@@ -105,26 +105,26 @@
 	@endif
 
 
-		<div class="col-lg-3 col-sm-12 border-right-pink bg-info bg-lighten-1 border-right-lighten-3">
+		<div class="col-lg-3 col-sm-12 border-right-pink bg-green bg-lighten-1 border-right-lighten-3">
             <div class="card-block text-xs-center">
                 <h1 class="display-6 white"><i class="icon-cart font-large-2"></i> ${{$invoice_total}}</h1>
                 <span class="white">Total Sold Quantity</span>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-12 bg-info bg-lighten-2 border-right-pink border-right-lighten-3">
+        <div class="col-lg-3 col-sm-12 bg-green bg-lighten-2 border-right-pink border-right-lighten-3">
             <div class="card-block text-xs-center">
                 <h1 class="display-6 white"><i class="icon-trending_up font-large-2"></i> ${{$cost_total}}</h1>
                 <span class="white">Total Cost</span>
             </div>
         </div>
         
-        <div class="col-lg-3 bg-info bg-lighten-3 col-sm-12">
+        <div class="col-lg-3 bg-green bg-lighten-3 col-sm-12">
             <div class="card-block text-xs-center">
                 <h1 class="display-6 white"><i class="icon-money font-large-2"></i> ${{$sold_total}}</h1>
                 <span class="white">Total Sales</span>
             </div>
         </div>
-        <div class="col-lg-3 bg-info bg-lighten-4 col-sm-12">
+        <div class="col-lg-3 bg-green bg-lighten-4 col-sm-12">
             <div class="card-block text-xs-center">
                 <h1 class="display-6 white"><i class="icon-banknote font-large-2"></i> ${{$profit_total}}</h1>
                 <span class="white">Total Profit</span>

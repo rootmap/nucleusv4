@@ -52,7 +52,7 @@
 								<td>{{$row->last_invoice_no}}</td>
 								@if(in_array('list_customer_report', $dataMenuAssigned))
 								<td>
-									<a href="{{url('customer/report/'.$row->id)}}" class="btn btn-info mr-1 change-action">
+									<a href="{{url('customer/report/'.$row->id)}}" class="btn btn-green mr-1 change-action">
 										<i class="icon-file-o"></i> View Report
 									</a>
 								</td>

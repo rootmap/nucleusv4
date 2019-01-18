@@ -39,7 +39,7 @@
 									@if(isset($edit))
 										value="{{$dataRow->name}}" 
 									@endif 
-									 id="eventRegInput1" class="form-control border-primary" placeholder="System Available Menu Name" name="name">
+									 id="eventRegInput1" class="form-control border-green" placeholder="System Available Menu Name" name="name">
 								</div>	
 								<div class="form-group">
 									<label for="eventRegInput1">Menu URL <span class="text-danger">*</span></label>
@@ -47,11 +47,11 @@
 									@if(isset($edit))
 										value="{{$dataRow->url}}" 
 									@endif 
-									 id="eventRegInput1" class="form-control border-primary" placeholder="URL" name="url">
+									 id="eventRegInput1" class="form-control border-green" placeholder="URL" name="url">
 								</div>	
 								<div class="form-group">
 									<label for="eventRegInput1">Parent / Child Menu <span class="text-danger">*</span></label>
-									<select id="eventRegInput1" class="form-control border-primary" name="menu_type">
+									<select id="eventRegInput1" class="form-control border-green" name="menu_type">
 										<option 
 										@if(isset($edit)) 
 											@if($dataRow->is_parent==0)
@@ -77,7 +77,7 @@
 								</div>
 								<div class="form-group">
 									<label for="eventRegInput1">Select Parent <span class="text-danger">*</span></label>
-									<select id="eventRegInput1" class="form-control border-primary" name="parent_id">
+									<select id="eventRegInput1" class="form-control border-green" name="parent_id">
 										<option value="0">Select Parent Menu</option>
 										@if(isset($dataTableParent))
 											@foreach($dataTableParent as $row)
@@ -98,15 +98,15 @@
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-info btn-lighten-2 mr-1">
+								<button type="button" class="btn btn-green btn-lighten-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif
@@ -151,8 +151,8 @@
 								<td>{{$row->url}}</td>
 								<td>{{$row->parent_id}}</td>
 								<td>
-                                        <a href="{{url('menu-item/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('menu-item/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-darken-2"><i class="icon-cross"></i></a>
+                                        <a href="{{url('menu-item/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('menu-item/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-darken-2"><i class="icon-cross"></i></a>
                                 </div>
 								</td>
 							</tr>

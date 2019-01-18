@@ -40,7 +40,7 @@
 									</div>
 									<div class="form-group">
 										
-										<button type="button" id="addCart" class="btn btn-info btn-accent-2">
+										<button type="button" id="addCart" class="btn btn-green btn-accent-2">
 											<i class="icon-plus"></i> Add to cart
 										</button>
 									</div>
@@ -106,7 +106,7 @@
 		<div id="invoice-footer">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 text-xs-center">
-					<button type="submit" class="btn btn-info btn-accent-3">
+					<button type="submit" class="btn btn-green btn-accent-3">
 						<i class="icon-point-right"></i>  Proceed 
 					</button>
 				</div>

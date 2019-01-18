@@ -65,16 +65,16 @@
                                 <div class="col-md-12">
                                     
                                     <div class="input-group" style="margin-top:32px;">
-                                        <button type="submit" class="btn btn-info btn-darken-1 mr-1">
+                                        <button type="submit" class="btn btn-green btn-darken-1 mr-1">
                                             <i class="icon-check2"></i> Generate Report
                                         </button>
-                                        <a href="javascript:void(0);" data-url="{{url('attendance/punch/excel')}}" class="btn btn-info btn-darken-2 mr-1 change-action">
+                                        <a href="javascript:void(0);" data-url="{{url('attendance/punch/excel')}}" class="btn btn-green btn-darken-2 mr-1 change-action">
                                             <i class="icon-file-excel-o"></i> Generate Excel
                                         </a>
-                                        <a href="javascript:void(0);" data-url="{{url('attendance/punch/pdf')}}" class="btn btn-info btn-darken-3 mr-1 change-action">
+                                        <a href="javascript:void(0);" data-url="{{url('attendance/punch/pdf')}}" class="btn btn-green btn-darken-3 mr-1 change-action">
                                             <i class="icon-file-pdf-o"></i> Generate PDF
                                         </a>
-                                        <a href="{{url('attendance/punch/report')}}" style="margin-left: 5px;" class="btn btn-info btn-darken-4">
+                                        <a href="{{url('attendance/punch/report')}}" style="margin-left: 5px;" class="btn btn-green btn-darken-4">
                                             <i class="icon-refresh"></i> Reset
                                         </a>
                                     </div>
@@ -129,7 +129,7 @@
                                 <td>{{$row->out_date}}</td>
                                 <td>{{$row->out_time}}</td>
                                 <td>{{($row->elapsed_time)}}</td>
-                                <td><a href="{{url('attendance/punch/edit/'.$row->id)}}" class="btn btn-info"><i class="icon-edit"></i> Edit</a></td>
+                                <td><a href="{{url('attendance/punch/edit/'.$row->id)}}" class="btn btn-green"><i class="icon-edit"></i> Edit</a></td>
                             </tr>
                             @endforeach
                             @else

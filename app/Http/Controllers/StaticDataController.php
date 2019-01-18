@@ -265,7 +265,7 @@ class StaticDataController extends Facade {
 
     public static function navClass() 
     {
-        $navClass="bg-purple bg-darken-1";
+        $navClass="bg-green bg-darken-1";
         $tabCount=SiteSetting::count();
         if($tabCount>0)
         {

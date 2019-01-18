@@ -81,7 +81,7 @@
 			                        		<label class="col-md-4 label-control">Device Type / Subject</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Device Type / Subject" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Device Type / Subject" 
 													@if(isset($editData))
 														value="{{$editData->device_type}}"  
 													@endif 
@@ -98,7 +98,7 @@
 			                        		<label class="col-md-4 label-control">IMEI</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="IMEI" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="IMEI" 
 													@if(isset($editData))
 														value="{{$editData->imei}}"  
 													@endif 
@@ -148,7 +148,7 @@
 			                        		<label class="col-md-4 label-control">Password</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Password" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Password" 
 													@if(isset($editData))
 														value="{{$editData->password}}"  
 													@endif 
@@ -169,7 +169,7 @@
 			                        		<label class="col-md-4 label-control">Our Cost </label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Our Cost" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Our Cost" 
 													@if(isset($editData))
 														value="{{$editData->our_cost}}"  
 													@endif 
@@ -187,7 +187,7 @@
 			                        		<label class="col-md-4 label-control">Type and Color</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Type and Color" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Type and Color" 
 													@if(isset($editData))
 														value="{{$editData->type_n_color}}"  
 													@endif 
@@ -209,7 +209,7 @@
 			                        		<label class="col-md-4 label-control">Retail Price for customer</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Retail Price for customer" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Retail Price for customer" 
 													@if(isset($editData))
 														value="{{$editData->retail_price}}"  
 													@endif 
@@ -226,7 +226,7 @@
 			                        		<label class="col-md-4 label-control">How did you hear about us ?</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="How did you hear about us ?" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="How did you hear about us ?" 
 													@if(isset($editData))
 														value="{{$editData->how_did_you_hear_about_us}}"  
 													@endif 
@@ -251,7 +251,7 @@
 			                        		<label class="col-md-4 label-control">Carrier</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Carrier" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Carrier" 
 													@if(isset($editData))
 														value="{{$editData->carrier}}"  
 													@endif 
@@ -268,7 +268,7 @@
 			                        		<label class="col-md-4 label-control">Tested After By</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Tested After By" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Tested After By" 
 													@if(isset($editData))
 														value="{{$editData->tested_after_by}}"  
 													@endif 
@@ -291,7 +291,7 @@
 			                        		<label class="col-md-4 label-control">Tech Notes</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Tech Notes" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Tech Notes" 
 													@if(isset($editData))
 														value="{{$editData->tech_notes}}"  
 													@endif 
@@ -308,7 +308,7 @@
 			                        		<label class="col-md-4 label-control">Tested Before By</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
-													<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Tested Before By" 
+													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Tested Before By" 
 													@if(isset($editData))
 														value="{{$editData->tested_before_by}}"  
 													@endif 
@@ -347,10 +347,10 @@
 
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-warning mr-1">
+	                            <button type="button" class="btn btn-green btn-lighten-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-primary">
+	                            <button type="submit" class="btn btn-green">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

@@ -16,7 +16,7 @@
                                                         <div class="input-group">
                                                             <input type="text"  name="amount_to_pay"  class="form-control" placeholder="0.00" aria-describedby="button-addon2" data-amount="">
                                                             <span class="input-group-btn" id="button-addon2">
-                                                                <button class="btn btn-info amountextract" type="button">Exact</button>
+                                                                <button class="btn btn-green amountextract" type="button">Exact</button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -46,7 +46,7 @@
                                           </style>
                                           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 button button1 authorizenet btn-group">
                                               @if(isset($authorizeNettender))
-                                                <a id="btn-payment-modal_modal_button" data-id="{{$authorizeNettender[0]->id}}" type="button" class="btn btn-info btn-lighten-1 btn-responsive margin-all-bottom-button {{$authorizeNettender[0]->tender_class}}" >
+                                                <a id="btn-payment-modal_modal_button" data-id="{{$authorizeNettender[0]->id}}" type="button" class="btn btn-green btn-lighten-1 btn-responsive margin-all-bottom-button {{$authorizeNettender[0]->tender_class}}" >
                                                     {{$authorizeNettender[0]->name}}
                                                 </a> 
                                               @endif
@@ -54,7 +54,7 @@
 
                                           <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 button button1 authorizenet btn-group">
                                               @if(isset($payPaltender))
-                                                <a id="btn-payment-modal_modal_button" data-id="{{$payPaltender[0]->id}}" type="button" class="btn btn-info btn-lighten-2 btn-responsive margin-all-bottom-button {{$payPaltender[0]->tender_class}}" >
+                                                <a id="btn-payment-modal_modal_button" data-id="{{$payPaltender[0]->id}}" type="button" class="btn btn-green btn-lighten-2 btn-responsive margin-all-bottom-button {{$payPaltender[0]->tender_class}}" >
                                                     {{$payPaltender[0]->name}}
                                                 </a> 
                                               @endif
@@ -64,7 +64,7 @@
                                           <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 button button1">
                                             @if(isset($tender))
                                               @foreach($tender as $ten)
-                                              <button id="btn-payment-modal_modal_button" data-id="{{$ten->id}}" type="button" class="btn btn-info btn-responsive margin-all-bottom-button make-payment" >
+                                              <button id="btn-payment-modal_modal_button" data-id="{{$ten->id}}" type="button" class="btn btn-green btn-responsive margin-all-bottom-button make-payment" >
                                                   {{$ten->name}}
                                               </button>  
                                               @endforeach

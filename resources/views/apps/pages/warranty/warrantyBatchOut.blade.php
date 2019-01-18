@@ -38,42 +38,42 @@
 								<td>21</td>
 								<td>2017-03-02</td>
 								<td>
-									<a href="{{url('/warrantyInvoice')}}" class="btn btn-primary"><i class="icon-paperplane"></i> See Details</a>
+									<a href="{{url('/warrantyInvoice')}}" class="btn btn-green"><i class="icon-paperplane"></i> See Details</a>
 								</td>
 							</tr>
 							<tr>
 								<td>21</td>
 								<td>2017-03-02</td>
 								<td>
-									<a href="{{url('/warrantyInvoice')}}" class="btn btn-primary"><i class="icon-paperplane"></i> See Details</a>
+									<a href="{{url('/warrantyInvoice')}}" class="btn btn-green"><i class="icon-paperplane"></i> See Details</a>
 								</td>
 							</tr>
 							<tr>
 								<td>21</td>
 								<td>2017-03-02</td>
 								<td>
-									<a href="{{url('/warrantyInvoice')}}" class="btn btn-primary"><i class="icon-paperplane"></i> See Details</a>
+									<a href="{{url('/warrantyInvoice')}}" class="btn btn-green"><i class="icon-paperplane"></i> See Details</a>
 								</td>
 							</tr>
 							<tr>
 								<td>21</td>
 								<td>2017-03-02</td>
 								<td>
-									<a href="{{url('/warrantyInvoice')}}" class="btn btn-primary"><i class="icon-paperplane"></i> See Details</a>
+									<a href="{{url('/warrantyInvoice')}}" class="btn btn-green"><i class="icon-paperplane"></i> See Details</a>
 								</td>
 							</tr>
 							<tr>
 								<td>21</td>
 								<td>2017-03-02</td>
 								<td>
-									<a href="{{url('/warrantyInvoice')}}" class="btn btn-primary"><i class="icon-paperplane"></i> See Details</a>
+									<a href="{{url('/warrantyInvoice')}}" class="btn btn-green"><i class="icon-paperplane"></i> See Details</a>
 								</td>
 							</tr>
 							<tr>
 								<td>21</td>
 								<td>2017-03-02</td>
 								<td>
-									<a href="{{url('/warrantyInvoice')}}" class="btn btn-primary"><i class="icon-paperplane"></i> See Details</a>
+									<a href="{{url('/warrantyInvoice')}}" class="btn btn-green"><i class="icon-paperplane"></i> See Details</a>
 								</td>
 							</tr>
 							

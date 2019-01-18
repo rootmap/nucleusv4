@@ -113,7 +113,7 @@
 		<div id="invoice-footer">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 text-xs-center">
-					<a href="{{url('product/stock/in/list')}}" class="btn btn-info">
+					<a href="{{url('product/stock/in/list')}}" class="btn btn-green">
 						<i class="icon-undo2"></i>  Back To Stock In Order List 
 					</a>
 				</div>

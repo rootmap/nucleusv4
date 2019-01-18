@@ -94,15 +94,15 @@
 									</div>
 								</div>
 								<div class="form-actions center">
-									<button type="button" class="btn btn-warning mr-1">
+									<button type="button" class="btn btn-green btn-accent-1 mr-1">
 										<i class="icon-cross2"></i> Cancel
 									</button>
 									@if(isset($dataRow))
-									<button type="submit" class="btn btn-primary">
+									<button type="submit" class="btn btn-green">
 										<i class="icon-check2"></i> Update
 									</button>
 									@else
-									<button type="submit" class="btn btn-primary">
+									<button type="submit" class="btn btn-green">
 										<i class="icon-check2"></i> Save
 									</button>
 									@endif

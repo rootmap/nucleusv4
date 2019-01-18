@@ -78,7 +78,7 @@
 SendTicketComment('vid', this.value);" id="Invalue" class="form-control" placeholder="Reply Message" required>
                           <input type="hidden" id="videoid" name="ticketid" value="{{$data->id}}">
                           <span class="input-group-btn" id="button-addon2">
-                            <button class="btn btn-warning reply" type="button">
+                            <button class="btn btn-green reply" type="button">
                               <i class="icon-bubbles2"></i> Send 
                             </button>
                           </span>

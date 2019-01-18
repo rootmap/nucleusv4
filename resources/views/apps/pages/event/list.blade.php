@@ -44,8 +44,8 @@
                                 <td>{{($row->event_end_time)}}</td>
                              
                                 <td>
-                                        <a href="{{url('event/calendar/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('event/calendar/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a>
+                                        <a href="{{url('event/calendar/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('event/calendar/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green"><i class="icon-cross"></i></a>
                                 </div>
                                 </td>
                             </tr>

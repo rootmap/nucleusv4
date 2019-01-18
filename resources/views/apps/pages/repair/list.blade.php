@@ -48,7 +48,7 @@
 	                                <td>{{number_format($inv->price,2)}}</td>
 	                                <td>
 	                                	@if($inv->payment_status=="Pending")
-	                                		<a href="{{url('pos/repair/'.$inv->id)}}" class="btn btn-info"> {{number_format($inv->price,2)}} To POS</i> </a>
+	                                		<a href="{{url('pos/repair/'.$inv->id)}}" class="btn btn-green"> {{number_format($inv->price,2)}} To POS</i> </a>
 	                                	@else
 	                                		Paid
 	                                	@endif
@@ -56,7 +56,7 @@
 	                                <td>{{$inv->invoice_id}}</td>
 	                                <td>
 	                                	<span class="dropdown">
-                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
+                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-green dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
                                         <span aria-labelledby="btnSearchDrop4" class="dropdown-menu mt-1 dropdown-menu-right">
                                             <a href="{{url('repair/view/'.$inv->id)}}" title="View Invoice" class="dropdown-item"><i class="icon-file-text"></i> View Repair Info</a>
                                             <a href="{{url('repair/print/'.$inv->id)}}" title="Print" class="dropdown-item"><i class="icon-printer"></i> Print</a>

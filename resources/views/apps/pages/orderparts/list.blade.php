@@ -52,12 +52,12 @@
 								<td>{{$row->order_status}}</td>
 								<td>
 									
-                                        <a href="{{url('special/parts/'.$row->id.'/edit')}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
+                                        <a href="{{url('special/parts/'.$row->id.'/edit')}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
                                         <a title="Delete" class="btn btn-sm  btn-accent-2">
                                         	<form method="POST" action="{{url('special/parts/'.$row->id)}}">
                                         		{{ method_field('DELETE') }}
                                         		{{ csrf_field() }}
-                                        		<button type="submit" class="btn btn-sm btn-outline-info btn-accent-2"><i class="icon-cross"></i></button>	
+                                        		<button type="submit" class="btn btn-sm btn-outline-green btn-accent-2"><i class="icon-cross"></i></button>	
                                         	</form>
                                         </a>
                                         {{-- <a href="{{url('special/parts/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-accent-2"><i class="icon-cross"></i></a> --}}

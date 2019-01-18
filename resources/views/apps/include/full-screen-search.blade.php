@@ -63,9 +63,9 @@
               <div class="media">
                 <div class="media-body">
                   <h5 class="media-heading"><a href="#">Application UI/UX</a></h5>
-                  <progress value="100" max="100" class="progress progress-xs progress-info mb-0">100%</progress>
+                  <progress value="100" max="100" class="progress progress-xs progress-green mb-0">100%</progress>
                   <p class="mb-0">Cetus scelerisque ante sollicitudin commodo.</p>
-                  <p><span class="tag tag-pill tag-info">Completed</span><span class="tag tag-default tag-default float-sm-right">100% Completed</span></p>
+                  <p><span class="tag tag-pill tag-green">Completed</span><span class="tag tag-default tag-default float-sm-right">100% Completed</span></p>
                 </div>
               </div>
               <div class="media">
@@ -97,7 +97,7 @@
                 <div class="media-body">
                   <h5 class="media-heading"><a href="#">Remove TODO comments</a></h5>
                   <p class="mb-0">Mulullametu vel  scelerisque ante sollicitudin commodo.</p>
-                  <p><span class="tag tag-pill tag-info">Resolved</span><span class="tag tag-default tag-default tag-default tag-icon float-sm-right"><i class="icon-calendar5"></i> 25 January, 16</span></p>
+                  <p><span class="tag tag-pill tag-green">Resolved</span><span class="tag tag-default tag-default tag-default tag-icon float-sm-right"><i class="icon-calendar5"></i> 25 January, 16</span></p>
                 </div>
               </div>
             </div>

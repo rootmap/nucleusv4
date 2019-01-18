@@ -61,11 +61,11 @@
                                     </div>
                                 </div>
                                 <div class="form-actions center">
-                                    <button type="button" class="btn btn-info btn-lighten-2 mr-1 close-authorize-payment-modal">
+                                    <button type="button" class="btn btn-green btn-lighten-2 mr-1 close-authorize-payment-modal">
                                         <i class="icon-cross2"></i> Close 
                                     </button>
                                     
-                                    <button type="button" class="btn btn-info btn-darken-2 card-pay-authorizenet">
+                                    <button type="button" class="btn btn-green btn-darken-2 card-pay-authorizenet">
                                         <i class="icon-check2"></i> Capture Payment
                                     </button>
                                     

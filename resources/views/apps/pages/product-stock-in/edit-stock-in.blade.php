@@ -104,7 +104,7 @@
 													<input type="number" name="quantity[]" class="form-control typed_quantity" id="number" value="{{$row->quantity}}">
 												</td>
 												<td width="50">
-													<button type="button" data-id="1" class="btn btn-sm btn-info close-row" onclick="removeRowCart(<?=$dataLoop?>)">
+													<button type="button" data-id="1" class="btn btn-sm btn-green close-row" onclick="removeRowCart(<?=$dataLoop?>)">
 														<i class="icon-cross"></i>
 													</button>
 												</td>
@@ -138,7 +138,7 @@
 		<div id="invoice-footer">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 text-xs-center">
-					<button type="button" id="invoiceSubmit" class="btn btn-info">
+					<button type="button" id="invoiceSubmit" class="btn btn-green">
 						<i class="icon-download"></i>  Modify Stockin Order Detail 
 					</button>
 				</div>

@@ -42,11 +42,11 @@
 									</div>
 									<div class="form-group">
 										
-										<button type="button" id="addCart" class="btn btn-info btn-darken-3">
+										<button type="button" id="addCart" class="btn btn-green btn-darken-3">
 											<i class="icon-plus"></i> Add to cart
 										</button>
 
-										<a href="{{url('pos')}}" style="float: right;" class="btn btn-info btn-darken-1">
+										<a href="{{url('pos')}}" style="float: right;" class="btn btn-green btn-darken-1">
 											<i class="icon-stack-2"></i> Change Sales View
 										</a>
 									</div>
@@ -112,7 +112,7 @@
 		<div id="invoice-footer">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 text-xs-center">
-					<button type="submit" class="btn btn-info">
+					<button type="submit" class="btn btn-green">
 						<i class="icon-point-right"></i>  Proceed 
 					</button>
 				</div>

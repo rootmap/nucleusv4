@@ -43,7 +43,7 @@
                                 <td>{{$row->customer_name}}</td>
                                 <td>{{$row->total_amount}}</td>
                                 <td>
-                                    <a href="{{url('/warranty/invoice/'.$row->id)}}" class="btn btn-info"><i class="icon-paperplane"></i> Warranty Invoice</a>
+                                    <a href="{{url('/warranty/invoice/'.$row->id)}}" class="btn btn-green"><i class="icon-paperplane"></i> Warranty Invoice</a>
                                 </td>
                             </tr>
                             @endforeach

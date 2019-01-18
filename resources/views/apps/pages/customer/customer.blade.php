@@ -38,13 +38,13 @@
 									@if(isset($edit))
 										value="{{$dataRow->name}}" 
 									@endif 
-									 id="eventRegInput1" class="form-control border-primary" placeholder="Customer Name" name="name">
+									 id="eventRegInput1" class="form-control border-green" placeholder="Customer Name" name="name">
 								</div>
 
 
 									<div class="form-group">
 										<label for="eventRegInput2">Address <span class="text-danger">*</span></label>
-										<input type="text" id="text" class="form-control border-primary" 
+										<input type="text" id="text" class="form-control border-green" 
 										@if(isset($edit))
 										value="{{$dataRow->address}}" 
 										@endif 
@@ -57,7 +57,7 @@
 										@if(isset($edit))
 										value="{{$dataRow->phone}}" 
 										@endif 
-										id="tel" class="form-control border-primary" placeholder="1-(555)-555-5555" name="phone">
+										id="tel" class="form-control border-green" placeholder="1-(555)-555-5555" name="phone">
 									</div>
 								
 									<div class="form-group">
@@ -66,22 +66,22 @@
 										@if(isset($edit))
 										value="{{$dataRow->email}}" 
 										@endif 										
-										id="eventRegInput4" class="form-control border-primary" placeholder="Email Address" name="email">
+										id="eventRegInput4" class="form-control border-green" placeholder="Email Address" name="email">
 									</div>
 
 							
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-info btn-darken-2 mr-1">
+								<button type="button" class="btn btn-green btn-darken-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-accent-2">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-accent-2">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif
@@ -130,8 +130,8 @@
 								<td>{{$row->phone}}</td>
 								<td>{{$row->email}}</td>
 								<td>
-                                        <a href="{{url('customer/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('customer/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-darken-1"><i class="icon-cross"></i></a>
+                                        <a href="{{url('customer/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('customer/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-darken-1"><i class="icon-cross"></i></a>
 								</td>
 							</tr>
 							@endforeach

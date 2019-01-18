@@ -21,7 +21,7 @@
             <div class="form-group row">
                 <label class="col-md-4 label-control" for="projectinput1">&nbsp;</label>
                 <div class="col-md-8">
-                    <button type="button" class="btn btn-info apply-tax">
+                    <button type="button" class="btn btn-green apply-tax">
                         <i class="icon-check2"></i> Apply Tax
                     </button>
                 </div>

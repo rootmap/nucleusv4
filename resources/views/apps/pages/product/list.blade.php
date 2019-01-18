@@ -60,10 +60,10 @@
                                             <button type="button" data-id="{{$row->barcode}}" class="btn btn-secondary btn-sm barcodeCreate" id="barcodeCreateDD"><i class="icon-barcode"></i></button>
                                         @endif
                                         @if(in_array('Product_List_Edit', $dataMenuAssigned)) 
-                                            <a href="{{url('product/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
+                                            <a href="{{url('product/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
                                         @endif
                                         @if(in_array('Product_List_Delete', $dataMenuAssigned)) 
-                                            <a  href="{{url('product/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-accent-2"><i class="icon-cross"></i></a>
+                                            <a  href="{{url('product/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-accent-2"><i class="icon-cross"></i></a>
                                         @endif
 
                                 </td>

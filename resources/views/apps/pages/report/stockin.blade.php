@@ -51,7 +51,7 @@
                                          @if(!empty($order_no))
                                                 value="{{$order_no}}"  
                                          @endif 
-                                         type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Order ID" name="order_no">
+                                         type="text" id="eventRegInput1" class="form-control border-green" placeholder="Order ID" name="order_no">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -74,16 +74,16 @@
                                     <div class="col-md-12">
                                         
                                         <div class="input-group" style="margin-top:32px;">
-                                            <button type="submit" class="btn btn-info btn-darken-1 mr-1">
+                                            <button type="submit" class="btn btn-green btn-darken-1 mr-1">
                                                 <i class="icon-check2"></i> Generate Report
                                             </button>
-                                            <a href="javascript:void(0);" data-url="{{url('product/stock/in/excel/report')}}" class="btn btn-info btn-darken-2 mr-1 change-action">
+                                            <a href="javascript:void(0);" data-url="{{url('product/stock/in/excel/report')}}" class="btn btn-green btn-darken-2 mr-1 change-action">
                                                 <i class="icon-file-excel-o"></i> Generate Excel
                                             </a>
-                                            <a href="javascript:void(0);" data-url="{{url('product/stock/in/pdf/report')}}" class="btn btn-info btn-darken-3 mr-1 change-action">
+                                            <a href="javascript:void(0);" data-url="{{url('product/stock/in/pdf/report')}}" class="btn btn-green btn-darken-3 mr-1 change-action">
                                                 <i class="icon-file-pdf-o"></i> Generate PDF
                                             </a>
-                                            <a href="{{url('product/stock/in/report')}}" style="margin-left: 5px;" class="btn btn-info btn-darken-4">
+                                            <a href="{{url('product/stock/in/report')}}" style="margin-left: 5px;" class="btn btn-green btn-darken-4">
                                                 <i class="icon-refresh"></i> Reset
                                             </a>
                                         </div>
@@ -152,7 +152,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-12 border-right-pink bg-info border-right-lighten-3">
+        <div class="col-lg-3 col-sm-12 border-right-pink bg-green border-right-lighten-3">
             <div class="card-block text-xs-center">
                 <h1 class="display-3 white"><i class="icon-stack font-large-2"></i> {{$total_quantity}}</h1>
                 <span class="white">Total Stockin Quantity</span>

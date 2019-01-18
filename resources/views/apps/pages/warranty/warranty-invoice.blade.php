@@ -51,7 +51,7 @@
 		                        </div>	
 								<div class="form-actions center">
 									
-									<button type="button" class="btn btn-info add_in_batch">
+									<button type="button" class="btn btn-green add_in_batch">
 										<i class="icon-plus"></i> Save
 									</button>
 								</div>

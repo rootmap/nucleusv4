@@ -72,10 +72,10 @@
 
         <div class="form-group row">
           <div class="col-md-12" style="text-align: center;">
-            <button type="button" class="btn btn-info btn-accent-3 btn-large closeStore">
+            <button type="button" class="btn btn-green btn-accent-3 btn-large closeStore">
               <i class="icon-check2"></i> Close Drawer 
             </button>
-            <button type="button" class="btn btn-info btn-darken-3 btn-large closePrintStore">
+            <button type="button" class="btn btn-green btn-darken-3 btn-large closePrintStore">
               <i class="icon-ios-printer-outline"></i> Print & Close Drawer
             </button>
             <br /><br />

@@ -75,7 +75,7 @@ if(!empty($objSite))
         <div class="navbar-header">
 
             <!-- Start brand -->
-            <a id="tour-1" style="padding-bottom: 5px;" class="navbar-brand bg-info border-bottom-info" href="{{url('dashboard')}}">
+            <a id="tour-1" style="padding-bottom: 5px;" class="navbar-brand bg-green border-bottom-green" href="{{url('dashboard')}}">
                 <img class="logo" height="45" src="{{asset('images/logo/logo-red-bl.png')}}" alt="NucleusV4 Logo"/>
                 <!-- <strong>DASHBOARD</strong> -->
             </a><!-- /.navbar-brand -->

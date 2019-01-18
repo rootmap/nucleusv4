@@ -21,7 +21,7 @@
                         </div>                          
                         
                     <div class="form-actions center save-new-customer-parent">
-                        <button type="submit" class="btn btn-info save-new-customer">
+                        <button type="submit" class="btn btn-green save-new-customer">
                             <i class="icon-barcode"></i> Genarate Barcode
                         </button>
                     </div>

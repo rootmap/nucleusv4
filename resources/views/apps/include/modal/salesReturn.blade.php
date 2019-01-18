@@ -68,7 +68,7 @@
               <div class="form-group row">
                 <label class="col-md-4 label-control" for="Description">&nbsp;</label>
                 <div class="col-md-8">
-                  <button type="button" class="btn btn-info saveSalesReturnSave">
+                  <button type="button" class="btn btn-green saveSalesReturnSave">
                       <i class="icon-check2"></i> Save Sales Return
                   </button>
                 </div>

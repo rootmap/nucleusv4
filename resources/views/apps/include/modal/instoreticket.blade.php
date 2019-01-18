@@ -165,7 +165,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="projectinput2">Additional Info</label>
+                        <label for="projectinput2">Additional green</label>
                         <div class="form-control" style="clear: both; display: block; height: 150px; overflow-x: auto;">
                             @if(isset($ticketAsset))
                               @foreach($ticketAsset as $rep)
@@ -189,19 +189,19 @@
                 <div class="clearfix"></div>
                 <hr>
                 <div class="col-md-8">
-                  <button type="button" class="btn btn-info" id="ticketstep1">
+                  <button type="button" class="btn btn-green" id="ticketstep1">
                       <i class="icon-step-forward"></i> Next
                   </button>
                   
-                  <button type="button" class="btn btn-info" id="ticketstep2_to_ticketstep1" style="display: none;">
+                  <button type="button" class="btn btn-green" id="ticketstep2_to_ticketstep1" style="display: none;">
                       <i class="icon-step-backward"></i> Back
                   </button>
 
-                  <button type="button" class="btn btn-info" id="ticketstep2" style="display: none;">
+                  <button type="button" class="btn btn-green" id="ticketstep2" style="display: none;">
                       <i class="icon-step-forward"></i> Finish &amp; Add to Cart
                   </button>
 
-                  <button type="reset" class="btn btn-info" id="reset_ticket" style="display: none; ">
+                  <button type="reset" class="btn btn-green" id="reset_ticket" style="display: none; ">
                       <i class="icon-step-forward"></i> Reset
                   </button>
                 </div>

@@ -47,15 +47,15 @@
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-info btn-lighten-2 mr-1">
+								<button type="button" class="btn btn-green btn-lighten-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif
@@ -94,8 +94,8 @@
 								<td>{{$row->id}}</td>
 								<td>{{$row->name}}</td>
 								<td>
-                                        <a href="{{url('role/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('role/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-darken-1"><i class="icon-cross"></i></a>
+                                        <a href="{{url('role/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('role/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-darken-1"><i class="icon-cross"></i></a>
                                 </div>
 								</td>
 							</tr>

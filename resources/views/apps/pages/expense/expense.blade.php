@@ -39,7 +39,7 @@
 										<span>Select Expense Head</span> 
 										<span class="text-danger">*</span>
 									</label>
-									<select name="expense_id" class="form-control border-primary expense_id">
+									<select name="expense_id" class="form-control border-green expense_id">
 										<option value="0">Select Expense Head</option>
 										<option value="00">Create New Expense Head</option>
 										@if(isset($expenseHead))
@@ -54,7 +54,7 @@
 											@endforeach
 										@endif
 									</select>
-									<input type="text" style="display: none;" id="text" class="form-control border-primary expense_head_name" 
+									<input type="text" style="display: none;" id="text" class="form-control border-green expense_head_name" 
 										@if(isset($edit))
 										value="{{$dataRow->expense_head_name}}" 
 										@endif 
@@ -64,7 +64,7 @@
 
 									<div class="form-group">
 										<label for="eventRegInput2">Expense Description <span class="text-danger">*</span></label>
-										<input type="text" id="text" class="form-control border-primary" 
+										<input type="text" id="text" class="form-control border-green" 
 										@if(isset($edit))
 										value="{{$dataRow->expense_description}}" 
 										@endif 
@@ -79,7 +79,7 @@
 										@else 
 										value="{{date('Y-m-d')}}" 
 										@endif 
-										 class="form-control border-primary DropDateWithformat" placeholder="Expense Date" name="expense_date">
+										 class="form-control border-green DropDateWithformat" placeholder="Expense Date" name="expense_date">
 									</div>
 								
 									<div class="form-group">
@@ -88,25 +88,25 @@
 											@if(isset($edit))
 												value="{{$dataRow->expense_amount}}" 
 											@endif 										
-										id="eventRegInput4" value="0" class="form-control border-primary" placeholder="Expense Amount" name="expense_amount">
+										id="eventRegInput4" value="0" class="form-control border-green" placeholder="Expense Amount" name="expense_amount">
 									</div>
 
 							
 							</div>
 
 							<div class="form-actions center">
-								<a href="{{url('expense/voucher/report')}}" class="btn btn-info mr-1">
+								<a href="{{url('expense/voucher/report')}}" class="btn btn-green mr-1">
 									<i class="icon-android-share"></i> Back to Expense Report
 								</a>
-								<button type="reset" class="btn btn-info btn-darken-2 mr-1">
+								<button type="reset" class="btn btn-green btn-accent-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-accent-2">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif

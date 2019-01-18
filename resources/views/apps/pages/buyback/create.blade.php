@@ -10,7 +10,7 @@
 				<div class="card-header">
 					<h4 class="card-title" id="basic-layout-card-center">
 						@if(isset($edit))
-						<i class="icon-random"></i> Edit Buyback Info
+						<i class="icon-random"></i> Edit Buyback green
 						@else
 						<i class="icon-random"></i> Create New Buyback
 						@endif
@@ -66,7 +66,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->model}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Model" name="model">
+												 class="form-control border-green" placeholder="Model" name="model">
 											</div>
 										</div>
 									</div>
@@ -79,7 +79,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->carrier}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Carrier" name="carrier">
+												 class="form-control border-green" placeholder="Carrier" name="carrier">
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -89,7 +89,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->imei}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="IMEI" name="imei">
+												 class="form-control border-green" placeholder="IMEI" name="imei">
 											</div>
 										</div>
 									</div>								
@@ -103,7 +103,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->type_and_color}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Type and Color" name="type_and_color">
+												 class="form-control border-green" placeholder="Type and Color" name="type_and_color">
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -113,7 +113,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->memory}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Memory" name="memory">
+												 class="form-control border-green" placeholder="Memory" name="memory">
 											</div>
 										</div>
 									</div>								
@@ -149,7 +149,7 @@
 													@if(isset($edit))
 													value="{{$dataRow->condition}}" 
 													@endif 
-													 class="form-control border-primary" placeholder="Condition" name="condition">
+													 class="form-control border-green" placeholder="Condition" name="condition">
 											</div>
 										</div>
 									</div>
@@ -163,7 +163,7 @@
 												@if(isset($edit))
 												value="{{$dataRow->price}}" 
 												@endif 
-												 class="form-control border-primary" placeholder="Price" name="price">
+												 class="form-control border-green" placeholder="Price" name="price">
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -205,15 +205,15 @@
 								</div>
 
 								<div class="form-actions center">
-									<button type="button" class="btn btn-info btn-darken-2 mr-1">
+									<button type="button" class="btn btn-green btn-darken-2 mr-1">
 										<i class="icon-cross2"></i> Cancel
 									</button>
 									@if(isset($edit))
-									<button type="submit" class="btn btn-info btn-accent-2">
+									<button type="submit" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Update
 									</button>
 									@else
-									<button type="submit" class="btn btn-info btn-accent-2">
+									<button type="submit" class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Save
 									</button>
 									@endif

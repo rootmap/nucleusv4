@@ -36,7 +36,7 @@
                         </div>                                                
                     </div>
                     <div class="form-actions center save-new-customer-parent">
-                        <button type="button" class="btn btn-info save-new-customer">
+                        <button type="button" class="btn btn-green save-new-customer">
                             <i class="icon-check2"></i> Save Customer
                         </button>
                     </div>

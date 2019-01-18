@@ -6,7 +6,7 @@
         <div class="card border-grey border-lighten-3 px-2 py-2 m-0">
             <div class="card-header no-border pb-0">
                 <div class="card-title text-xs-center">
-                    <img src="{{url('images/logo/full-logo.png')}}" alt="Simple Retail Pos logo">
+                    <img height="60" src="{{url('images/logo/logo-red-bl.png')}}" alt="Simple Retail Pos logo">
                 </div>
                 <h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2"><span>We will send you a link to reset your password.</span></h6>
             </div>
@@ -19,7 +19,7 @@
                                 <i class="icon-mail6"></i>
                             </div>
                         </fieldset>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="icon-lock4"></i> Recover Password</button>
+                        <button type="submit" class="btn btn-green btn-lg btn-block"><i class="icon-lock4"></i> Recover Password</button>
                     </form>
                 </div>
             </div>

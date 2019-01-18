@@ -41,12 +41,12 @@
 												@if(isset($edit))
 													value="{{$edit->name}}" 
 												@endif 
-												 id="eventRegInput1" class="form-control border-primary" value="{{Auth::user()->name}}" readonly="" placeholder="Full name" name="name">
+												 id="eventRegInput1" class="form-control border-green" value="{{Auth::user()->name}}" readonly="" placeholder="Full name" name="name">
 				                        </div>
 				                        <div class="form-group">
 			                            	<label for="projectinput1">Subject <span style="color: red; font-size: 16px;">*</span></label>
 				                            	
-												<input type="text" id="eventRegInput2" class="form-control border-primary" placeholder="Subject" name="subject"  @if(isset($edit)) value="{{$edit->subject}}" @endif>
+												<input type="text" id="eventRegInput2" class="form-control border-green" placeholder="Subject" name="subject"  @if(isset($edit)) value="{{$edit->subject}}" @endif>
 				                        </div>
 				                        <div class="form-group">
 			                            	<label for="projectinput1">Department <span style="color: red; font-size: 16px;">*</span></label>
@@ -74,7 +74,7 @@
 			                            	<label for="projectinput1">Email </label>
 				                            	<input type="email" 
 												
-												 id="eventRegInput6" readonly="" class="form-control border-primary" value="{{Auth::user()->email}}" placeholder="Password" name="email">
+												 id="eventRegInput6" readonly="" class="form-control border-green" value="{{Auth::user()->email}}" placeholder="Password" name="email">
 				                        </div>
 				                        
 										<div class="form-group">
@@ -128,11 +128,11 @@
 		                        
 
 							<div class="form-actions center">
-								<button type="reset" class="btn btn-warning mr-1">
+								<button type="reset" class="btn btn-green btn-accent-1 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-green">
 									<i class="icon-check2"></i> Save
 								</button>
 							

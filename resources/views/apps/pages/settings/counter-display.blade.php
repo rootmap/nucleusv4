@@ -44,7 +44,7 @@
 									@if(isset($edit))
 										value="{{$dataRow->user_pc_ip}}" 
 									@endif 
-									 id="eventRegInput1" class="form-control border-primary" placeholder="Counter IP Address" name="user_pc_ip">
+									 id="eventRegInput1" class="form-control border-green" placeholder="Counter IP Address" name="user_pc_ip">
 								</div>	
 
 								<div class="form-group">
@@ -53,20 +53,20 @@
 									@if(isset($edit))
 										value="{{$dataRow->user_pc_name}}" 
 									@endif 
-									 id="eventRegInput1" class="form-control border-primary" placeholder="Counter Name" name="user_pc_name">
+									 id="eventRegInput1" class="form-control border-green" placeholder="Counter Name" name="user_pc_name">
 								</div>							
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-info btn-lighten-2 mr-1">
+								<button type="button" class="btn btn-green btn-lighten-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif
@@ -112,10 +112,10 @@
 								<td>{{$row->user_pc_name}}</td>
 								<td>
                                         @if(in_array('Counter_Display_Info_List_Edit', $dataMenuAssigned)) 
-                                        <a href="{{url('counter/display/add/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
+                                        <a href="{{url('counter/display/add/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
                                         @endif
                                         @if(in_array('Counter_Display_Info_List_Delete', $dataMenuAssigned)) 
-                                        <a  href="{{url('counter/display/add/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-darken-2"><i class="icon-cross"></i></a>
+                                        <a  href="{{url('counter/display/add/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-darken-2"><i class="icon-cross"></i></a>
                                         @endif
 
                                 </div>

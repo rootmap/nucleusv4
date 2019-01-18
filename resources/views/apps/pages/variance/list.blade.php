@@ -48,7 +48,7 @@
                                 <td>{{$row->total_variance_quantity}}</td>
                                 <td>
                                     <span class="dropdown">
-                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
+                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-green dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
                                         <span aria-labelledby="btnSearchDrop4" class="dropdown-menu mt-1 dropdown-menu-right">
                                             
                                             @if(in_array('Variance_List_View_Detail', $dataMenuAssigned)) 

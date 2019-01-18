@@ -44,7 +44,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->name}}" 
                                         @endif 
-                                        type="text" id="name" class="form-control border-primary" placeholder="Name"  name="name">
+                                        type="text" id="name" class="form-control border-green" placeholder="Name"  name="name">
 									</div>	
 
 									<div class="form-group col-md-6 mb-2">
@@ -53,7 +53,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->email}}" 
                                         @endif 
-                                        type="text"  class="form-control border-primary" placeholder="Email"  name="email">
+                                        type="text"  class="form-control border-green" placeholder="Email"  name="email">
 									</div>
 								
 									<div class="form-group col-md-6 mb-2">
@@ -62,7 +62,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->phone}}" 
                                         @endif 
-                                        type="text"  class="form-control border-primary" placeholder="Phone Number" name="phone">
+                                        type="text"  class="form-control border-green" placeholder="Phone Number" name="phone">
 									</div>
 
 
@@ -72,7 +72,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->address}}" 
                                         @endif 
-                                        type="text"  class="form-control border-primary" placeholder="Address"  name="address">
+                                        type="text"  class="form-control border-green" placeholder="Address"  name="address">
 									</div>
 
 
@@ -86,7 +86,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->city}}" 
                                         @endif 
-                                        type="text" id="city" class="form-control border-primary" placeholder="City" name="city">
+                                        type="text" id="city" class="form-control border-green" placeholder="City" name="city">
 									</div>	
 
 									<div class="form-group col-md-6 mb-2">
@@ -95,7 +95,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->state}}" 
                                         @endif 
-                                        type="text"  class="form-control border-primary" placeholder="State/Country "  name="state">
+                                        type="text"  class="form-control border-green" placeholder="State/Country "  name="state">
 									</div>
 								
 									<div class="form-group col-md-6 mb-2">
@@ -104,7 +104,7 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->zip}}" 
                                         @endif 
-                                        type="text"  class="form-control border-primary" placeholder="Zip/Postal Code"  name="zip">
+                                        type="text"  class="form-control border-green" placeholder="Zip/Postal Code"  name="zip">
 									</div>
 
 
@@ -114,13 +114,13 @@
                                         @if(isset($dataRow))
                                         value="{{$dataRow->website}}" 
                                         @endif 
-                                        type="text"  class="form-control border-primary" placeholder="Website"  name="website">
+                                        type="text"  class="form-control border-green" placeholder="Website"  name="website">
 									</div>
 
 
 									<div class="form-group col-md-6 mb-2">
 										<label for="vendorRegInputNotes">Notes<span class="text-danger">*</span></label>
-										<textarea  class="form-control border-primary" placeholder="Notes"  name="notes">@if(isset($dataRow)){{$dataRow->notes}}@endif 
+										<textarea  class="form-control border-green" placeholder="Notes"  name="notes">@if(isset($dataRow)){{$dataRow->notes}}@endif 
                                         </textarea> 
 									</div>
 
@@ -131,15 +131,15 @@
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-info btn-darken-2 mr-1">
+								<button type="button" class="btn btn-green btn-darken-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($dataRow))
-                                <button type="submit" class="btn btn-info btn-accent-2">
+                                <button type="submit" class="btn btn-green btn-accent-2">
                                     <i class="icon-check2"></i> Update
                                 </button>
                                 @else
-                                <button type="submit" class="btn btn-info btn-accent-2">
+                                <button type="submit" class="btn btn-green btn-accent-2">
                                     <i class="icon-check2"></i> Save
                                 </button>
                                 @endif

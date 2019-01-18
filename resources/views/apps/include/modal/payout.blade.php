@@ -26,7 +26,7 @@
               <div class="form-group row">
                 <label class="col-md-4 label-control" for="Description">&nbsp;</label>
                 <div class="col-md-8">
-                  <button type="button" class="btn btn-info savePayout">
+                  <button type="button" class="btn btn-green savePayout">
                       <i class="icon-check2"></i> Save
                   </button>
                 </div>

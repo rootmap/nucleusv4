@@ -30,7 +30,7 @@
 	                        		<label class="col-md-4 label-control">POS Display Item</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="POS Display Item" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="POS Display Item" 
 											@if(isset($ps))
 												value="{{$ps->pos_item}}"  
 											@endif 
@@ -44,7 +44,7 @@
 	                        		<label class="col-md-4 label-control">Sales Tax Rate (%)</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Sales Tax Rate(%)" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Sales Tax Rate(%)" 
 											@if(isset($ps))
 												value="{{$ps->sales_tax}}"  
 											@endif 
@@ -58,7 +58,7 @@
 	                        		<label class="col-md-4 label-control">Sales Part Tax Rate (%)</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Sales Part Tax Rate(%)" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Sales Part Tax Rate(%)" 
 											@if(isset($ps))
 												value="{{$ps->sales_part_tax?$ps->sales_part_tax:0}}"  
 											@endif 
@@ -72,7 +72,7 @@
 	                        		<label class="col-md-4 label-control">Discount  (%)</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Default Discount" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Default Discount" 
 											@if(isset($ps))
 												value="{{$ps->sales_discount}}"  
 											@endif 
@@ -86,7 +86,7 @@
 	                			<div class="form-group row last">
 	                        		<label class="col-md-4 label-control">Discount Type</label>
 	                        		<div class="col-md-7">
-										<select name="discount_type" class="form-control border-primary">
+										<select name="discount_type" class="form-control border-green">
 											<option 
 											@if(isset($ps))
 												@if($ps->discount_type==1)
@@ -148,10 +148,10 @@
 
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-info btn-lighten-2 mr-1">
+	                            <button type="button" class="btn btn-green btn-lighten-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-info btn-darken-2">
+	                            <button type="submit" class="btn btn-green btn-darken-2">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

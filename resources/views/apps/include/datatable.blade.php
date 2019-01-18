@@ -18,7 +18,7 @@
 			padding-right: 10px;
 		}
 
-		div.dataTables_info{
+		div.dataTables_green{
 			padding-left: 10px;
 		}
 

@@ -25,7 +25,7 @@
 	                        		<label class="col-md-4 label-control">Customer Name</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-info" placeholder="Customer Name" readonly="readonly" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Customer Name" readonly="readonly" 
 											@if(isset($ps))
 												value="{{$ps->customer_name}}"  
 											@endif 
@@ -39,7 +39,7 @@
 	                        		<label class="col-md-4 label-control">Sales Invoice ID</label>
 	                        		<div class="col-md-4">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-info" placeholder="Sales Invoice ID"  readonly="readonly" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Sales Invoice ID"  readonly="readonly" 
 											@if(isset($ps))
 												value="{{$ps->invoice_id}}"  
 											@endif 
@@ -53,7 +53,7 @@
 	                        		<label class="col-md-4 label-control">Sales Amount</label>
 	                        		<div class="col-md-4">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-info" placeholder="Total Amount"  readonly="readonly" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Total Amount"  readonly="readonly" 
 											@if(isset($ps))
 												value="{{number_format($ps->total_amount,2)}}"  
 											@endif 
@@ -67,7 +67,7 @@
 	                			<div class="form-group row last">
 	                        		<label class="col-md-4 label-control">Return Amount</label>
 	                        		<div class="col-md-4">
-										<input type="text" id="eventRegInput1" class="form-control border-info" placeholder="Return Amount" name="return_amount">
+										<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Return Amount" name="return_amount">
 									</div>
 		                        </div>
 							</div>
@@ -76,16 +76,16 @@
 	                			<div class="form-group row last">
 	                        		<label class="col-md-4 label-control">Sales Return Note</label>
 	                        		<div class="col-md-7">
-										<input type="text" id="eventRegInput1" class="form-control border-info" placeholder="Sales Return Note" name="sales_return_note">
+										<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Sales Return Note" name="sales_return_note">
 									</div>
 		                        </div>
 							</div>
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-info btn-darken-2 mr-1">
+	                            <button type="button" class="btn btn-green btn-accent-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-info btn-accent-2">
+	                            <button type="submit" class="btn btn-green btn-darken-2">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

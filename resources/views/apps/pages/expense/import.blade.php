@@ -36,7 +36,7 @@
 	                            <button type="button" class="btn btn-warning mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-primary">
+	                            <button type="submit" class="btn btn-green">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                            <a href="{{url('file/simple_file_customer.xlsx')}}" class="btn btn-success mr-1 change-action">

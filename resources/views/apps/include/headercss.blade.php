@@ -67,3 +67,9 @@
 	    display: block;
 	}
 </style>
+
+<link rel="stylesheet" href="{{url('rtmat/style.css')}}">
+<!--[if lt IE 8]><!-->
+<link rel="stylesheet" href="{{url('rtmat/ie7/ie7.css')}}">
+
+

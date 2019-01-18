@@ -91,7 +91,7 @@
 
 								<div class="form-actions center">
 									
-									<button type="submit"  class="btn btn-info btn-accent-2">
+									<button type="submit"  class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Sent To Store
 									</button>
 
@@ -153,7 +153,7 @@
 
 								<div class="form-actions center">
 									
-									<button type="submit"  class="btn btn-info btn-accent-2">
+									<button type="submit"  class="btn btn-green btn-accent-2">
 										<i class="icon-check2"></i> Clear Store Data
 									</button>
 

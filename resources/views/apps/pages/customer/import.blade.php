@@ -33,13 +33,13 @@
 		                        </div>
 							</div>
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-info btn-darken-2 mr-1">
+	                            <button type="button" class="btn btn-green btn-darken-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-info btn-accent-2">
+	                            <button type="submit" class="btn btn-green btn-accent-2">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
-	                            <a href="{{url('file/sample_file_customer.xlsx')}}" class="btn btn-info btn-accent-4 mr-1 change-action">
+	                            <a href="{{url('file/sample_file_customer.xlsx')}}" class="btn btn-green btn-accent-4 mr-1 change-action">
 									<i class="icon-file-excel"></i> Download Sample File
 								</a>
 	                        </div>

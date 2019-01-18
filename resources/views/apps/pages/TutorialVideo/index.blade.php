@@ -143,8 +143,8 @@
                                 	?>
                                 </td>
                                 <td>
-                                        <a href="{{url('TutorialVideo/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('TutorialVideo/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a>
+                                        <a href="{{url('TutorialVideo/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('TutorialVideo/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green"><i class="icon-cross"></i></a>
                                 </td>
                             </tr>
                             @endforeach

@@ -29,7 +29,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                            <div class="input-group mb-15">
-                              <span class="input-group-addon bg-info"  style="width:78px;"><strong>Name</strong></span>
+                              <span class="input-group-addon bg-green"  style="width:78px;"><strong>Name</strong></span>
                               <div class="form-control no-border-left" style="width: 300px;" id="prependedInput">{{$ticket->name}}</div>
                            </div>
                        </div>
@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                            <div class="input-group mb-15">
-                              <span class="input-group-addon bg-info"  style="width:78px;"><strong>Email</strong></span>
+                              <span class="input-group-addon bg-green"  style="width:78px;"><strong>Email</strong></span>
                               <div class="form-control no-border-left" style="width: 300px;"  id="prependedInput">{{$ticket->email}}</div>
                            </div>
                        </div>
@@ -45,7 +45,7 @@
                    <div class="col-md-12">
                         <div class="form-group">
                           <div class="input-group mb-15">
-                             <span class="input-group-addon bg-info"  style="width:78px;"><strong>Subject</strong></span>
+                             <span class="input-group-addon bg-green"  style="width:78px;"><strong>Subject</strong></span>
                              <div class="form-control no-border-left" style="width:825px;" id="prependedInput" type="text">{{$ticket->subject}}</div>
                           </div>
                       </div>
@@ -53,7 +53,7 @@
                    <div class="col-md-4">
                         <div class="form-group">
                           <div class="input-group mb-15">
-                             <span class="input-group-addon bg-info"  style="width:78px;"><strong>Service</strong></span>
+                             <span class="input-group-addon bg-green"  style="width:78px;"><strong>Service</strong></span>
                              <div class="form-control no-border-left" style="width: 200px;" id="prependedInput">{{$ticket->related_service_name}}</div>
                           </div>
                       </div>
@@ -61,7 +61,7 @@
                    <div class="col-md-4">
                         <div class="form-group">
                           <div class="input-group mb-15">
-                             <span class="input-group-addon bg-info"  style="width:78px;"><strong>Department</strong></span>
+                             <span class="input-group-addon bg-green"  style="width:78px;"><strong>Department</strong></span>
                              <div class="form-control no-border-left" style="width: 180px;"  id="prependedInput">{{$ticket->department_name}}</div>
                           </div>
                       </div>
@@ -69,7 +69,7 @@
                    <div class="col-md-4">
                         <div class="form-group">
                           <div class="input-group mb-15">
-                             <span class="input-group-addon bg-info"  style="width:78px;"><strong>Priority</strong></span>
+                             <span class="input-group-addon bg-green"  style="width:78px;"><strong>Priority</strong></span>
                              <div class="form-control no-border-left" style="width: 130px;"  id="prependedInput">{{$ticket->priority}}</div>
                           </div>
                       </div>
@@ -77,7 +77,7 @@
                        <div class="col-md-12">
                             <div class="form-group">
                               <div class="input-group">
-                                 <span class="input-group-addon bg-info"  style="width:78px;"><strong>Message</strong></span>
+                                 <span class="input-group-addon bg-green"  style="width:78px;"><strong>Message</strong></span>
                                  <div class="form-control no-border-left" style="width:825px; min-height: 200px;">{{$ticket->message}}</div>
                               </div>
                           </div>
@@ -86,7 +86,7 @@
                        <div class="col-md-5">
                             <div class="form-group">
                               <div class="input-group mb-15">
-                                 <span class="input-group-addon bg-info"  style="width:78px;"><strong> Attachment </strong></span>
+                                 <span class="input-group-addon bg-green"  style="width:78px;"><strong> Attachment </strong></span>
                                  <div class="form-control no-border-left" style="width: 400px;" id="prependedInput"><a target="_blank" href="{{url('upload/SupportTicket/'.$ticket->attachment)}}" class="btn btn-warning">Download</a></div>
                               </div>
                           </div>
@@ -95,7 +95,7 @@
                        <div class="col-md-12">
                             <div class="form-group">
                               <div class="input-group mb-15">
-                                 <span class="input-group-addon bg-info"  style="width:78px;"><strong> Complete </strong></span>
+                                 <span class="input-group-addon bg-green"  style="width:78px;"><strong> Complete </strong></span>
                                  <div class="form-control no-border-left" style="width: 400px;" id="prependedInput"><input type="checkbox" id="scp" onclick="SupportComplete(24)"> Check if you want to make it complete.</div>
                               </div>
                           </div>
@@ -135,7 +135,7 @@
 SendTicketComment('{{$sid}}', this.value);" id="Invalue" class="form-control" placeholder="Reply Message" required>
                           <input type="hidden" id="ticketid" name="ticketid" value="{{$ticket->id}}">
                           <span class="input-group-btn" id="button-addon2">
-                            <button class="btn btn-warning reply" type="button">
+                            <button class="btn btn-green reply" type="button">
                               <i class="icon-bubbles2"></i> Send 
                             </button>
                           </span>

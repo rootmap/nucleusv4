@@ -151,7 +151,7 @@
 											<i class="icon-printer3"></i> Print
 										</a>
 
-										<a class="btn btn-primary" href="{{url('sales/edit/'.$invoice->id)}}" style="color: #fff;">
+										<a class="btn btn-green" href="{{url('sales/edit/'.$invoice->id)}}" style="color: #fff;">
 											<i class="icon-edit2"></i> Edit Invoice
 										</a>
 									

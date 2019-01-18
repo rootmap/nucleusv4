@@ -42,20 +42,20 @@
 									@if(isset($edit))
 										value="{{$dataRow->name}}" 
 									@endif 
-									 id="eventRegInput1" class="form-control border-primary" placeholder="Department Name" name="name">
+									 id="eventRegInput1" class="form-control border-green" placeholder="Department Name" name="name">
 								</div>							
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-warning mr-1">
+								<button type="button" class="btn btn-green btn-accent-1 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-green">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-green">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif
@@ -94,8 +94,8 @@
 								<td>{{$row->id}}</td>
 								<td>{{$row->name}}</td>
 								<td>
-                                        <a href="{{url('Department/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('Department/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a>
+                                        <a href="{{url('Department/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('Department/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green"><i class="icon-cross"></i></a>
                                 </div>
 								</td>
 							</tr>

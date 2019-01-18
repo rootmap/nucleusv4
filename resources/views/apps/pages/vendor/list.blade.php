@@ -48,10 +48,10 @@
                                <td>{{$row->created_at}}</td>
                                 <td>
                                         @if(in_array('Vendor_List_Edit', $dataMenuAssigned))
-                                            <a href="{{url('vendor/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a> 
+                                            <a href="{{url('vendor/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a> 
                                         @endif
                                         @if(in_array('Vendor_List_Delete', $dataMenuAssigned))
-                                            <a  href="{{url('vendor/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-accent-2"><i class="icon-cross"></i></a>
+                                            <a  href="{{url('vendor/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-accent-2"><i class="icon-cross"></i></a>
                                         @endif
                                 </div>
                                 </td>

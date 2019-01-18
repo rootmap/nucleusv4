@@ -74,7 +74,7 @@
         <span id="product_place"> 
             <div class="col-md-12">
                 <h4  class="text-xs-center">Click on category to load product. <br>  <br> 
-                    {{-- <a href="{{url('product')}}" class="btn btn-info">
+                    {{-- <a href="{{url('product')}}" class="btn btn-green">
                         <i class="icon-ios-plus-outline"></i> Create new product
                     </a> --}}
                 </h4>
@@ -85,8 +85,8 @@
                 <a class="card mb-1" style="border-bottom-right-radius:3px; border-bottom-left-radius: 3px;">
                     <div class="card-body collapse in">
                         
-                        <div class="p-1 bg-info" style="padding: 0.7rem !important; border-top-right-radius:3px; border-top-left-radius: 3px;">
-                            <p style="margin-bottom: 0px !important; min-height: 40px; color: #fff;" class="text-xs-left" style="color: #fff;">Info Lighten 1</p>          
+                        <div class="p-1 bg-green" style="padding: 0.7rem !important; border-top-right-radius:3px; border-top-left-radius: 3px;">
+                            <p style="margin-bottom: 0px !important; min-height: 40px; color: #fff;" class="text-xs-left" style="color: #fff;">green Lighten 1</p>          
                         </div>
                         <div class="text-xs-right" style="line-height: 30px; padding-right: 10px; font-weight: bolder; height: 30px; color: #545a63;">12.45</div>
 
@@ -106,22 +106,22 @@
     </div>
             <div class="row">
                 <div class="col-md-3 col-xs-6 col-sm-3"> 
-                    <a class="thumbnail btn-block  bg-info bg-lighten-1" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#General_Sale"> <i class="icon-database2"></i> General Sale </a>
+                    <a class="thumbnail btn-block  bg-green bg-lighten-1" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#General_Sale"> <i class="icon-database2"></i> General Sale </a>
                 </div>
                 
                 <div class="col-md-3 col-xs-6 col-sm-3 opdStore" @if($drawerStatus==1) style="display: none;" @endif> 
-                    <a class="thumbnail btn-block bg-info bg-lighten-3"  data-toggle="modal" data-target="#open-drawer" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;"><i class="icon-hand-grab-o"></i> Open Drawer </a>
+                    <a class="thumbnail btn-block bg-green bg-lighten-2"  data-toggle="modal" data-target="#open-drawer" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;"><i class="icon-hand-grab-o"></i> Open Drawer </a>
                 </div>
 
                 <div class="col-md-3 col-xs-6 col-sm-3 cldStore" @if($drawerStatus==0) style="display: none;" @endif> 
-                    <a class="thumbnail btn-block bg-info bg-accent-1" onclick="loadCloseDrawer()" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;"><i class="icon-hand-grab-o"></i> Close Drawer </a>
+                    <a class="thumbnail btn-block bg-green bg-lighten-2" onclick="loadCloseDrawer()" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;"><i class="icon-hand-grab-o"></i> Close Drawer </a>
                 </div>
              
                 <div class="col-md-3 col-xs-6 col-sm-3"> 
-                    <a class="thumbnail btn-block bg-info bg-accent-2" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#payoutModal"> <i class="icon-share-square"></i> Payout </a>
+                    <a class="thumbnail btn-block bg-green bg-lighen-3" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#payoutModal"> <i class="icon-share-square"></i> Payout </a>
                 </div>
                 <div class="col-md-3 col-xs-6 col-sm-3"> 
-                    <a class="thumbnail btn-block bg-info bg-darken-2 btn-block" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#TimeClockModal"><i class="icon-clock-o"></i> Time Clock </a>
+                    <a class="thumbnail btn-block bg-green bg-darken-2 btn-block" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#TimeClockModal"><i class="icon-clock-o"></i> Time Clock </a>
                 </div>
                 {{-- <div class="col-md-3 col-xs-6 col-sm-3"> 
                     <a class="thumbnail btn-block bg-danger" style="line-height: 50px; color: #fff; font-weight: 500; text-align: center;" data-toggle="modal" data-target="#CustomerCard">Customer Card </a>
@@ -141,7 +141,7 @@
                         <div class="col-md-3">
                             <div class="card mb-1">
                                 <div class="card-body collapse in">
-                                    <div class="bg-info bg-lighten-{{$i}} height-10"></div>
+                                    <div class="bg-green bg-lighten-{{$i}} height-10"></div>
                                     <div class="p-1">
                                         <h5 class="text-xs-center">
                                             <a href="javascript:void(0);"  data-toggle="modal" data-target="#instoreRepairModal" style="text-decoration: none;">
@@ -156,7 +156,7 @@
                         <div class="col-md-3">
                             <div class="card mb-1">
                                 <div class="card-body collapse in">
-                                    <div class="bg-info bg-lighten-{{$i}} height-10"></div>
+                                    <div class="bg-green bg-lighten-{{$i}} height-10"></div>
                                     <div class="p-1">
                                         <h5 class="text-xs-center">
                                             <a href="javascript:void(0);"  data-toggle="modal" data-target="#instoreTicketModal" style="text-decoration: none;">
@@ -171,7 +171,7 @@
                         <div class="col-md-3">
                             <div class="card mb-1">
                                 <div class="card-body collapse in">
-                                    <div class="bg-info bg-lighten-{{$i}} height-10"></div>
+                                    <div class="bg-green bg-lighten-{{$i}} height-10"></div>
                                     <div class="p-1">
                                         <h5 class="text-xs-center">
                                             <a href="javascript:loadCatProduct({{$cat->id}});" style="text-decoration: none;">
@@ -194,7 +194,7 @@
                 @else
                     <div class="col-md-12">
                         <h2  class="text-xs-center">No categories found. <br>  <br> 
-                            <a href="{{url('category')}}" class="btn btn-info"><i class="icon-ios-plus-outline"></i> Create Now</a>
+                            <a href="{{url('category')}}" class="btn btn-green"><i class="icon-ios-plus-outline"></i> Create Now</a>
                         </h2>
                     </div>
                 @endif
@@ -203,7 +203,7 @@
                 <div class="col-md-3">
                     <div class="card mb-1">
                         <div class="card-body collapse in">
-                            <div class="bg-info bg-darken-{{$i}} height-10"></div>
+                            <div class="bg-green bg-darken-{{$i}} height-10"></div>
                             <div class="p-1">
                                 <h5 class="text-xs-center">
                                     <a href="javascript:void(0);" style="text-decoration: none;">Primary </a>
@@ -218,7 +218,7 @@
                 <div class="col-md-3">
                     <div class="card mb-1">
                         <div class="card-body collapse in">
-                            <div class="bg-info bg-accent-{{$i}} height-10"></div>
+                            <div class="bg-green bg-accent-{{$i}} height-10"></div>
                             <div class="p-1">
                                 <h5 class="text-xs-center">
                                     <a href="javascript:void(0);" style="text-decoration: none;">Primary </a>
@@ -304,7 +304,7 @@
                                         <td ondblclick="liveRowCartEdit({{$row['item_id']}})" data-tax="{{$row['tax']}}"  data-price="{{$row['unitprice']}}">$<span>{{$row['unitprice']}}</span></td>
                                         <td ondblclick="liveRowCartEdit({{$row['item_id']}})">$<span>{{$row['price']}}</span></td>
                                         <td style="width: 83px;">
-                                            <a href="javascript:editRowLive({{$row['item_id']}});" title="Edit" class="btn btn-sm btn-outline-info hiddenLiveSave" style="margin-right:2px; display: none;"><i class="icon-pencil22"></i></a>
+                                            <a href="javascript:editRowLive({{$row['item_id']}});" title="Edit" class="btn btn-sm btn-outline-green hiddenLiveSave" style="margin-right:2px; display: none;"><i class="icon-pencil22"></i></a>
                                             <a href="javascript:delposSinleRow({{$row['item_id']}});" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a>
                                         </td>
                                     </tr>
@@ -356,7 +356,7 @@
                                     </tr>
                                     <tr>
                                         <th colspan="2">
-                                            <button type="button" class="btn btn-block btn-info btn-lighten-2">
+                                            <button type="button" class="btn btn-block btn-green btn-lighten-2">
                                                     <h4>
                                                         <span>Total Due</span> 
                                                         <span>$<span id="totalCartDueToPay">0.00</span>
@@ -365,7 +365,7 @@
                                             </button>
                                         </th>
                                         <th colspan="3"> 
-                                                <button id="btn-payment-modal_init" type="button" class="btn btn-info checkDrawer bg-lighten-1 btn-responsive" data-toggle="modal" data-target="#payModal" ><h4 style="text-transform: capitalize !important;"><i class="icon-cash"></i> Make Payment</h4></button>      
+                                                <button id="btn-payment-modal_init" type="button" class="btn btn-green checkDrawer bg-lighten-1 btn-responsive" data-toggle="modal" data-target="#payModal" ><h4 style="text-transform: capitalize !important;"><i class="icon-cash"></i> Make Payment</h4></button>      
                                             
                                         </th>
                                     </tr>   
@@ -427,13 +427,13 @@
                                 }
                             </style>
                             <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6 checkDrawer">
-                                <button id="completesale" type="button" class="btn btn-info btn-accent-2 btn-responsive btn1">     
+                                <button id="completesale" type="button" class="btn btn-green btn-accent-2 btn-responsive btn1">     
                                    <i class="icon-circle-check"></i>  COMPLETE SALE
                                 </button>
                             </div>
 
                             <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button1 btn-group checkDrawer">
-                                <button  type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info btn-accent-4 btn-responsive btn1  dropdown-toggle"><i class="icon-printer4"></i> PRINT INVOICE &nbsp;</button>      
+                                <button  type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-green btn-accent-4 btn-responsive btn1  dropdown-toggle"><i class="icon-printer4"></i> PRINT INVOICE &nbsp;</button>      
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item printncompleteSale" data-id="pos" href="javascript:void(0);"><i class="icon-printer4"></i> Default Print</a>
                                         <div class="dropdown-divider"></div>
@@ -445,18 +445,18 @@
                             </div>   
 
                             <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6 checkDrawer">
-                                <button id="clearsale" type="button" class="btn btn-info btn-lighten-2 btn-responsive btn1">     
+                                <button id="clearsale" type="button" class="btn btn-green btn-lighten-2 btn-responsive btn1">     
                                    <i class="icon-circle-cross"></i> CLEAR POS
                                 </button>
                             </div>
                             
                             <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6">
-                                <button id="changeSalesView" type="button" class="btn btn-info btn-responsive btn1">     
+                                <button id="changeSalesView" type="button" class="btn btn-green btn-responsive btn1">     
                                     <i class="icon-stack3"></i> Change Sales View
                                 </button>
                             </div>
                             <div class="col-xs-4 col-sm-6 col-md-4 col-lg-4 button button6">
-                                <button id="counterStatusChange" type="button" class="btn btn-info btn-darken-2 btn-responsive btn1"> <i class="icon-air-play"></i>  
+                                <button id="counterStatusChange" type="button" class="btn btn-green btn-darken-2 btn-responsive btn1"> <i class="icon-air-play"></i>  
                                     @if(isset($CounterDisplay))
                                         @if($CounterDisplay==1)   
                                             <span>Turn-off Your Counter Display</span>
@@ -469,7 +469,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6">
-                                <button type="button" class="btn btn-info btn-responsive btn1"  data-toggle="modal" data-target="#salesReturn">     
+                                <button type="button" class="btn btn-green btn-responsive btn1"  data-toggle="modal" data-target="#salesReturn">     
                                     <i class="icon-document"></i> Sales Return
                                 </button>
                             </div>
@@ -763,7 +763,7 @@
     function loadingOrProcessing(sms)
     {
         var strHtml='';
-            strHtml+='<div class="alert alert-icon-right alert-info alert-dismissible fade in mb-2" role="alert">';
+            strHtml+='<div class="alert alert-icon-right alert-green alert-dismissible fade in mb-2" role="alert">';
             strHtml+='      <i class="icon-spinner10 spinner"></i> '+sms;
             strHtml+='</div>';
 
@@ -856,7 +856,7 @@
                         proHtml+='<a href="javascript:add_pos_cart('+row.id+','+row.price+','+productName+');" class="card mb-1" style="border-bottom-right-radius:3px; border-bottom-left-radius: 3px;">';
                             proHtml+='<div class="card-body collapse in">';
                                         
-                                proHtml+='<div class="p-1 bg-info" style="padding: 0.7rem !important; border-top-right-radius:3px; border-top-left-radius: 3px;">';
+                                proHtml+='<div class="p-1 bg-green" style="padding: 0.7rem !important; border-top-right-radius:3px; border-top-left-radius: 3px;">';
                                     proHtml+='<p style="margin-bottom: 0px !important; min-height: 40px; color: #fff;" class="text-xs-left" style="color: #fff;">'+row.name+'</p>';          
                                 proHtml+='</div>';
                             proHtml+='<div class="text-xs-right" style="line-height: 30px; padding-right: 10px; font-weight: bolder; height: 30px; color: #545a63;">'+row.price+'</div>';
@@ -922,7 +922,7 @@
                 else
                 {
                     var taxAmount=parseFloat(((ProductPrice*1)*taxRate)/100).toFixed(2);
-                    var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td  ondblclick="liveRowCartEdit('+ProductID+')">1</td><td  ondblclick="liveRowCartEdit('+ProductID+')" data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td ondblclick="liveRowCartEdit('+ProductID+')">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a  href="javascript:editRowLive('+ProductID+');"  title="Edit" class="btn btn-sm btn-outline-info hiddenLiveSave" style="margin-right:2px;  display: none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
+                    var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td  ondblclick="liveRowCartEdit('+ProductID+')">1</td><td  ondblclick="liveRowCartEdit('+ProductID+')" data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td ondblclick="liveRowCartEdit('+ProductID+')">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a  href="javascript:editRowLive('+ProductID+');"  title="Edit" class="btn btn-sm btn-outline-green hiddenLiveSave" style="margin-right:2px;  display: none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
 
                     $("#dataCart").append(strHTML);
                 }
@@ -930,7 +930,7 @@
             else
             {
                 var taxAmount=parseFloat(((ProductPrice*1)*taxRate)/100).toFixed(2);
-                var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td ondblclick="liveRowCartEdit('+ProductID+')">1</td><td  ondblclick="liveRowCartEdit('+ProductID+')" data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td ondblclick="liveRowCartEdit('+ProductID+')">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a  href="javascript:editRowLive('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-info hiddenLiveSave" style="margin-right:2px;  display: none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
+                var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td ondblclick="liveRowCartEdit('+ProductID+')">1</td><td  ondblclick="liveRowCartEdit('+ProductID+')" data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td ondblclick="liveRowCartEdit('+ProductID+')">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a  href="javascript:editRowLive('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-green hiddenLiveSave" style="margin-right:2px;  display: none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
 
                 $("#dataCart").append(strHTML);
             }
@@ -1118,7 +1118,7 @@
 
         $(".closeStore").click(function(){
             $(".closeStore").fadeOut('fast');
-            $("#closeStoreMsg").html(loadingOrProcessing("Saving close drawer info, please wait...."));
+            $("#closeStoreMsg").html(loadingOrProcessing("Saving close drawer green, please wait...."));
              //------------------------Ajax Customer Start-------------------------//
              var AddHowMowKhaoUrl="{{url('close/store')}}";
              $.ajax({
@@ -1823,7 +1823,7 @@
                 else
                 {
                     var taxAmount=parseFloat(((ProductPrice*1)*taxRate)/100).toFixed(2);
-                    var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td  ondblclick="liveRowCartEdit('+ProductID+')">1</td><td  ondblclick="liveRowCartEdit('+ProductID+')" data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td  ondblclick="liveRowCartEdit('+ProductID+')">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:editRowLive('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-info hiddenLiveSave" style="margin-right:2px; display:none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
+                    var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td  ondblclick="liveRowCartEdit('+ProductID+')">1</td><td  ondblclick="liveRowCartEdit('+ProductID+')" data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td  ondblclick="liveRowCartEdit('+ProductID+')">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:editRowLive('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-green hiddenLiveSave" style="margin-right:2px; display:none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
 
                     $("#dataCart").append(strHTML);
                 }
@@ -1831,7 +1831,7 @@
             else
             {
                 var taxAmount=parseFloat(((ProductPrice*1)*taxRate)/100).toFixed(2);
-                var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td>1</td><td data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td>$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:editRowLive('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-info hiddenLiveSave" style="margin-right:2px; display:none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
+                var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td>1</td><td data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td>$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:editRowLive('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-green hiddenLiveSave" style="margin-right:2px; display:none;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
 
                 $("#dataCart").append(strHTML);
             }
@@ -1890,7 +1890,7 @@
                 else
                 {
                     var taxAmount=parseFloat(((ProductPrice*1)*taxRate)/100).toFixed(2);
-                    var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td>1</td><td data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td>$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:edit_pos_item('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-info" style="margin-right:2px;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
+                    var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td>1</td><td data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td>$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:edit_pos_item('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-green" style="margin-right:2px;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
 
                     $("#dataCart").append(strHTML);
                 }
@@ -1898,7 +1898,7 @@
             else
             {
                 var taxAmount=parseFloat(((ProductPrice*1)*taxRate)/100).toFixed(2);
-                var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td>1</td><td data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:edit_pos_item('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-info" style="margin-right:2px;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
+                var strHTML='<tr id="'+ProductID+'"><td>'+ProductName+'</td><td>1</td><td data-tax="'+taxAmount+'"  data-price="'+ProductPrice+'">$<span>'+ProductPrice+'</span></td><td style="width: 81px;"><a href="javascript:edit_pos_item('+ProductID+');" title="Edit" class="btn btn-sm btn-outline-green" style="margin-right:2px;"><i class="icon-pencil22"></i></a><a href="javascript:delposSinleRow('+ProductID+');" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a></td></tr>';
 
                 $("#dataCart").append(strHTML);
             }

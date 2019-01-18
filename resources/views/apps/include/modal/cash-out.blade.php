@@ -15,7 +15,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="0.00" aria-describedby="button-addon2" data-amount="">
                     <span class="input-group-btn" id="button-addon2">
-                        <button class="btn btn-info amountextract" type="button">Exact</button>
+                        <button class="btn btn-green amountextract" type="button">Exact</button>
                     </span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
     </div>
 </div>
 <div class="form-group center">
-    <button type="submit" class="btn-lg btn-info">
+    <button type="submit" class="btn-lg btn-green">
         <i class="icon-check2"></i> Proceed
     </button>
 </div>

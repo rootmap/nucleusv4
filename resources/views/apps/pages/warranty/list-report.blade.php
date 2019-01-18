@@ -42,7 +42,7 @@
                                 <td>{{$row->warranty_batch_quantity}}</td>
                                 <td>
 
-                                    <a href="{{url('warranty/view/'.$row->id)}}" title="Detail View" class="btn btn-info"><i class="icon-book"></i> See Detail</a>
+                                    <a href="{{url('warranty/view/'.$row->id)}}" title="Detail View" class="btn btn-green"><i class="icon-book"></i> See Detail</a>
                                 </td>
                             </tr>
                             @endforeach

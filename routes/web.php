@@ -181,6 +181,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//------------------SupportTicket route End--------------------//
 
+	Route::get('/special/feature', 'SpecialFeatureController@index');
+
 	//------------------Product route start--------------------//
 	Route::get('/product', 'ProductController@index')->name('customer');
 	Route::get('/product/list', 'ProductController@show');

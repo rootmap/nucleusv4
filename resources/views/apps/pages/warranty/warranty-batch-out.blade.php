@@ -61,7 +61,7 @@
 							</tr>
 							<tr>
 								<th colspan="5" align="center" style="text-align: center;"> 
-									<button type="submit" class="btn btn-info">
+									<button type="submit" class="btn btn-green">
 										<i class="icon-plus"></i> Batch Out Warranty
 									</button>
 								</th>

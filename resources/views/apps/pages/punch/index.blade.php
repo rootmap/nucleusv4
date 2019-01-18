@@ -63,7 +63,7 @@
 										@else 
 										value="{{date('Y-m-d')}}" 
 										@endif 
-										 class="form-control border-primary DropDateWithformat" placeholder="In Date" name="in_date">
+										 class="form-control border-green DropDateWithformat" placeholder="In Date" name="in_date">
 									</div>
 
 									<div class="form-group">
@@ -74,7 +74,7 @@
 										@else 
 										value="{{date('H:i:s')}}" 
 										@endif 
-										 class="form-control border-primary" placeholder="In Time" name="in_time">
+										 class="form-control border-green" placeholder="In Time" name="in_time">
 									</div>
 								
 
@@ -86,7 +86,7 @@
 										@else 
 										value="{{date('Y-m-d')}}" 
 										@endif 
-										 class="form-control border-primary DropDateWithformat" placeholder="Out Date" name="out_date">
+										 class="form-control border-green DropDateWithformat" placeholder="Out Date" name="out_date">
 									</div>
 
 									<div class="form-group">
@@ -97,24 +97,24 @@
 										@else 
 										value="{{date('H:i:s')}}" 
 										@endif 
-										 class="form-control border-primary" placeholder="Out Time" name="out_time">
+										 class="form-control border-green" placeholder="Out Time" name="out_time">
 									</div>
 						
 							</div>
 
 							<div class="form-actions center">
-								<a href="{{url('attendance/punch/report')}}" class="btn btn-info mr-1">
+								<a href="{{url('attendance/punch/report')}}" class="btn btn-green mr-1">
 									<i class="icon-android-share"></i> Back to Cashier Punch History
 								</a>
-								<button type="reset" class="btn btn-info btn-darken-2 mr-1">
+								<button type="reset" class="btn btn-green btn-accent-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif

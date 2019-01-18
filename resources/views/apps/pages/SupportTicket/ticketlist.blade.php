@@ -51,10 +51,10 @@
                                 
                                 <td>
                                          
-                                        <a href="{{url('SupportTicket/view/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i> Support Detail</a>
+                                        <a href="{{url('SupportTicket/view/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i> Support Detail</a>
                                         
                                         
-                                        <a  href="{{url('SupportTicket/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i> Delete</a>
+                                        <a  href="{{url('SupportTicket/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green"><i class="icon-cross"></i> Delete</a>
                                         
                                 </td>
                             </tr>

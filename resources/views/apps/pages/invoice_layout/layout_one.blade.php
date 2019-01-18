@@ -331,7 +331,7 @@
 	<div id="invoice-footer" style="padding-bottom: 50px;">
 		<div class="row">
 			<div class="text-xs-center">
-			    <button class="btn btn-info" type="submit"> <i class="icon-file"></i> Save Invoice One </button>
+			    <button class="btn btn-green" type="submit"> <i class="icon-file"></i> Save Invoice One </button>
 			</div>
 	</div>
 	<!--/ Invoice Footer -->

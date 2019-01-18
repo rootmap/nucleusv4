@@ -3,16 +3,16 @@
 @section('content')
    
             <div class="col-md-12">
-                <a style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" href="{{url('settings/invoice/email/edit')}}" class="btn btn-info">
+                <a style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" href="{{url('settings/invoice/email/edit')}}" class="btn btn-green">
                     <i class="icon-edit"></i> Edit email invoice
                 </a>
-                <button style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" type="button" class="btn btn-info" data-toggle="modal" data-target="#Discount">
+                <button style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" type="button" class="btn btn-green" data-toggle="modal" data-target="#Discount">
                     <i class="icon-circle-o"></i> Set send email time
                 </button>
-                <button style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" type="button" class="btn btn-info"  data-toggle="modal" data-target="#BCC">
+                <button style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" type="button" class="btn btn-green"  data-toggle="modal" data-target="#BCC">
                     <i class="icon-cogs"></i> Enable receipt BCC  
                 </button>
-                <a style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" href="{{url('settings/invoice/email/edit')}}" class="btn btn-info pull-right" data-toggle="modal" data-target="#testMail">
+                <a style="border-bottom-right-radius: 0px !important; border-bottom-left-radius: 0px !important;" href="{{url('settings/invoice/email/edit')}}" class="btn btn-green pull-right" data-toggle="modal" data-target="#testMail">
                     <i class="icon-email2"></i> Send test email  
                 </a>
             </div>
@@ -22,10 +22,10 @@
              style="font-family: serif; font-size:11pt;
              
              padding:10px 15px;
-             border-top: 16px solid #3BAFDA;;
-             border-right: 6px solid #3BAFDA;
-             border-bottom: 6px solid #3BAFDA;
-             border-left: 6px solid #3BAFDA; border-radius: 3px; clear: both; display: block;">
+             border-top: 16px solid #4CAF50;;
+             border-right: 6px solid #4CAF50;
+             border-bottom: 6px solid #4CAF50;
+             border-left: 6px solid #4CAF50; border-radius: 3px; clear: both; display: block;">
             <table width="100%" style="width: 100%;">
                     <tr>
                         <td align="left" style="font-size: large;"><b>{{$editData->company_name}}</b></td>

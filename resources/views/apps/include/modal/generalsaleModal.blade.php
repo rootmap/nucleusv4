@@ -44,7 +44,7 @@
     <div class="form-group row">
       <label class="col-md-4 label-control" for="Description">&nbsp;</label>
       <div class="col-md-8">
-        <button type="button" class="btn btn-info GAddProductToCart">
+        <button type="button" class="btn btn-green GAddProductToCart">
             <i class="icon-check2"></i> Add Product
         </button>
     </div>

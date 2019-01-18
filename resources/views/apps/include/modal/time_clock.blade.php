@@ -15,7 +15,7 @@
                 <div class="input-group">
                   <input type="text" class="form-control" readonly="" id="punch_time" placeholder="Current Date" aria-describedby="button-addon2" value="{{date("Y-m-d H:i:s")}}">
                   <span class="input-group-btn" id="button-addon2">
-                    <button class="btn btn-info" id="punch" type="button">Punch </button>
+                    <button class="btn btn-green" id="punch" type="button">Punch </button>
                   </span>
                 </div>
               </div>

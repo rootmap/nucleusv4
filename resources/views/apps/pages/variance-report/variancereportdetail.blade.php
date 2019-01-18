@@ -89,7 +89,7 @@
 
 			</div>
 			<div class="col-md-5 col-sm-12 text-xs-center">
-				<button type="submit" class="btn btn-primary"><i class="icon-paperplane"></i>  Sale Product</button>
+				<button type="submit" class="btn btn-green"><i class="icon-paperplane"></i>  Sale Product</button>
 			</div>
 		</div>
 	</div>

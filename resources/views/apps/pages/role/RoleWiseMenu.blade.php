@@ -42,10 +42,10 @@
 	                            	<label class="col-md-2 label-control" for="projectinput1">Available Menus </label>
 		                            <div class="col-md-10">
 		                            	<div class="row">
-	                        				<button class="btn collepsed btn-info" type="button">Collepsed</button>
-	                        			    <button  class="btn expanded btn-info" type="button">Expanded</button>
-	                        			    <button  class="btn checked btn-info" type="button">Checked All</button>
-	                        				<button  class="btn unchecked btn-info" type="button">Unchek All</button>
+	                        				<button class="btn collepsed btn-green" type="button">Collepsed</button>
+	                        			    <button  class="btn expanded btn-green" type="button">Expanded</button>
+	                        			    <button  class="btn checked btn-green" type="button">Checked All</button>
+	                        				<button  class="btn unchecked btn-green" type="button">Unchek All</button>
 								  		</div>
 									
 									@if(isset($menus))
@@ -75,11 +75,11 @@
 							</div>
 
 							<div class="form-actions center">
-								<button type="reset" class="btn btn-info btn-lighten-2 mr-1">
+								<button type="reset" class="btn btn-green btn-lighten-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 							

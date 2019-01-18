@@ -25,19 +25,19 @@
 								{{ csrf_field() }}
 								<div class="form-group">
 									<label for="eventRegInput1">Barcode No <span class="text-danger">*</span></label>
-									<input type="text" id="eventRegInput1" class="form-control border-primary"  autocomplete="off"  placeholder="Barcode No" name="barcode">
+									<input type="text" id="eventRegInput1" class="form-control border-green"  autocomplete="off"  placeholder="Barcode No" name="barcode">
 								</div>							
 							</div>
 
 							<div class="form-body">
 								<div class="form-group">
 									<label for="eventRegInput1">Quantity <span class="text-danger">*</span></label>
-									<input type="number" id="eventRegInput1" class="form-control border-primary"  autocomplete="off"  placeholder="Quantity" name="quantity">
+									<input type="number" id="eventRegInput1" class="form-control border-green"  autocomplete="off"  placeholder="Quantity" name="quantity">
 								</div>							
 							</div>
 
 							<div class="form-actions center">
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-barcode"></i> Genarate
 								</button>
 							</div>

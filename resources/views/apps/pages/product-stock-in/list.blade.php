@@ -47,7 +47,7 @@
                                 <td>{{$row->vendor_name}}</td>
                                 <td>
                                     <span class="dropdown">
-                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
+                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-green dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
                                         <span aria-labelledby="btnSearchDrop4" class="dropdown-menu mt-1 dropdown-menu-right">
                                             @if(in_array('Stock_In_Order_List_Single_Order_View', $dataMenuAssigned))
                                             <a href="{{url('product/stock/in/receipt/'.$row->id)}}" title="View Detail" class="dropdown-item"><i class="icon-clipboard2"></i> View Detail</a>

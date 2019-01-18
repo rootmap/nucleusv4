@@ -194,19 +194,19 @@
                 <hr>
                 <label class="col-md-2 label-control" for="Description">&nbsp;</label>
                 <div class="col-md-8">
-                  <button type="button" class="btn btn-info" id="step1">
+                  <button type="button" class="btn btn-green" id="step1">
                       <i class="icon-step-forward"></i> Next
                   </button>
-                  <button type="button" class="btn btn-info" id="step2" style="display: none; margin-right: 10px;">
+                  <button type="button" class="btn btn-green" id="step2" style="display: none; margin-right: 10px;">
                       <i class="icon-step-forward"></i> Next as Recomended
                   </button>
-                  <button type="button" class="btn btn-info" id="step2_override" style="display: none;">
+                  <button type="button" class="btn btn-green" id="step2_override" style="display: none;">
                       <i class="icon-step-forward"></i> Override Price
                   </button>
-                  <button type="button" class="btn btn-info" id="step3" style="display: none; ">
+                  <button type="button" class="btn btn-green" id="step3" style="display: none; ">
                       <i class="icon-step-forward"></i> Finish &amp; Add to Cart
                   </button>
-                  <button type="reset" class="btn btn-info" id="reset_repair" style="display: none; ">
+                  <button type="reset" class="btn btn-green" id="reset_repair" style="display: none; ">
                       <i class="icon-step-forward"></i>Reset
                   </button>
                 </div>

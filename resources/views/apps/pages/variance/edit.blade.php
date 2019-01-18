@@ -35,10 +35,10 @@
 		                        @endif
 		                        
 	                        <div class="form-actions right">
-								<button type="button" class="btn btn-info btn-darken-2 mr-1">
+								<button type="button" class="btn btn-green btn-accent-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Update
 								</button>
 							</div>

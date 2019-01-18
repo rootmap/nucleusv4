@@ -98,15 +98,15 @@
 							</div>
 
 							<div class="form-actions center">
-								<button type="button" class="btn btn-warning mr-1">
+								<button type="button" class="btn btn-green btn-accent-1 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								@if(isset($edit))
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-green">
 									<i class="icon-check2"></i> Update
 								</button>
 								@else
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-green">
 									<i class="icon-check2"></i> Save
 								</button>
 								@endif
@@ -151,8 +151,8 @@
 								<td>{{$row->url}}</td>
 								<td>{{$row->parent_id}}</td>
 								<td>
-                                        <a href="{{url('menu-item/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
-                                        <a  href="{{url('menu-item/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-danger"><i class="icon-cross"></i></a>
+                                        <a href="{{url('menu-item/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
+                                        <a  href="{{url('menu-item/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green"><i class="icon-cross"></i></a>
                                 </div>
 								</td>
 							</tr>

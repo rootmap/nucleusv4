@@ -20,7 +20,7 @@
 
         <div class="form-group row">
           <div class="col-md-12" style="text-align: center;">
-            <button type="button" class="btn btn-info btn-large openStore">
+            <button type="button" class="btn btn-green btn-large openStore">
               <i class="icon-check2"></i> Open 
           </button>
           <br /><br />

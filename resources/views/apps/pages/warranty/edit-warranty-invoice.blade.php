@@ -61,7 +61,7 @@
 							</tr>
 							<tr>
 								<th colspan="5" align="center" style="text-align: center;"> 
-									<a href="{{url('warranty/report')}}" class="btn btn-info">
+									<a href="{{url('warranty/report')}}" class="btn btn-green">
 										<i class="icon-table"></i> Back To Warranty Inventory Report
 									</a>
 								</th>

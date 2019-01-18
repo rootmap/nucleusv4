@@ -51,7 +51,7 @@
 									 @if(!empty($invoice_id))
 	                                    	value="{{$invoice_id}}"  
 	                                 @endif 
-									 type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Invoice ID" name="invoice_id">
+									 type="text" id="eventRegInput1" class="form-control border-green" placeholder="Invoice ID" name="invoice_id">
 	                                </div>
 	                            </div>
 	                            <div class="col-md-3">
@@ -75,22 +75,22 @@
 									 @if(!empty($card_number))
 	                                    	value="{{$card_number}}"  
 	                                 @endif 
-									 type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Card Number" name="card_number">
+									 type="text" id="eventRegInput1" class="form-control border-green" placeholder="Card Number" name="card_number">
 	                                </div>
 	                            </div>
 	                            <div class="col-md-12">
 	                                
 	                                <div class="input-group" style="margin-top:32px;">
-	                                    <button type="submit" class="btn btn-info btn-darken-1 mr-1">
+	                                    <button type="submit" class="btn btn-green btn-darken-1 mr-1">
 											<i class="icon-check2"></i> Generate Report
 										</button>
-										<a href="javascript:void(0);" data-url="{{url('authorize/net/payment/history/excel/report')}}" class="btn btn-info btn-darken-2 mr-1 change-action">
+										<a href="javascript:void(0);" data-url="{{url('authorize/net/payment/history/excel/report')}}" class="btn btn-green btn-darken-2 mr-1 change-action">
 											<i class="icon-file-excel-o"></i> Generate Excel
 										</a>
-										<a href="javascript:void(0);" data-url="{{url('authorize/net/payment/history/pdf/report')}}" class="btn btn-info btn-darken-3 mr-1 change-action">
+										<a href="javascript:void(0);" data-url="{{url('authorize/net/payment/history/pdf/report')}}" class="btn btn-green btn-darken-3 mr-1 change-action">
 											<i class="icon-file-pdf-o"></i> Generate PDF
 										</a>
-										<a href="{{url('authorize/net/payment/history')}}" style="margin-left: 5px;" class="btn btn-info btn-darken-4">
+										<a href="{{url('authorize/net/payment/history')}}" style="margin-left: 5px;" class="btn btn-green btn-darken-4">
 											<i class="icon-refresh"></i> Reset
 										</a>
 	                                </div>
@@ -155,9 +155,9 @@
 	                                <td>{{$row->paid_amount}}</td>
 	                                <td>
 	                                	@if($row->refund_status==1)
-	                                	<button onclick="refundTransaction({{$row->id}})" type="button" class="btn btn-info"><i class="icon-moneybag"></i> Refund Amount</button>
+	                                	<button onclick="refundTransaction({{$row->id}})" type="button" class="btn btn-green"><i class="icon-moneybag"></i> Refund Amount</button>
 	                                	@else
-	                                		<button type="button" class="btn btn-info"><i class="icon-moneybag"></i> Refund Complete</button>
+	                                		<button type="button" class="btn btn-green"><i class="icon-moneybag"></i> Refund Complete</button>
 	                                	@endif
 	                                </td>
 	                            </tr>

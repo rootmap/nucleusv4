@@ -37,7 +37,7 @@
 									<td>John</td>
 									<td>Doe</td>
 									<td>
-										<a href="{{url('/variancereportdetail')}}" class="btn btn-primary"><i class="icon-plus2"></i> See Details</a>
+										<a href="{{url('/variancereportdetail')}}" class="btn btn-green"><i class="icon-plus2"></i> See Details</a>
 										<a href=""  class="btn btn-danger"><i class="icon-warning"></i> Delete</a>
 									</td>
 								</tr>
@@ -45,7 +45,7 @@
 									<td>Mary</td>
 									<td>Moe</td>
 									<td>
-										<a href="{{url('/variancereportdetail')}}" class="btn btn-primary"><i class="icon-plus2"></i> See Details</a>
+										<a href="{{url('/variancereportdetail')}}" class="btn btn-green"><i class="icon-plus2"></i> See Details</a>
 										<a href=""  class="btn btn-danger"><i class="icon-warning"></i> Delete</a>
 									</td>
 								</tr>
@@ -53,7 +53,7 @@
 									<td>July</td>
 									<td>Dooley</td>
 									<td>
-										<a href="{{url('/variancereportdetail')}}" class="btn btn-primary"><i class="icon-plus2"></i> See Details</a>
+										<a href="{{url('/variancereportdetail')}}" class="btn btn-green"><i class="icon-plus2"></i> See Details</a>
 										<a href=""  class="btn btn-danger"><i class="icon-warning"></i> Delete</a>
 									</td>
 								</tr>
@@ -73,7 +73,7 @@
 
 			</div>
 			<div class="col-md-5 col-sm-12 text-xs-center">
-				<button type="submit" class="btn btn-primary"><i class="icon-paperplane"></i>  Sale Product</button>
+				<button type="submit" class="btn btn-green"><i class="icon-paperplane"></i>  Sale Product</button>
 			</div>
 		</div>
 	</div>

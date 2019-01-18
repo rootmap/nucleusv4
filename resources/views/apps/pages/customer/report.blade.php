@@ -75,25 +75,25 @@
 		@endforeach
 		@endif
 		<div class="col-md-4">
-			<div class="col-lg-6 col-sm-12  bg-info bg-darken-2 ">
+			<div class="col-lg-6 col-sm-12  bg-green bg-darken-2 ">
                 <div class="card-block text-xs-center">
                     <h1 class="display-6 white"><i class="icon-cart font-large-1"></i> <br>${{$invoice_total}}</h1>
                     <span class="white">Total Invoice</span>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12 bg-info bg-accent-2">
+            <div class="col-lg-6 col-sm-12 bg-green bg-accent-2">
                 <div class="card-block text-xs-center">
                     <h1 class="display-6 white"><i class="icon-trending_up font-large-1"></i> <br>${{$cost_total}}</h1>
                     <span class="white">Total Cost</span>
                 </div>
             </div>
-            <div class="col-lg-6 bg-info bg-accent-3 col-sm-12 ">
+            <div class="col-lg-6 bg-green bg-accent-3 col-sm-12 ">
                 <div class="card-block text-xs-center">
                     <h1 class="display-6 white"><i class="icon-banknote font-large-1"></i> <br>${{$profit_total}}</h1>
                     <span class="white">Profit</span>
                 </div>
             </div>
-            <div class="col-lg-6 bg-info bg-darken-1 col-sm-12" >
+            <div class="col-lg-6 bg-green bg-darken-1 col-sm-12" >
                 <div class="card-block text-xs-center">
                     <h1 class="display-6 white"><i class="icon-database font-large-1"></i><br> ${{$total_quantity}}</h1>
                     <span class="white">Total Quantity</span>
@@ -140,7 +140,7 @@
                                 <td>{{$row->total_amount}}</td>
 								<td>
                                     <span class="dropdown">
-                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
+                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-green dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
                                         <span aria-labelledby="btnSearchDrop4" class="dropdown-menu mt-1 dropdown-menu-right">
                                         	@if(in_array('Customer_List_Report_View_Invoice', $dataMenuAssigned)) 
                                             	<a href="{{url('sales/invoice/'.$row->id)}}" title="View Invoice" class="dropdown-item"><i class="icon-file-text"></i> View Invoice</a>

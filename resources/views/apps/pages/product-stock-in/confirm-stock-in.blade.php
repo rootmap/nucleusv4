@@ -138,7 +138,7 @@
 		<div id="invoice-footer">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 text-xs-center">
-					<button type="button" id="invoiceSubmit" class="btn btn-primary">
+					<button type="button" id="invoiceSubmit" class="btn btn-green">
 						<i class="icon-download"></i>  Add Stock &amp; Generate Invoice
 					</button>
 				</div>

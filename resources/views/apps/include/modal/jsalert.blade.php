@@ -3,7 +3,7 @@
 	function loadingOrProcessing(sms)
     {
         var strHtml='';
-            strHtml+='<div class="alert alert-icon-right alert-info alert-dismissible fade in mb-2" role="alert">';
+            strHtml+='<div class="alert alert-icon-right alert-green alert-dismissible fade in mb-2" role="alert">';
             strHtml+='      <i class="icon-spinner10 spinner"></i> '+sms;
             strHtml+='</div>';
 

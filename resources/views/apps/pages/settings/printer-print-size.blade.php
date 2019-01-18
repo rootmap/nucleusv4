@@ -20,14 +20,14 @@
 							<div class="form-body">
 								<div class="col-md-12">
 									<h4>POS Printer Page</h4>
-									<hr class="bg-blue">
+									<hr class="bg-green">
 								</div>
 								<div class="col-md-6">
 									<div class="form-group row last">
 		                        		<label class="col-md-4 label-control">Width</label>
 		                        		<div class="col-md-7">
 											<div class="form-group">
-												<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="POS Width" 
+												<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="POS Width" 
 												@if(isset($ps))
 													value="{{$ps->pos_width}}"  
 												@endif 
@@ -41,7 +41,7 @@
 		                        		<label class="col-md-4 label-control">Height</label>
 		                        		<div class="col-md-7">
 											<div class="form-group">
-												<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="POS Height" 
+												<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="POS Height" 
 												@if(isset($ps))
 													value="{{$ps->pos_height}}"  
 												@endif 
@@ -55,14 +55,14 @@
 							<div class="form-body">
 								<div class="col-md-12">
 									<h4>Thermal Printer Page</h4>
-									<hr class="bg-blue">
+									<hr class="bg-green">
 								</div>
 								<div class="col-md-6">
 									<div class="form-group row last">
 		                        		<label class="col-md-4 label-control">Width</label>
 		                        		<div class="col-md-7">
 											<div class="form-group">
-												<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Thermal Width" 
+												<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Thermal Width" 
 												@if(isset($ps))
 													value="{{$ps->thermal_width}}"  
 												@endif 
@@ -76,7 +76,7 @@
 		                        		<label class="col-md-4 label-control">Height</label>
 		                        		<div class="col-md-7">
 											<div class="form-group">
-												<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Thermal Height" 
+												<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Thermal Height" 
 												@if(isset($ps))
 													value="{{$ps->thermal_height}}"  
 												@endif 
@@ -90,14 +90,14 @@
 							<div class="form-body">
 								<div class="col-md-12">
 									<h4>Barcode Printer Page</h4>
-									<hr class="bg-blue">
+									<hr class="bg-green">
 								</div>
 								<div class="col-md-6">
 									<div class="form-group row last">
 		                        		<label class="col-md-4 label-control">Width</label>
 		                        		<div class="col-md-7">
 											<div class="form-group">
-												<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Barcode Width" 
+												<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Barcode Width" 
 												@if(isset($ps))
 													value="{{$ps->barcode_width}}"  
 												@endif 
@@ -111,7 +111,7 @@
 		                        		<label class="col-md-4 label-control">Height</label>
 		                        		<div class="col-md-7">
 											<div class="form-group">
-												<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Barcode Height" 
+												<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Barcode Height" 
 												@if(isset($ps))
 													value="{{$ps->barcode_height}}"  
 												@endif 
@@ -123,10 +123,10 @@
 							</div>
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-info btn-lighten-2 mr-1">
+	                            <button type="button" class="btn btn-green btn-lighten-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-info btn-darken-2">
+	                            <button type="submit" class="btn btn-green btn-darken-2">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

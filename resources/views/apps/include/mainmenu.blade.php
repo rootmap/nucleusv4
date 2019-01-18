@@ -88,9 +88,18 @@
                 </ul>
             </li>
             @endif
+
+            @if(in_array('special/feature', $dataMenuAssigned))
+            <!--/ End navigation - dashboard -->
+            <li class="{{ Request::path() == 'special/feature' ? 'active' : '' }}">
+                <a href="{{url('special/feature')}}">
+                    <span class="icon"><i class="fa fa-shopping-basket"></i></span>
+                    <span class="text">Special Feature</span>
+                </a>
+            </li>
+            @endif
             
-            @if(in_array('customermain', $dataMenuAssigned))
-            <!-- Start navigation - frontend themes -->
+            {{-- @if(in_array('customermain', $dataMenuAssigned))
             <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-shopping-bag"></i></span>
@@ -102,10 +111,9 @@
                     <li class="{{ Request::path() == 'special/parts/list' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('special/parts/list')}}" class="menu-item">Special Order List</a></li>
                 </ul>
             </li>
-            @endif
+            @endif --}}
 
-            @if(in_array('customermain', $dataMenuAssigned))
-            <!-- Start navigation - frontend themes -->
+            {{-- @if(in_array('customermain', $dataMenuAssigned))
             <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-random"></i></span>
@@ -117,13 +125,17 @@
                     <li class="{{ Request::path() == 'buyback/list' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('buyback/list')}}" class="menu-item">Buyback List</a></li>
                 </ul>
             </li>
-            @endif 
+            @endif  --}}
 
             @if(in_array('customermain', $dataMenuAssigned))
             <!-- Start navigation - frontend themes -->
             <li class="submenu">
                 <a href="javascript:void(0);">
-                    <span class="icon"><i class="fa fa-cogs"></i></span>
+                    <span class="icon">
+                        <i style="font-size: 20px; color: #fff;" class="fa icon-rtmat">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                        </i>
+                    </span>
                     <span class="text">Repair &amp; Ticket</span>
                     <span class="arrow"></span>
                 </a>
@@ -183,7 +195,7 @@
                 </ul>
             </li>
             @endif
-            @if(in_array('warranty', $dataMenuAssigned))
+           {{--  @if(in_array('warranty', $dataMenuAssigned))
             <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-times-circle"></i></span>
@@ -202,9 +214,9 @@
                     @endif                    
                 </ul>
             </li>
-            @endif
+            @endif --}}
             
-            @if(in_array('sales-return', $dataMenuAssigned))
+            {{-- @if(in_array('sales-return', $dataMenuAssigned))
             <li class="submenu">
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-shopping-cart"></i></span>
@@ -229,15 +241,15 @@
                 </ul>
             </li>
             @endif 
-            @if(in_array('expense/voucher', $dataMenuAssigned))
-            <!--/ End navigation - dashboard -->
+             --}}
+            {{-- @if(in_array('expense/voucher', $dataMenuAssigned))
             <li class="{{ Request::path() == 'expense/voucher' ? 'active' : '' }}">
                 <a href="{{url('expense/voucher')}}">
                     <span class="icon"><i class="fa fa-shopping-basket"></i></span>
                     <span class="text">Expense Voucher</span>
                 </a>
             </li>
-            @endif 
+            @endif  --}}
      
             <!--/ End navigation - frontend themes -->
             @if(in_array('reports', $dataMenuAssigned) || in_array('system-setting', $dataMenuAssigned))
@@ -405,7 +417,7 @@
             @if(in_array('storesettings', $dataMenuAssigned)) 
             <li class="submenu">
                 <a href="javascript:void(0);">
-                    <span class="icon"><i class="fa fa-home"></i></span>
+                    <span class="icon"><i class="fa icon-home22"></i></span>
                     <span class="text">Store Setting</span>
                     <span class="arrow"></span>
                 </a>

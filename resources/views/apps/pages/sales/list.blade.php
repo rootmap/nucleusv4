@@ -97,16 +97,16 @@
                                 <div class="col-md-12">
                                     
                                     <div class="input-group" style="margin-top:32px;">
-                                        <button type="submit" id="salesSUSub" class="btn btn-info btn-darken-1 mr-1">
+                                        <button type="submit" id="salesSUSub" class="btn btn-green btn-darken-1 mr-1">
                                             <i class="icon-check2"></i> Generate Report
                                         </button>
-                                        <a href="javascript:void(0);" data-url="{{url('sales/excel/report')}}" class="btn btn-info btn-darken-2 mr-1 change-action-export-sales">
+                                        <a href="javascript:void(0);" data-url="{{url('sales/excel/report')}}" class="btn btn-green btn-darken-2 mr-1 change-action-export-sales">
                                             <i class="icon-file-excel-o"></i> Generate Excel
                                         </a>
-                                        <a href="javascript:void(0);" data-url="{{url('sales/pdf/report')}}" class="btn btn-info btn-darken-3 mr-1 change-action-export-sales">
+                                        <a href="javascript:void(0);" data-url="{{url('sales/pdf/report')}}" class="btn btn-green btn-darken-3 mr-1 change-action-export-sales">
                                             <i class="icon-file-pdf-o"></i> Generate PDF
                                         </a>
-                                        <a href="{{url('sales/report')}}" style="margin-left: 5px;" class="btn btn-info btn-darken-4">
+                                        <a href="{{url('sales/report')}}" style="margin-left: 5px;" class="btn btn-green btn-darken-4">
                                             <i class="icon-refresh"></i> Reset
                                         </a>
                                     </div>
@@ -162,19 +162,19 @@
                                 <td>{{$row->tender_name}}</td>
                                 <td>
                                     @if($row->Invoice_status=="Due")
-                                        <span class="btn btn-info btn-lighten-1">{{$row->Invoice_status}}</span>
+                                        <span class="btn btn-green btn-lighten-1">{{$row->Invoice_status}}</span>
                                     @elseif($row->Invoice_status=="Partial")
-                                        <span class="btn btn-info btn-accent-1">{{$row->Invoice_status}}</span>
+                                        <span class="btn btn-green btn-accent-1">{{$row->Invoice_status}}</span>
                                     @elseif($row->Invoice_status=="Paid")
-                                        <span class="btn btn-info btn-darken-1">{{$row->Invoice_status}}</span>
+                                        <span class="btn btn-green btn-darken-1">{{$row->Invoice_status}}</span>
                                     @else
-                                        <span class="btn btn-info btn-darken-3">{{$row->Invoice_status}}</span>
+                                        <span class="btn btn-green btn-darken-3">{{$row->Invoice_status}}</span>
                                     @endif
                                 </td>
                                 <td>{{$row->total_amount}}</td>
                                 <td>
                                     <span class="dropdown">
-                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
+                                        <button id="btnSearchDrop4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-green dropdown-toggle dropdown-menu-right"><i class="icon-cog3"></i></button>
                                         <span aria-labelledby="btnSearchDrop4" class="dropdown-menu mt-1 dropdown-menu-right">
                                             <a href="{{url('sales/invoice/'.$row->id)}}" title="View Invoice" class="dropdown-item"><i class="icon-file-text"></i> View Invoice</a>
                                             <a href="javascript:putInvoiceModal('{{$row->invoice_id}}');" title="Send Invoice" class="dropdown-item"><i class="icon-email2"></i> Send Invoice</a>

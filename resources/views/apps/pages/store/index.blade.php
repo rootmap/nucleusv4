@@ -38,13 +38,13 @@
 										@if(isset($edit))
 											value="{{$edit->name}}" 
 										@endif 
-										 id="eventRegInput1" class="form-control border-primary" placeholder="Full name" name="name">
+										 id="eventRegInput1" class="form-control border-green" placeholder="Full name" name="name">
 		                        </div>
 		                        <div class="form-group">
 	                            	<label for="projectinput1">Contact Email </label>
 		                            	 
 										
-										<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Email Address" name="email" @if(isset($edit)) value="{{$edit->email}}" @endif>
+										<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Email Address" name="email" @if(isset($edit)) value="{{$edit->email}}" @endif>
 											
 										
 										
@@ -55,7 +55,7 @@
 										@if(isset($edit))
 											value="{{$edit->phone}}" 
 										@endif 
-										 id="eventRegInput1" class="form-control border-primary" placeholder="Phone Number" name="phone">
+										 id="eventRegInput1" class="form-control border-green" placeholder="Phone Number" name="phone">
 		                        </div>
 		                        <div class="form-group">
 	                            	<label for="projectinput1">Address </label>
@@ -63,7 +63,7 @@
 										@if(isset($edit))
 											value="{{$edit->address}}" 
 										@endif 
-										 id="eventRegInput1" class="form-control border-primary" placeholder="Address" name="address">
+										 id="eventRegInput1" class="form-control border-green" placeholder="Address" name="address">
 		                        </div>
 
 		                        <div class="form-group">
@@ -74,14 +74,14 @@
 										@else
 											 value="{{$store_id}}" 
 										@endif 
-										 id="eventRegInput1" readonly="readonly" class="form-control border-primary" placeholder="Store ID" name="store_id">
+										 id="eventRegInput1" readonly="readonly" class="form-control border-green" placeholder="Store ID" name="store_id">
 		                        </div>
 							<div class="form-actions center">
-								<button type="reset" class="btn btn-info btn-lighten-2 mr-1">
+								<button type="reset" class="btn btn-green btn-lighten-2 mr-1">
 									<i class="icon-cross2"></i> Cancel
 								</button>
 								
-								<button type="submit" class="btn btn-info btn-darken-2">
+								<button type="submit" class="btn btn-green btn-darken-2">
 									<i class="icon-check2"></i> Save
 								</button>
 							

@@ -32,7 +32,7 @@
 	                        		<label class="col-md-4 label-control">Event Name</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegName" class="form-control border-primary" placeholder="Event Name" 
+											<input type="text" id="eventRegName" class="form-control border-green" placeholder="Event Name" 
 											@if(isset($editData))
 												value="{{$editData->event_name}}"  
 											@endif 
@@ -46,7 +46,7 @@
 	                        		<label class="col-md-4 label-control">Event Url</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegURL" class="form-control border-primary" placeholder="Event Url" 
+											<input type="text" id="eventRegURL" class="form-control border-green" placeholder="Event Url" 
 											@if(isset($editData))
 												value="{{$editData->event_url}}"  
 											@endif 
@@ -60,7 +60,7 @@
 	                        		<label class="col-md-4 label-control">Event Start Date</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegStartDate" class="form-control border-primary DropDateWithformat" placeholder="Event Start Date" 
+											<input type="text" id="eventRegStartDate" class="form-control border-green DropDateWithformat" placeholder="Event Start Date" 
 											@if(isset($editData))
 												value="{{$editData->event_start_date}}"  
 											@endif 
@@ -77,7 +77,7 @@
 	                        		<label class="col-md-4 label-control">Event Start Time</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegEndTime" class="form-control border-primary" placeholder="ent Start Time" 
+											<input type="text" id="eventRegEndTime" class="form-control border-green" placeholder="ent Start Time" 
 											@if(isset($editData))
 												value="{{$editData->event_start_time}}"  
 											@endif 
@@ -93,7 +93,7 @@
 	                        		<label class="col-md-4 label-control">Event End Date</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegEndDate" class="form-control border-primary DropDateWithformat" placeholder="Event End Date" 
+											<input type="text" id="eventRegEndDate" class="form-control border-green DropDateWithformat" placeholder="Event End Date" 
 											@if(isset($editData))
 												value="{{$editData->event_end_date}}"  
 											@endif 
@@ -109,7 +109,7 @@
 	                        		<label class="col-md-4 label-control">Event End Time</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegEndTime" class="form-control border-primary" placeholder="Event End Time" 
+											<input type="text" id="eventRegEndTime" class="form-control border-green" placeholder="Event End Time" 
 											@if(isset($editData))
 												value="{{$editData->event_end_time}}"  
 											@endif 
@@ -123,10 +123,10 @@
 
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-warning mr-1">
+	                            <button type="button" class="btn btn-green btn-accent-1 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-primary">
+	                            <button type="submit" class="btn btn-green">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

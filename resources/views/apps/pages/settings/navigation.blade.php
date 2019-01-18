@@ -29,7 +29,7 @@
 	                			<div class="form-group row last">
 	                        		<label class="col-md-3 label-control">Select Navigation</label>
 	                        		<div class="col-md-6">
-										<select name="nav_class_name" class="form-control border-purple">
+										<select name="nav_class_name" class="form-control border-green">
 											<option class="" value="">Select Navigation Background</option>
 											@if(isset($color))
 												@foreach($color as $col):
@@ -50,7 +50,7 @@
 										@if(isset($tab))
 											<nav id="navChange" class="header-navbar navbar navbar-with-menu {{$tab->nav_class_name}} navbar-dark navbar-shadow  navbar-border" data="{{$tab->nav_class_name}}">
 										@else
-											<nav id="navChange" class="header-navbar navbar navbar-with-menu bg-purple bg-darken-1 navbar-dark navbar-shadow  navbar-border" data="bg-purple bg-darken-1">
+											<nav id="navChange" class="header-navbar navbar navbar-with-menu bg-green bg-darken-1 navbar-dark navbar-shadow  navbar-border" data="bg-green bg-darken-1">
 										@endif
 										    <div class="navbar-wrapper">
 										        <div class="navbar-header">
@@ -68,7 +68,7 @@
 	                			<div class="form-group row last">
 	                        		<label class="col-md-3 label-control">Select Counter Display Color</label>
 	                        		<div class="col-md-6">
-										<select name="cd_class_name" class="form-control border-purple">
+										<select name="cd_class_name" class="form-control border-green">
 											<option class="" value="">Select Counter Display Background</option>
 											@if(isset($color))
 												@foreach($color as $col):
@@ -89,7 +89,7 @@
 										@if(isset($tab))
 											<nav id="cdChange" class="header-navbar navbar navbar-with-menu {{$tab->nav_class_name}} navbar-dark navbar-shadow  navbar-border" data="{{$tab->nav_class_name}}">
 										@else
-											<nav id="cdChange" class="header-navbar navbar navbar-with-menu bg-purple bg-darken-1 navbar-dark navbar-shadow  navbar-border" data="bg-purple bg-darken-1">
+											<nav id="cdChange" class="header-navbar navbar navbar-with-menu bg-green bg-darken-1 navbar-dark navbar-shadow  navbar-border" data="bg-green bg-darken-1">
 										@endif
 										    <div class="navbar-wrapper">
 										        <div class="navbar-header">
@@ -107,7 +107,7 @@
 	                			<div class="form-group row last">
 	                        		<label class="col-md-3 label-control">Outline Border</label>
 	                        		<div class="col-md-6">
-										<select name="outline_border_name" class="form-control border-purple">
+										<select name="outline_border_name" class="form-control border-green">
 											<option class="" value="">Select Outline Border</option>
 											@if(isset($color))
 												@foreach($color as $col):
@@ -128,7 +128,7 @@
 										@if(isset($tab))
 										<nav id="outline_borderChange" class="header-navbar navbar navbar-with-menu {{$tab->outline_border_name}}  navbar-shadow  navbar-border" data="{{$tab->outline_border_name}}">
 										@else
-										<nav id="outline_borderChange" class="header-navbar navbar navbar-with-menu border-danger border-lighten-3 navbar-shadow  navbar-border" data="border-danger border-darken-1">
+										<nav id="outline_borderChange" class="header-navbar navbar navbar-with-menu border-green border-lighten-3 navbar-shadow  navbar-border" data="border-green border-darken-1">
 										@endif
 										    <div class="navbar-wrapper">
 										        <div class="navbar-header">
@@ -145,10 +145,10 @@
 
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-info btn-lighten-2 mr-1">
+	                            <button type="button" class="btn btn-green btn-lighten-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-info btn-darken-2">
+	                            <button type="submit" class="btn btn-green btn-darken-2">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

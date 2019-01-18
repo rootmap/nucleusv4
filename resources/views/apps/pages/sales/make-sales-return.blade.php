@@ -42,7 +42,7 @@
                                 <td>{{$row->customer_name}}</td>
                                 <td>{{$row->total_amount}}</td>
                                 <td>
-                                    <a href="{{url('sales/return/make/'.$row->id)}}" class="btn btn-info" style="color: #fff;">
+                                    <a href="{{url('sales/return/make/'.$row->id)}}" class="btn btn-green" style="color: #fff;">
                                         <i class="icon-share"></i> Create Sales Return 
                                     </a>
                                 </td>

@@ -5,11 +5,11 @@
 	<div class="card border-grey border-lighten-3 px-2 py-2 row mb-0">
 		<div class="card-header no-border">
 			<div class="card-title text-xs-center">
-				<img src="{{url('images/logo/full-logo.png')}}" alt="Simple Retail Pos logo">
+				<img height="60" src="{{url('images/logo/logo-red-bl.png')}}" alt="NucleusPosV4 logo">
 			</div>
 			<h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2">
 				<span>
-					Login with Simple Retail POS
+					Login with Nucleus POS
 				</span>
 			</h6>
 		</div>
@@ -48,7 +48,7 @@
 						</div>
 						<div class="col-md-6 col-xs-12 text-xs-center text-md-right"><a href="{{ route('password.request') }}" class="card-link">Forgot Password?</a></div>
 					</fieldset>
-					<button type="submit" class="btn btn-primary btn-block btn-lg"><i class="icon-unlock2"></i> 
+					<button type="submit" class="btn btn-green btn-block btn-lg"><i class="icon-unlock2"></i> 
 						Login
 					</button>
 				</form>

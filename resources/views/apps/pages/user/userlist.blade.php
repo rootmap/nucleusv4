@@ -52,10 +52,10 @@
                                 @endif
                                 <td>
                                         @if(in_array('User_List_Edit', $dataMenuAssigned)) 
-                                        <a href="{{url('user/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-info"><i class="icon-pencil22"></i></a>
+                                        <a href="{{url('user/edit/'.$row->id)}}" title="Edit" class="btn btn-sm btn-outline-green"><i class="icon-pencil22"></i></a>
                                         @endif
                                         @if(in_array('User_List_Delete', $dataMenuAssigned)) 
-                                        <a  href="{{url('user/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-info btn-darken-1"><i class="icon-cross"></i></a>
+                                        <a  href="{{url('user/delete/'.$row->id)}}" title="Delete" class="btn btn-sm btn-outline-green btn-darken-1"><i class="icon-cross"></i></a>
                                         @endif
                                 </td>
                             </tr>

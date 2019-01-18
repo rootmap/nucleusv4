@@ -8,10 +8,10 @@
              style="margin-top:50px; font-family: serif; font-size:11pt;
              margin: 50px;
              padding:10px 15px;
-             border-top: 16px solid #3BAFDA;;
-             border-right: 6px solid #3BAFDA;
-             border-bottom: 6px solid #3BAFDA;
-             border-left: 6px solid #3BAFDA; border-radius: 3px; clear: both; display: block;">
+             border-top: 16px solid #4CAF50;;
+             border-right: 6px solid #4CAF50;
+             border-bottom: 6px solid #4CAF50;
+             border-left: 6px solid #4CAF50; border-radius: 3px; clear: both; display: block;">
             <table width="100%" style="width: 100%;">
                     <tr>
                         <td align="left">
@@ -183,8 +183,8 @@
 
             </table>
              <div  align="center" style="padding-top: 15px;">
-                 <button  class="btn btn-info">Update</button>
-                 <a href="{{url('settings/invoice/email')}}" class="btn btn-info btn-lighten-2">Back</a>
+                 <button  class="btn btn-green">Update</button>
+                 <a href="{{url('settings/invoice/email')}}" class="btn btn-green btn-lighten-2">Back</a>
              </div>
         </div>
         </form>

@@ -30,7 +30,7 @@
 	                        		<label class="col-md-4 label-control">API Login ID</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="API Login ID" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="API Login ID" 
 											@if(isset($edit))
 												value="{{$edit->api_login_id}}"  
 											@endif 
@@ -44,7 +44,7 @@
 	                        		<label class="col-md-4 label-control">Transaction Key</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="text" id="eventRegInput1" class="form-control border-primary" placeholder="Transaction Key" 
+											<input type="text" id="eventRegInput1" class="form-control border-green" placeholder="Transaction Key" 
 											@if(isset($edit))
 												value="{{$edit->transaction_key}}"  
 											@endif 
@@ -59,7 +59,7 @@
 	                        		<label class="col-md-4 label-control">Active module for email invoice</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">
-											<input type="checkbox" id="eventRegInput1" class="border-primary" placeholder="Transaction Key" 
+											<input type="checkbox" id="eventRegInput1" class="border-green" placeholder="Transaction Key" 
 											@if(isset($edit))
 												@if($edit->active_module_for_email_invoice==1)
 													checked="checked"  
@@ -75,10 +75,10 @@
 
 
 							<div class="form-actions center">
-	                            <button type="button" class="btn btn-info btn-lighten-2 mr-1">
+	                            <button type="button" class="btn btn-green btn-lighten-2 mr-1">
 	                            	<i class="icon-cross2"></i> Cancel
 	                            </button>
-	                            <button type="submit" class="btn btn-info btn-darken-2">
+	                            <button type="submit" class="btn btn-green btn-darken-2">
 	                                <i class="icon-check2"></i> Save
 	                            </button>
 	                        </div>

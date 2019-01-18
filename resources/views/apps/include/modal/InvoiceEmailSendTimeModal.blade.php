@@ -36,7 +36,7 @@
             <div class="form-group row">
                 <label class="col-md-4 label-control" for="projectinput1">&nbsp;</label>
                 <div class="col-md-8">
-                    <button type="submit" class="btn btn-info">
+                    <button type="submit" class="btn btn-green">
                         <i class="icon-check2"></i> Apply Changes
                     </button>
                 </div>

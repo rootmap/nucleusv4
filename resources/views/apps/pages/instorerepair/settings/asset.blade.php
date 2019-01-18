@@ -38,7 +38,7 @@
 								{{ csrf_field() }}
 								<div class="form-group step2">
 									<label for="userinput1">Asset Name <span class="text-danger">*</span></label>
-									<input type="text" class="form-control border-primary" 
+									<input type="text" class="form-control border-green" 
 									@if(isset($edit)) 
 									 value="{{$edit->name}}" 
 									@endif 
@@ -47,7 +47,7 @@
 							</div>
 
 							<div class="form-actions center">
-								<button type="submit" class="btn btn-info btn-accent-2">
+								<button type="submit" class="btn btn-green btn-accent-2">
 									<i class="icon-check2"></i> 
 									@if(isset($edit))
 										Update
@@ -93,12 +93,12 @@
 									<td>{{$row->id}}</td>
 									<td>{{$row->name}}</td>
 									<td>
-										<a href="{{url('settings/instore/asset/'.$asset.'/edit/'.$row->id)}}" class="btn btn-info">
+										<a href="{{url('settings/instore/asset/'.$asset.'/edit/'.$row->id)}}" class="btn btn-green btn-accent-1">
 											<i class="icon-edit"></i>
 										</a>
 									</td>
 									<td>
-										<a href="{{url('settings/instore/asset/'.$asset.'/delete/'.$row->id)}}" class="btn btn-danger">
+										<a href="{{url('settings/instore/asset/'.$asset.'/delete/'.$row->id)}}" class="btn btn-green">
 											<i class="icon-trash"></i>
 										</a>
 									</td>
