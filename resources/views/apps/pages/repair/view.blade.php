@@ -81,7 +81,7 @@
 														<div class="input-group">
 															<span class="input-group-addon"  style="@if($data->payment_status=="Pending") width: 210px; @else width: 120px; @endif text-align: left; background: white;" id="basic-addon11"><b>Payment Status @if($data->payment_status=="Pending") - (Pending) @endif</b></span>
 															@if($data->payment_status=="Pending")
-																<a class="btn btn-green btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" href="{{url('pos/repair/'.$data->repair_id)}}"> 
+																<a class="btn btn-green btn-block" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" href="{{url('pos/repair/'.$data->id)}}"> 
 																	<i class="icon-dollar"></i>{{$data->price}} to POS
 																</a>
 															@else
@@ -232,7 +232,12 @@
 														</div>
 													</fieldset>
 						                        </div>
-				                    		</div>				                    		
+				                    		</div>	
+				                    		<div class="row" style="margin-bottom: 15px;">
+				                    			<div class="col-md-12">
+				                    				<a  class="btn btn-green btn-block" href="{{url('repair/print/'.$data->id)}}"><i class="icon-printer"></i> Print Repair</a>
+						                    	</div>
+						                    </div>			                    		
 										</div>
 									</div>
 								</div>

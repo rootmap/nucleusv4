@@ -12,6 +12,11 @@ class InStoreRepairModelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $moduleName="In Store Repair Model Settings ";
+    private $sdc;
+    public function __construct(){ $this->sdc = new StaticDataController(); }
+
     public function index()
     {
         //
@@ -55,9 +60,11 @@ class InStoreRepairModelController extends Controller
      * @param  \App\InStoreRepairModel  $inStoreRepairModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(InStoreRepairModel $inStoreRepairModel)
+    public function edit($id=0)
     {
-        //
+        $device=\DB::table('in_store_repair_devices')->where('store_id',$this->sdc->storeID())->get();
+        $tab=\DB::table('in_store_repair_models')->where('id',$id)->first();
+        return view('apps.pages.instorerepair.settings.model',compact('tab','device'));
     }
 
     /**
@@ -67,9 +74,19 @@ class InStoreRepairModelController extends Controller
      * @param  \App\InStoreRepairModel  $inStoreRepairModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InStoreRepairModel $inStoreRepairModel)
+    public function update(Request $request, $id=0)
     {
-        //
+        //echo $id; die();
+        $devInfo=\DB::table('in_store_repair_devices')
+                    ->where('id',$request->device_id)
+                    ->first();
+
+        $tab=\DB::table('in_store_repair_models')->where('id',$id)->update(['device_id'=>$request->device_id,
+                                                                            'device_name'=>$devInfo->name,
+                                                                            'name'=>$request->model_name,
+                                                                            'updated_by'=>$this->sdc->UserID()]);
+        return redirect('settings/instore/model/list')
+                 ->with('success','Model Name Updated Successfully.');
     }
 
     /**
@@ -78,8 +95,10 @@ class InStoreRepairModelController extends Controller
      * @param  \App\InStoreRepairModel  $inStoreRepairModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InStoreRepairModel $inStoreRepairModel)
+    public function destroy($id=0)
     {
-        //
+        $tab=\DB::table('in_store_repair_models')->where('id',$id)->delete();
+        return redirect('settings/instore/model/list')
+                 ->with('success','Model Name Deleted Successfully.');
     }
 }

@@ -650,7 +650,10 @@ class ProductStockinController extends Controller
         foreach($sqlLoopDel as $sqlInv):                           
             $quantity=$sqlInv->quantity;
             $pid=$sqlInv->product_id;
-            Product::find($pid)->decrement('quantity',$quantity);
+            Product::where('id',$pid)
+            ->update([
+               'quantity' => \DB::raw('quantity - '.$quantity)
+            ]);
             $total_quantity_invoice+=$quantity;
         endforeach;
 

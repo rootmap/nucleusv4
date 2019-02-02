@@ -186,6 +186,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//------------------Product route start--------------------//
 	Route::get('/product', 'ProductController@index')->name('customer');
 	Route::get('/product/list', 'ProductController@show');
+	Route::post('/product/list', 'ProductController@show');
 	Route::get('/product/report', 'ProductController@report');
 	Route::post('/product/save', 'ProductController@store');
 	Route::post('/product/ajax/save', 'ProductController@storeAjax');
@@ -337,6 +338,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/cart/pos/payout', 'InvoiceController@savePayout');
 	Route::post('/cart/counter-payment/status', 'InvoiceProductController@changeCounterPayStatus');
 	Route::post('/close/store', 'InvoiceController@closeStore');
+	Route::get('/close/print/store/{closing_id}', 'InvoiceController@printCloseStore');
 	Route::post('/transaction/store', 'InvoiceController@transactionStore');
 	Route::get('/invoice/pos/pay/paypal', 'InvoiceController@posPayPaypal');
 	Route::get('/invoice/counter-pos/pay/paypal', 'InvoiceController@posCounterPayPaypal');
@@ -360,6 +362,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/sales/report', 'InvoiceController@show');
 	Route::post('/sales/excel/report', 'InvoiceController@ExcelReport');
 	Route::post('/sales/pdf/report', 'InvoiceController@PdfReport');
+
+
+	Route::get('/sales/partial/payment', 'InvoiceController@salesPartialAdd');
+
+
 	//------------------Sales route end--------------------//
 
 	//------------------Sales Return Route Start--------------//
@@ -405,6 +412,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/sales/cart/complete-sales', 'InvoiceController@CompleteSalesPOS');
 	//Route::post('/sales/cart/complete-sales', 'InvoiceController@CompleteSalesPOS');
 	Route::post('/sales/send/invoice', 'SendSalesEmailController@InvoiceMailSend');
+
+
+
+
 	//---------------POS Route End-----------------------------//
 
 	//------------------Counter Display Started------------------------//
@@ -452,9 +463,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/repair/delete/{id}', 'InStoreRepairController@destroy');
 	Route::post('/repair/ajax/{id}', 'InStoreRepairController@repairAjaxUpdate');
+	Route::post('/repair/product/ajax', 'ProductController@storeRepairAjax');
 	Route::get('/repair/create', 'InStoreRepairController@createR');
 	Route::get('/repair/view/{repair_id}', 'InStoreRepairController@show');
 	Route::post('/repair/save', 'InStoreRepairController@storeR');
+	Route::post('/repair/info/pos/ajax', 'InStoreRepairController@posInfostore');
 	Route::get('/repair/list', 'InStoreRepairController@index');
 	Route::get('/repair/report', 'InStoreRepairController@report');
 	Route::post('/repair/report', 'InStoreRepairController@report');
@@ -464,11 +477,37 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/repair/print/{repair_id}', 'InStoreRepairController@showRepairPDF');
 	Route::get('/pos/repair/{repair_id}', 'InvoiceProductController@RepairPOS');
 
+	Route::get('/settings/instore/device/list', 'InStoreRepairController@deviceList');
+	Route::get('/settings/instore/device/edit/{id}', 'InStoreRepairDeviceController@edit');
+	Route::post('/settings/instore/device/edit/{id}', 'InStoreRepairDeviceController@update');
+	Route::get('/settings/instore/device/delete/{id}', 'InStoreRepairDeviceController@destroy');
+
+	Route::get('/settings/instore/model/list', 'InStoreRepairController@modelList');
+	Route::get('/settings/instore/model/edit/{id}', 'InStoreRepairModelController@edit');
+	Route::post('/settings/instore/model/edit/{id}', 'InStoreRepairModelController@update');
+	Route::get('/settings/instore/model/delete/{id}', 'InStoreRepairModelController@destroy');
+
+	Route::get('/settings/instore/problem/list', 'InStoreRepairController@problemList');
+	Route::get('/settings/instore/problem/edit/{id}', 'InStoreRepairProblemController@edit');
+	Route::post('/settings/instore/problem/edit/{id}', 'InStoreRepairProblemController@update');
+	Route::get('/settings/instore/problem/delete/{id}', 'InStoreRepairProblemController@destroy');
+
+	Route::get('/settings/instore/price/list', 'InStoreRepairController@priceList');
+	Route::get('/settings/instore/price/edit/{id}', 'InStoreRepairPriceController@edit');
+	Route::post('/settings/instore/price/edit/{id}', 'InStoreRepairPriceController@update');
+	Route::get('/settings/instore/price/delete/{id}', 'InStoreRepairPriceController@destroy');
+
+	Route::get('/settings/instore/product/list', 'InStoreRepairController@productList');
+	Route::get('/settings/instore/product/edit/{id}', 'InStoreRepairProductController@edit');
+	Route::post('/settings/instore/product/edit/{id}', 'InStoreRepairProductController@update');
+	Route::get('/settings/instore/product/delete/{id}', 'InStoreRepairProductController@destroy');
+
 	Route::get('/ticket/delete/{id}', 'InStoreTicketController@destroy');
 	Route::post('/ticket/ajax/{id}', 'InStoreTicketController@ticketAjaxUpdate');
 	Route::get('/ticket/view/{ticket_id}', 'InStoreTicketController@show');
 	Route::get('/ticket/create', 'InStoreTicketController@create');
 	Route::post('/ticket/save', 'InStoreTicketController@store');
+	Route::post('/ticket/info/pos/ajax', 'InStoreTicketController@posInfostore');
 	Route::get('/ticket/list', 'InStoreTicketController@index');
 	Route::get('/ticket/report', 'InStoreTicketController@report');
 	Route::post('/ticket/report', 'InStoreTicketController@report');
@@ -512,14 +551,22 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('settings/instorerepair', 'InStoreRepairController@store');
 	Route::post('instorerepair/model/ajax', 'InStoreRepairController@deviceModel');
 	Route::post('genarate/barcode', 'BuybackController@genarateBarcode');
+
+
 	Route::get('pos/settings', 'PosSettingController@index');
 	Route::get('pos/settings/invoice/{id}', 'PosSettingController@invoiceLayout');
 	Route::post('pos/settings/invoice/save/{id}', 'PosSettingController@invoiceLayoutSave');
 	Route::post('pos/settings/save', 'PosSettingController@store');
 	Route::post('pos/settings/update/{id}', 'PosSettingController@update');
 
-	Route::get('site/navigation', 'SiteSettingController@navigation');
+	Route::get('tax/settings', 'TaxController@index');
+	Route::post('tax/settings/save', 'TaxController@store');
+	Route::post('tax/settings/update/{id}', 'TaxController@update');
 
+	Route::get('site/navigation', 'SiteSettingController@navigation');
+	Route::get('settings/tax', 'TaxController@index');
+	Route::post('settings/tax', 'TaxController@store');
+	Route::post('settings/tax/change', 'TaxController@update');
 	Route::post('settings/tax/settype', 'InvoiceProductController@setTaxType');
 	
 	Route::get('setting/printer/print-paper/size', 'PrinterPrintSizeController@index');

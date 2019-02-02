@@ -188,7 +188,7 @@
               <div class="form-group row" style="margin-top: 10px;">
                 <div class="clearfix"></div>
                 <hr>
-                <div class="col-md-8">
+                <div class="col-md-10">
                   <button type="button" class="btn btn-green" id="ticketstep1">
                       <i class="icon-step-forward"></i> Next
                   </button>
@@ -199,6 +199,10 @@
 
                   <button type="button" class="btn btn-green" id="ticketstep2" style="display: none;">
                       <i class="icon-step-forward"></i> Finish &amp; Add to Cart
+                  </button>
+
+                  <button type="button" class="btn btn-green" id="ticketstep2_list" style="display: none;">
+                      <i class="icon-step-forward"></i> Finish &amp; Add to Ticket List
                   </button>
 
                   <button type="reset" class="btn btn-green" id="reset_ticket" style="display: none; ">

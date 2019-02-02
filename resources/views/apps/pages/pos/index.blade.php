@@ -55,15 +55,6 @@
             </form>
         </div>
         <div class="row" id="defaultProductView">
-          {{-- @if(isset($product))
-          @foreach($product as $pro)
-          <div class="col-md-3 col-xs-6 col-sm-3">
-            <a href="javascript:void(0);" data-id="{{$pro->id}}" data-price="{{$pro->price}}" class="btn-blue btn-lighten-1 btn-block add-pos-cart btn">
-                <span>{{$pro->name}}</span>
-            </a>
-        </div>   
-        @endforeach
-        @endif   --}}
 
         <script type="text/javascript">
             .height-30
@@ -255,10 +246,15 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <h5>
-                            
                         </h5>
                         @if(isset($ps))
-                            <input type="hidden" name="taxRate" id="taxRate" value="{{$ps->sales_tax}}">
+                            @if($ps->pos_defualt_option=="Full Tax")
+                                <input type="hidden" name="taxRate" id="taxRate" value="{{$ps->sales_tax}}">
+                            @elseif($ps->pos_defualt_option=="Part Tax")
+                                <input type="hidden" name="taxRate" id="taxRate" value="{{$ps->sales_part_tax}}">
+                            @else
+                                <input type="hidden" name="taxRate" id="taxRate" value="0">
+                            @endif
                         @else
                             <input type="hidden" name="taxRate" id="taxRate" value="0">
                         @endif
@@ -365,13 +361,13 @@
                                             </button>
                                         </th>
                                         <th colspan="3"> 
-                                                <button id="btn-payment-modal_init" type="button" class="btn btn-green checkDrawer bg-lighten-1 btn-responsive" data-toggle="modal" data-target="#payModal" ><h4 style="text-transform: capitalize !important;"><i class="icon-cash"></i> Make Payment</h4></button>      
+                                                <button id="clearsale" type="button" class="btn btn-green checkDrawer bg-lighten-1 btn-responsive" ><h4 style="text-transform: capitalize !important;"><i class="icon-circle-cross"></i> CLEAR POS</h4></button>      
                                             
                                         </th>
                                     </tr>   
                                     <tr>
-                                        <th colspan="5">
-                                            <label>
+                                        <th colspan="5" align="center">
+                                            <label style="text-align: center; width: 300px; margin-left:15%;">
                                                 <input type="checkbox" name="counterPay" id="counterPay" 
                                                 @if(isset($cart->AllowCustomerPayBill)) 
                                                     @if($cart->AllowCustomerPayBill>0) 
@@ -388,11 +384,18 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="clearfix"></div>
-
+                        <style type="text/css">
+                            .select2-container--default .select2-selection--single .select2-selection__rendered
+                            {
+                                font-weight: bolder !important;
+                                text-align: center !important;
+                                font-size: 28px !important;
+                            }
+                        </style>
                         <div class="col-xs-12 button-group">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 button button2">
                                 <div class="input-group">
-                                    <select style="width: 100%;" class="select2 form-control" name="customer_id">
+                                    <select style="width: 100%; font-size: 16px !important; font-weight: bolder;" class="select2 form-control" name="customer_id">
                                         <option 
                                         @if(!isset($cart->customerID))
                                         @if(empty($cart->customerID))
@@ -400,9 +403,9 @@
                                         @endif
                                         @endif
 
-                                        value="">Select a Customer</option>
+                                        value="">SELECT CUSTOMER</option>
 
-                                        <option value="0">Create New Customer</option>
+                                        <option value="0">CREATE NEW CUSTOMER</option>
 
 
                                         @if(isset($customerData))
@@ -425,15 +428,21 @@
                                 {
                                     top: -7px !important;
                                 }
+
+                                .spfontcartfotter
+                                {
+                                    font-size: 28px !important; font-weight: 700;
+                                }
                             </style>
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6 checkDrawer">
-                                <button id="completesale" type="button" class="btn btn-green btn-accent-2 btn-responsive btn1">     
-                                   <i class="icon-circle-check"></i>  COMPLETE SALE
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6 checkDrawer">
+                                
+                                <button id="btn-payment-modal_init" data-toggle="modal" data-target="#payModal"  type="button" class="btn btn-green btn-darken-2 btn-responsive btn1  spfontcartfotter" style="font-size: 15px !important; font-weight: 600;">     
+                                   <i class="icon-cash"></i> Make Payment
                                 </button>
                             </div>
 
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button1 btn-group checkDrawer">
-                                <button  type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-green btn-accent-4 btn-responsive btn1  dropdown-toggle"><i class="icon-printer4"></i> PRINT INVOICE &nbsp;</button>      
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button1 btn-group checkDrawer">
+                                <button  type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-green btn-darken-3 btn-responsive btn1  dropdown-toggle spfontcartfotter" style="font-size: 15px !important; font-weight: 600;"><i class="icon-printer4"></i> Print Invoice &nbsp;</button>      
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item printncompleteSale" data-id="pos" href="javascript:void(0);"><i class="icon-printer4"></i> Default Print</a>
                                         <div class="dropdown-divider"></div>
@@ -444,19 +453,25 @@
 
                             </div>   
 
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6 checkDrawer">
-                                <button id="clearsale" type="button" class="btn btn-green btn-lighten-2 btn-responsive btn1">     
-                                   <i class="icon-circle-cross"></i> CLEAR POS
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6 checkDrawer">
+                                <button id="completesale" type="button" class="btn btn-green btn-darken-4 btn-responsive btn1 spfontcartfotter" style="font-size: 15px !important; font-weight: 600;">     
+                                   <i class="icon-circle-check"></i>  Complete Sale
                                 </button>
                             </div>
                             
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6">
-                                <button id="changeSalesView" type="button" class="btn btn-green btn-responsive btn1">     
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6">
+                                <button id="changeSalesView" type="button" class="btn btn-green btn-responsive btn1 spfontcartfotter" style="font-size: 15px !important; font-weight: 600;">     
                                     <i class="icon-stack3"></i> Change Sales View
                                 </button>
                             </div>
-                            <div class="col-xs-4 col-sm-6 col-md-4 col-lg-4 button button6">
-                                <button id="counterStatusChange" type="button" class="btn btn-green btn-darken-2 btn-responsive btn1"> <i class="icon-air-play"></i>  
+                            
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6">
+                                <button type="button" class="btn btn-green btn-responsive btn1 spfontcartfotter"  data-toggle="modal" data-target="#salesReturn" style="font-size: 15px !important; font-weight: 600;">     
+                                    <i class="icon-document"></i> Sales Return
+                                </button>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6">
+                                <button id="counterStatusChange" type="button" class="btn btn-green btn-darken-2 btn-responsive btn1 spfontcartfotter" style="font-size: 14px !important; font-weight: 600;"> <i class="icon-air-play"></i>  
                                     @if(isset($CounterDisplay))
                                         @if($CounterDisplay==1)   
                                             <span>Turn-off Your Counter Display</span>
@@ -466,11 +481,6 @@
                                     @else
                                         <span>Start Your Counter Display</span>
                                     @endif
-                                </button>
-                            </div>
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 button button6">
-                                <button type="button" class="btn btn-green btn-responsive btn1"  data-toggle="modal" data-target="#salesReturn">     
-                                    <i class="icon-document"></i> Sales Return
                                 </button>
                             </div>
                         </div>
@@ -500,7 +510,7 @@
            @include('apps.include.modal.cash-out')
            @include('apps.include.modal.cashoutModal')
            @include('apps.include.modal.discountModal')
-           @include('apps.include.modal.taxModal')
+           @include('apps.include.modal.taxModal',compact('ps'))
            @include('apps.include.modal.CustomerCardModal')
            @include('apps.include.modal.paymodal')
            @include('apps.include.modal.open-drawer')
@@ -1118,7 +1128,7 @@
 
         $(".closeStore").click(function(){
             $(".closeStore").fadeOut('fast');
-            $("#closeStoreMsg").html(loadingOrProcessing("Saving close drawer green, please wait...."));
+            $("#closeStoreMsg").html(loadingOrProcessing("Saving close drawer, please wait...."));
              //------------------------Ajax Customer Start-------------------------//
              var AddHowMowKhaoUrl="{{url('close/store')}}";
              $.ajax({
@@ -1140,6 +1150,55 @@
                         $(".openStore").fadeIn('fast');
 
                         $(".checkDrawer").fadeOut('fast');
+                    }
+                    else
+                    {   
+                        $("#closeStoreMsg").html(warningMessage("Failed, please try again...."));
+                        window.location.href=window.location.href;
+                    }
+                }
+            });
+            //------------------------Ajax Customer End---------------------------//
+            //$(".payModal-message-area").html(warningMessage("Please select a customer."));
+        });
+
+        $(".closePrintStore").click(function(){
+            $(".closePrintStore").fadeOut('fast');
+            $("#closeStoreMsg").html(loadingOrProcessing("Saving close drawer, please wait...."));
+             //------------------------Ajax Customer Start-------------------------//
+             var AddHowMowKhaoUrl="{{url('close/store')}}";
+             $.ajax({
+                'async': false,
+                'type': "POST",
+                'global': false,
+                'dataType': 'json',
+                'url': AddHowMowKhaoUrl,
+                'data': {'_token':"{{csrf_token()}}"},
+                'success': function (data) {
+                    console.log("Store Close ID : "+data)
+                    if(data)
+                    {
+                        $("#closeStoreMsg").html(successMessage("Drawer close successfully."));
+                        $("#close-drawer").modal('hide');
+                        
+                        $(".cldStore").fadeOut('slow');
+                        $(".opdStore").fadeIn('fast');
+                        $(".openStore").fadeIn('fast');
+
+                        $(".checkDrawer").fadeOut('fast'); 
+
+                        var PrintLocation="{{url('close/print/store')}}/"+data;
+                        //window.location.href=PrintLocation;
+
+                        var win = window.open(PrintLocation);
+                        if (win) {
+                            //Browser has allowed it to be opened
+                            win.focus();
+                            window.location.href=window.location.href;
+                        } else {
+                            alert('Please allow popups for this website');
+                        }
+
                     }
                     else
                     {   
@@ -1560,12 +1619,6 @@
 
         $(".save-new-customer").click(function(){
 
-//alert('working');
-            
-           // return false;
-
-
-
                     var name=$.trim($("input[name=new_customer_name]").val());
                     var phone=$.trim($("input[name=new_customer_phone]").val());
                     var email=$.trim($("input[name=new_customer_email]").val());
@@ -1581,7 +1634,7 @@
                         alert("Please select a customer Phone Number.");
                         return false;
                     }
-                    else if(email.length==0)
+                    /*else if(email.length==0)
                     {
                         alert("Please select a customer Email.");
                         return false;
@@ -1590,7 +1643,7 @@
                     {
                         alert("Please select a customer Address.");
                         return false;
-                    }
+                    }*/
                     
                     $(".save-new-customer-parent").html(" Processing please wait.....");
 
@@ -1931,7 +1984,7 @@
             return false;
         }
         console.log($(this).val());
-        var dues=$("#posCartSummary tr:eq(5)").find("td:eq(1)").children("span").html();
+        var dues=$("#totalCartDueToPay").html();
         var amp=$(this).val();
         if($.isNumeric($.trim(amp)))
         {

@@ -17,7 +17,7 @@
   </script>
   <title>
     @yield('title')
-    | Simple Retail POS
+    | Nucleus POS
   </title>
   @include('apps.include.headercss')
   @yield('css')

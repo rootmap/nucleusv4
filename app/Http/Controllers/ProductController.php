@@ -272,7 +272,7 @@ class ProductController extends Controller
         }
         
         $pid=$tab->id;
-        $this->sdc->log("product","Product created from POS for general sale.");
+        $this->sdc->log("product","Product created from POS for general sale..");
         return response()->json($pid);
     }
 
@@ -329,10 +329,10 @@ class ProductController extends Controller
     {
         $catID=0;
         $catName="";
-        $catInfoCount=Category::where('store_id',$this->sdc->storeID())->where('name','Ticket')->count();
+        $catInfoCount=Category::where('store_id',$this->sdc->storeID())->where('name','Repair')->count();
         if($catInfoCount>0)
         {
-            $catInfo=Category::where('store_id',$this->sdc->storeID())->where('name','Ticket')->first();
+            $catInfo=Category::where('store_id',$this->sdc->storeID())->where('name','Repair')->first();
             $catID=$catInfo->id;
             $catName=$catInfo->name;
         }
@@ -355,9 +355,15 @@ class ProductController extends Controller
         }
         else
         {
+            $prodetail=$request->name;
+            if(isset($request->detail))
+            {
+                $prodetail=$request->detail;
+            }
+
             $tab=new Product;
             $tab->name=$request->name;
-            $tab->detail=$request->detail;
+            $tab->detail=$prodetail;
             $tab->quantity=1;
             $tab->category_id=$catID;
             $tab->category_name=$catName;
@@ -380,10 +386,61 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Request $request,Product $product)
     {
-        $tab=$product::where('store_id',$this->sdc->storeID())->where('general_sale',0)->get();
-        return view('apps.pages.product.list',['dataTable'=>$tab]);
+
+        $category_id='';
+        if(isset($request->category_id))
+        {
+            $category_id=$request->category_id;
+        }
+
+        $start_date='';
+        if(isset($request->start_date))
+        {
+            $start_date=$request->start_date;
+        }
+
+        $end_date='';
+        if(isset($request->end_date))
+        {
+            $end_date=$request->end_date;
+        }
+
+        if(empty($start_date) && !empty($end_date))
+        {
+            $start_date=$end_date;
+        }
+
+        if(!empty($start_date) && empty($end_date))
+        {
+            $end_date=$start_date;
+        }
+
+        $dateString='';
+        if(!empty($start_date) && !empty($end_date))
+        {
+            $dateString="CAST(lsp_products.created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+        }
+
+        $cattab=Category::where('store_id',$this->sdc->storeID())->get();
+
+        $tab=$product::where('store_id',$this->sdc->storeID())
+                     ->when($dateString, function ($query) use ($dateString) {
+                            return $query->whereRaw($dateString);
+                     })
+                     ->when($category_id, function ($query) use ($category_id) {
+                            return $query->where('category_id',$category_id);
+                     })
+                     ->where('general_sale',0)
+                     ->get();
+        return view('apps.pages.product.list',[
+                                                'dataTable'=>$tab,
+                                                'cattab'=>$cattab,
+                                                'start_date'=>$start_date,
+                                                'end_date'=>$end_date,
+                                                'category_id'=>$category_id
+                                              ]);
     }
 
     public function report(Product $product, request $request)

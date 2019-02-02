@@ -29,14 +29,18 @@
 							{{csrf_field()}}
 							
 							<div class="row">
+								<div class="col-md-12" id="#ticketMSG"></div>
 								<div class="col-md-6">
 									<div class="form-body">
 			                			<div class="form-group row last">
-			                        		<label class="col-md-4 label-control">Select Customer</label>
+			                        		<label class="col-md-4 label-control">Select Customer
+			                        			<span class="text-danger">*</span>
+			                        		</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
 													<select  name="ticket_customer_id" id="ticket_customer_id" class="select2 form-control" style="width: 100%;"> 
 								                          <option value="">Please Select</option>
+								                          <option value="CR000">Create New Customer</option>
 								                          @if(isset($customer))
 								                            @foreach($customer as $pro)
 								                            <option  value="{{$pro->id}}">
@@ -78,7 +82,9 @@
 								<div class="col-md-6">
 									<div class="form-body">
 			                			<div class="form-group row last">
-			                        		<label class="col-md-4 label-control">Device Type / Subject</label>
+			                        		<label class="col-md-4 label-control">Device Type / Subject
+			                        			<span class="text-danger">*</span>
+			                        		</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
 													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Device Type / Subject" 
@@ -120,7 +126,9 @@
 								<div class="col-md-6">
 									<div class="form-body">
 			                			<div class="form-group row last">
-			                        		<label class="col-md-4 label-control">Problem type </label>
+			                        		<label class="col-md-4 label-control">Problem type
+			                        			<span class="text-danger">*</span> 
+			                        		</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
 													<select  name="ticket_problem_id" id="ticket_problem_id" class="select2 form-control" style="width: 100%;"> 
@@ -166,7 +174,9 @@
 								<div class="col-md-6">
 									<div class="form-body">
 			                			<div class="form-group row last">
-			                        		<label class="col-md-4 label-control">Our Cost </label>
+			                        		<label class="col-md-4 label-control">Our Cost
+			                        			<span class="text-danger">*</span>
+			                        		 </label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
 													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Our Cost" 
@@ -206,7 +216,9 @@
 								<div class="col-md-6">
 									<div class="form-body">
 			                			<div class="form-group row last">
-			                        		<label class="col-md-4 label-control">Retail Price for customer</label>
+			                        		<label class="col-md-4 label-control">Retail Price for customer
+			                        			<span class="text-danger">*</span>
+			                        		</label>
 			                        		<div class="col-md-7">
 												<div class="form-group">
 													<input type="text" id="eventRegName" class="form-control border-green" placeholder="Retail Price for customer" 
@@ -363,8 +375,14 @@
 	                </div>
 	            </div>
 	        </div>
+
+	        @include('apps.include.modal.new-customer')
+
+
 	    </div>
 	</div>
+
+
 
 </section>
 @endsection

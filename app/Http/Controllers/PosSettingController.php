@@ -33,6 +33,7 @@ class PosSettingController extends Controller
             $tab->sales_tax="3.00";
             $tab->sales_part_tax="1.50";
             $tab->sales_discount="5.00";
+            $tab->pos_defualt_option="Full Tax";
             $tab->discount_type="2";
             $tab->store_id=$store_id;
             $tab->created_by=$user_id;
@@ -212,6 +213,7 @@ class PosSettingController extends Controller
         $tab->pos_item=$pos_item;
         $tab->sales_tax=$sales_tax;
         $tab->sales_part_tax=$sales_part_tax;
+        $tab->pos_defualt_option=$request->tax_st;
         $tab->invoice_layout=$invoice_layout;
         $tab->sales_discount=$sales_discount;
         $tab->discount_type=$discount_type;
@@ -296,6 +298,7 @@ class PosSettingController extends Controller
         $tab->pos_item=$pos_item;
         $tab->sales_tax=$sales_tax;
         $tab->sales_part_tax=$sales_part_tax;
+        $tab->pos_defualt_option=$request->tax_st;
         $tab->invoice_layout=$invoice_layout;
         $tab->sales_discount=$sales_discount;
         $tab->discount_type=$discount_type;

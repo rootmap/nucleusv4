@@ -376,9 +376,7 @@ class CustomerController extends Controller
 
         $this->validate($request,[
             'name'=>'required',
-            'address'=>'required',
             'phone'=>'required',
-            'email'=>'required',
         ]);
 
 
@@ -467,10 +465,8 @@ class CustomerController extends Controller
     {
 
         $this->validate($request,[
-            'name'=>'required',
             'address'=>'required',
             'phone'=>'required',
-            'email'=>'required',
         ]);
 
         $tab=$customer::find($id);
@@ -484,6 +480,8 @@ class CustomerController extends Controller
         return redirect('customer')->with('status', $this->moduleName.' Updated Successfully !');
 
     }
+
+   
 
     /**
      * Remove the specified resource from storage.
@@ -509,7 +507,7 @@ class CustomerController extends Controller
 
         $this->sdc->log("customer","Customer account deleted.");
 
-        return redirect('customer')->with('status', $this->moduleName.' Deleted Successfully !');
+        return redirect('customer/list')->with('status', $this->moduleName.' Deleted Successfully !');
     }
 
     public function importCustomer(){

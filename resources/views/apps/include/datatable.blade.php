@@ -96,6 +96,10 @@
     	@include('apps.include.json.instorerepairajax')
     @endif    
 
+    @if(isset($instorerepairajaxinfo))
+    	@include('apps.include.json.instorerepairajaxinfo')
+    @endif   
+
     @if(isset($posinstorerepair))
     	{{-- Instore repair js * Start  --}}
 		@include('apps.include.json.posinstorerepair')
@@ -389,6 +393,108 @@
 
     @if(isset($ticket))
     	@include('apps.include.json.ticket')
+    	<script type="text/javascript">
+
+    	function loadingOrProcessing(sms)
+	    {
+	        var strHtml='';
+	            strHtml+='<div class="alert alert-icon-right alert-green alert-dismissible fade in mb-2" role="alert">';
+	            strHtml+='      <i class="icon-spinner10 spinner"></i> '+sms;
+	            strHtml+='</div>';
+
+	            return strHtml;
+
+	    }
+
+	    function warningMessage(sms)
+	    {
+	        var strHtml='';
+	            strHtml+='<div class="alert alert-icon-left alert-danger alert-dismissible fade in mb-2" role="alert">';
+	            strHtml+='<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+	            strHtml+='<span aria-hidden="true">×</span>';
+	            strHtml+='</button>';
+	            strHtml+=sms;
+	            strHtml+='</div>';
+	            return strHtml;
+	    }
+
+	    function successMessage(sms)
+	    {
+	        var strHtml='';
+	            strHtml+='<div class="alert alert-icon-left alert-success alert-dismissible fade in mb-2" role="alert">';
+	            strHtml+='<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+	            strHtml+='<span aria-hidden="true">×</span>';
+	            strHtml+='</button>';
+	            strHtml+=sms;
+	            strHtml+='</div>';
+	            return strHtml;
+	    }
+
+    	$(document).ready(function(){
+    		$("select[name=ticket_customer_id]").change(function(){
+    			var customerID=$.trim($(this).val());
+	            console.log(customerID);
+	            if(customerID=="CR000")
+	            {
+	                $("#NewCustomerDash").modal('show');
+	                return false;
+	            }
+
+    		});
+    	});
+
+    	$(".save-new-customer").click(function(){
+
+            var name=$.trim($("input[name=new_customer_name]").val());
+            var phone=$.trim($("input[name=new_customer_phone]").val());
+            var email=$.trim($("input[name=new_customer_email]").val());
+            var address=$.trim($("input[name=new_customer_address]").val());
+            //console.log(name,phone,email,address);
+            if(name.length==0)
+            {
+                $("#NewCustomerDashMSG").html(warningMessage("Please select a customer Name."));
+                return false;
+            }
+            else if(phone.length==0)
+            {
+            	$("#NewCustomerDashMSG").html(warningMessage("Please select a customer Phone Number."));
+                return false;
+            }
+            /*else if(email.length==0)
+            {
+                alert("Please select a customer Email.");
+                return false;
+            }
+            else if(address.length==0)
+            {
+                alert("Please select a customer Address.");
+                return false;
+            }*/
+            $("#NewCustomerDashMSG").html(warningMessage("Processing please wait....."));
+            //------------------------Ajax Customer Start-------------------------//
+            var AddNewCustomerUrl="{{url('customer/pos/ajax/add')}}";
+            $.ajax({
+                'async': false,
+                'type': "POST",
+                'global': false,
+                'dataType': 'json',
+                'url': AddNewCustomerUrl,
+                'data': {'name':name,'phone':phone,'email':email,'address':address,'_token':"{{csrf_token()}}"},
+                'success': function (data) {
+                    $("select[name=ticket_customer_id]").append('<option value="'+data+'">'+name+'</option>');
+                    $("select[name=ticket_customer_id] option[value='"+data+"']").prop("selected",true);
+                    
+                    $("#ticketMSG").html(successMessage("Successfully Saved Customer Info."));
+                    $("#NewCustomerDashMSG").html(successMessage("Successfully Saved Customer Info."));
+                    $("#NewCustomerDash").modal('hide');
+                }
+            });
+            //------------------------Ajax Customer End---------------------------//
+        });
+
+
+
+    	</script>
     @endif
 
     <script type="text/javascript">

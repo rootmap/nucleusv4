@@ -51,9 +51,15 @@
 								<td>{{$row->email}}</td>
 								<td>{{$row->last_invoice_no}}</td>
 								@if(in_array('list_customer_report', $dataMenuAssigned))
-								<td>
+								<td width="450">
 									<a href="{{url('customer/report/'.$row->id)}}" class="btn btn-green mr-1 change-action">
 										<i class="icon-file-o"></i> View Report
+									</a>
+									<a href="{{url('customer/edit/'.$row->id)}}" class="btn btn-green mr-1 btn-darken-2">
+										<i class="icon-edit"></i> edit
+									</a>
+									<a href="{{url('customer/delete/'.$row->id)}}" class="btn btn-green mr-1 btn-darken-3">
+										<i class="icon-trash"></i> Delete
 									</a>
 								</td>
 								@endif

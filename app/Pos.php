@@ -51,6 +51,20 @@ class Pos {
                     {
                         $tab=PosSetting::where('store_id',$this->store_id)->orderBy('id','DESC')->first();
                         $this->TaxRate=$tab->sales_tax;
+
+                        if(empty($this->TaxType))
+                        {
+                            if(empty($tab->pos_defualt_option))
+                            {
+                                $this->TaxType="Full Tax";
+                            }
+                            else
+                            {
+                                $this->TaxType=$tab->pos_defualt_option;
+                            }
+                        }
+
+
                         if($this->TaxType=="Full Tax")
                         {
                             $this->TaxRate=$tab->sales_tax;

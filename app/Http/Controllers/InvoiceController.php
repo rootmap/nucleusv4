@@ -73,6 +73,16 @@ class InvoiceController extends Controller
         $this->authorizenet = new AuthorizeNetPaymentController(); 
     }
 
+    public function salesPartialAdd()
+    {
+        $tab=\DB::table('menu_pages')->orderBy('id','DESC')->get();
+        return view('apps.pages.sales.addPayment',
+                        [
+                            'dataTable'=>$tab
+                        ]
+                    );
+    }
+
     public function posclear(Request $request)
     {
         $oldCart = $request->session()->has('Pos') ? $request->session()->get('Pos') : null;
@@ -1466,6 +1476,7 @@ class InvoiceController extends Controller
             $tab=new OpenDrawer();
             $tab->opening_amount=$request->openStoreBalance;
             $tab->store_status='Open';
+            $tab->opening_time=date('Y-m-d H:i:s');
             $tab->store_id=$this->sdc->storeID();
             $tab->created_by=$this->sdc->UserID();
             $tab->save();
@@ -1515,30 +1526,35 @@ class InvoiceController extends Controller
                             ->orderBy('id','DESC')
                             ->first();
 
-            $getStoreDateTime=$storeInfo->created_at;
+            $getStoreDateTime=$storeInfo->opening_time;
+            if(empty($storeInfo->opening_time))
+            {
+                $getStoreDateTime=$storeInfo->created_at;
+            }
             $opening_amount=$storeInfo->opening_amount;
+            $getStoreCloseDateTime=date('Y-m-d H:i:s');
 
             $totalSales=Invoice::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('total_amount');
 
             $totalTax=Invoice::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('total_tax');
 
             $totalSalesTender=Invoice::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->select('tender_id','tender_name',\DB::Raw('SUM(total_amount) as tender_total'))
                             ->groupBy('tender_id')
                             ->orderBy('tender_name','ASC')
                             ->get();
 
             $totalPayoutPlus=Payout::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('amount');
 
             $totalPayoutMin=Payout::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('negative_amount');
 
             //dd($totalPayoutMin);
@@ -1559,6 +1575,7 @@ class InvoiceController extends Controller
             $tabClStr->opeing_time=$getStoreDateTime;
             $tabClStr->opening_amount=$opening_amount;
             $tabClStr->closing_amount=$closing_amount;
+            $tabClStr->closing_time=$getStoreCloseDateTime;
             $tabClStr->store_id=$this->sdc->storeID();
             $tabClStr->created_by=$this->sdc->UserID();
             $tabClStr->save();
@@ -1585,6 +1602,229 @@ class InvoiceController extends Controller
 
     }
 
+    public function printCloseStore($closing_id=0)
+    {
+            
+        $closeStoreData=CloseDrawer::find($closing_id);
+
+        $getStoreDateTime=$closeStoreData->opeing_time;
+        $getStoreCloseDateTime=$closeStoreData->closing_time;
+        $opening_amount=$closeStoreData->opening_amount;
+
+        $totalSales=Invoice::where('store_id',$this->sdc->storeID())
+                        ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
+                        ->sum('total_amount');
+
+        $totalTax=Invoice::where('store_id',$this->sdc->storeID())
+                        ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
+                        ->sum('total_tax');
+
+        $totalSalesTender=Invoice::where('store_id',$this->sdc->storeID())
+                        ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
+                        ->select('tender_id','tender_name',\DB::Raw('SUM(total_amount) as tender_total'))
+                        ->groupBy('tender_id')
+                        ->orderBy('tender_name','ASC')
+                        ->get();
+
+        $totalPayoutPlus=Payout::where('store_id',$this->sdc->storeID())
+                        ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
+                        ->sum('amount');
+
+        $totalPayoutMin=Payout::where('store_id',$this->sdc->storeID())
+                        ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
+                        ->sum('negative_amount');
+
+        $totalPayout=$totalPayoutPlus-$totalPayoutMin;
+        $array=array('status'=>1,'opening_amount'=>$opening_amount,'opening_time'=>date('d/m/Y',strtotime($getStoreDateTime)),'salesTotal'=>$totalSales,'totalSalesTender'=>$totalSalesTender,'totalTax'=>$totalTax);
+
+        $closing_amount=$totalSales+$opening_amount+$totalPayout;
+
+        $userFullName=$closeStoreData->cashier_name;
+
+        $invInfo=$this->sdc->Invlayout($closeStoreData->store_id);
+        if(!file_exists('company/'.$invInfo->logo))
+        {
+            return redirect()->back()->with('error', ' Invoice failed to load, Please Set Invoice/Report Logo. !');
+        }
+
+        $address='';
+        if(isset($invInfo->address))
+        {
+            $address=$invInfo->address;
+        }
+
+        if(isset($invInfo->mm_four))
+        {
+            $address=$invInfo->mm_four;
+        }
+
+        $html='';
+
+        $html .='<table align="center" width="100%">
+                    <tbody>
+                        <tr>
+                            <td align="center">
+                                <img class="logo" height="45" src="'.url('company/'.$invInfo->logo).'" alt="brand logo"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">'.$invInfo->company_name.'</td>
+                        </tr>
+                        <tr>
+                            <td align="center">'.$invInfo->c_one.'</td>
+                        </tr>
+                        <tr>
+                            <td align="center">'.$address.'</td>
+                        </tr>
+                    </tbody>
+                </table>';
+
+                    $html .='<table align="center" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4"><hr></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cashier</td>
+                                            <td colspan="3">: '.$closeStoreData->cashier_name.'</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date Time</td>
+                                            <td colspan="3">: '.date('d-M-Y H:i:s a',strtotime($getStoreDateTime)).'</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4"><hr></td>
+                                        </tr>
+                                    </tbody>
+                                </table>';
+
+        $html .='<h4 align="center"><strong>DRAWER CLOSING DETAIL </strong></h4>';
+
+        $html .='<table class="table table-striped table-bordered">
+                <tbody>
+                  <tr>
+                      <td align="left" width="80%">Opening Time  </td>
+                      <td align="left" id="storeCloseTotalCollection">';
+                      $html .=$getStoreDateTime;
+                      $html .='</td>
+                  </tr>
+                  <tr>
+                      <td align="left" width="80%">Closing Time </td>
+                      <td align="left" id="storeCloseTotalCollection">';
+                      $html .=$getStoreCloseDateTime;
+                      $html .='</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2"><div style="background:rgba(51,51,51,1); display:block; height:1px;"></div> </td>
+                  </tr>
+                  <tr>
+                      <td align="left" width="80%">Total Collection :  </td>
+                      <td align="left" id="storeCloseTotalCollection">$';
+                      $html .=number_format($totalSales,2);
+                      $html .='</td>
+                  </tr>
+                </tbody>
+                <tbody id="storeCloseTableTenderList">';
+
+                  if(isset($totalSalesTender))
+                  {
+                        foreach($totalSalesTender as $row)
+                        {
+                            $html .='<tr>
+                                          <td align="left">'.$row->tender_name.' Collected (+) :  </td>
+                                          <td align="left">$';
+                                          $html .=number_format($row->tender_total,2);
+                                          $html .='</td>
+                                      </tr>';
+                        }
+                  }
+
+
+                  $html .='
+                </tbody>
+                <tbody>
+                  <tr>
+                      <td align="left">Opening Amount (+) :  </td>
+                      <td align="left">$<span id="storeCloseOpeningAmount">';
+                      $html .=number_format($opening_amount,2);
+                      $html .='</span></td>
+                  </tr>
+                  <tr>
+                      <td align="left">Payout (+)(-) :  </td>
+                      <td align="left">$<span id="totalPayout">';
+                      $html .=number_format($totalPayout,2);
+                      $html .='</span></td>
+                  </tr>';
+                  //<tr><td align="left">BuyBack ( - )  :  </td><td align="left">$0.00</td></tr>
+                  $html .='<tr>
+                      <td align="left">Tax (-)  :  </td>
+                      <td align="left">$<span id="storeCloseTaxAmount">';
+                      $html .=number_format($totalTax,2);
+                      $html .='</span></td>
+                  </tr>
+                  <tr>
+                      <td colspan="2"><div style="background:rgba(51,51,51,1); display:block; height:1px;"></div> </td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                      <td align="left"><b>Net Total :</b>  </td>
+                      <td align="left">$<span id="currectStoreTotal">';
+                      $html .=number_format($closing_amount,2); 
+                      $html .='</span></td>
+                  </tr>
+              </tbody>
+            </table>';
+
+            $html .='<table align="center" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8"><br><br><br><br></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td align="center"><hr></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td align="center"><hr></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td align="center">Cashier Sign</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td align="center">Manager Sign</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="8"><hr></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="8" align="justify">'.$invInfo->terms.'</td>
+                                        </tr>
+                                    </tbody>
+                                </table>';
+
+            //echo $html; die();
+
+            $mpdf=new Mpdf;
+            $mpdf->SetTitle('Store Closing Detail-'.$closing_id);
+            $stylesheet=file_get_contents(url('assets/css/bootstrap.min.css'));
+            $stylesheet2=file_get_contents(url('assets/css/style.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            $mpdf->WriteHTML($stylesheet2, 1); // The parameter 1 tells that this is css/style only and no body/html/text
+            $mpdf->WriteHTML($html, 2);
+            $mpdf->Output('store_closing_detail' . time() . '.pdf', 'I');
+            exit();
+
+
+    }
+
     public function transactionStore()
     {
         $tabCount=OpenDrawer::where('store_id',$this->sdc->storeID())
@@ -1597,30 +1837,35 @@ class InvoiceController extends Controller
                             ->orderBy('id','DESC')
                             ->first();
 
-            $getStoreDateTime=$storeInfo->created_at;
+            $getStoreDateTime=$storeInfo->opening_time;
+            if(empty($storeInfo->opening_time))
+            {
+                $getStoreDateTime=$storeInfo->created_at;
+            }
             $opening_amount=$storeInfo->opening_amount;
+            $getStoreCloseDateTime=date('Y-m-d H:i:s');
 
             $totalSales=Invoice::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('total_amount');
 
             $totalTax=Invoice::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('total_tax');
 
             $totalSalesTender=Invoice::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->select('tender_id','tender_name',\DB::Raw('SUM(total_amount) as tender_total'))
                             ->groupBy('tender_id')
                             ->orderBy('tender_name','ASC')
                             ->get();
 
             $totalPayoutPlus=Payout::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('amount');
 
             $totalPayoutMin=Payout::where('store_id',$this->sdc->storeID())
-                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST(CURRENT_TIMESTAMP as datetime)")
+                            ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('negative_amount');
 
             //dd($totalPayoutMin);
@@ -1892,6 +2137,9 @@ class InvoiceController extends Controller
 
     public function pos(Request $request)
     {
+        
+        \DB::statement("call defaultTicketNRepairCreate('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
         $this->getSalesCartTokenID();
         $filter=$this->GenaratePageDataFilter();
         $tab_customer=Customer::where('store_id',$this->sdc->storeID())->get();
@@ -2179,7 +2427,7 @@ class InvoiceController extends Controller
                     }
                 }
 
-                for ($i=1; $i <= 16 - $ai; $i++):
+                for ($i=1; $i <= 13 - $ai; $i++):
                     $html .='<tr>
                 <td>&nbsp;
                 </td>
@@ -2324,6 +2572,8 @@ class InvoiceController extends Controller
                 </div>
                 <div class="col-md-12" style="border-bottom: 5px #000 solid; margin-left:15px; clear: both;">
                 <hr style="height:5px; margin-top:5px;">
+                <br>
+                '.$invInfo->terms.'
                 </div>
                 </div>
                 </div>
@@ -4024,7 +4274,11 @@ class InvoiceController extends Controller
                     $tab->how_did_you_hear_about_us=$repairArray['repair_how_did_you_hear_about_us'];
                     $tab->start_time=$repairArray['repair_start_time'];
                     $tab->end_time=$repairArray['repair_end_time'];
-                    $tab->salvage_part=$repairArray['repair_salvage_part'];
+                    if(isset($repairArray['repair_salvage_part']))
+                    {
+                        $tab->salvage_part=$repairArray['repair_salvage_part'];
+                    }
+                    
 
                     unset($repairArray['device_id']);
                     unset($repairArray['model_id']);
@@ -4039,8 +4293,10 @@ class InvoiceController extends Controller
                     unset($repairArray['repair_how_did_you_hear_about_us']);
                     unset($repairArray['repair_start_time']);
                     unset($repairArray['repair_end_time']);
-                    unset($repairArray['repair_salvage_part']);
-
+                    if(isset($repairArray['repair_salvage_part']))
+                    {
+                        unset($repairArray['repair_salvage_part']);
+                    }
                     $repair_json=json_encode($repairArray);
 
                     $productInfo=Product::find($row['item_id']);
@@ -4057,6 +4313,8 @@ class InvoiceController extends Controller
                     $tab->save();
 
                     \DB::statement("call updateDailyRepair('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+                    
+
 
                 }
                 elseif(isset($row['ticketArray']))

@@ -27,6 +27,8 @@ class RetailPosSummaryController extends Controller
         //print_r($dash); die();
         $Todaydate=date('Y-m-d');
         \DB::statement("call todaySystemSummaryStatus('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
+        \DB::statement("call defaultTicketNRepairCreate('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
         
         
         $tabToday=RetailPosSummaryDateWise::whereRaw('report_date=CAST(now() as date)')

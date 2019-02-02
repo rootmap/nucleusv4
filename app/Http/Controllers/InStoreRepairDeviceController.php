@@ -12,6 +12,11 @@ class InStoreRepairDeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $moduleName="In Store Repair Device Settings ";
+    private $sdc;
+    public function __construct(){ $this->sdc = new StaticDataController(); }
+
     public function index()
     {
         //
@@ -55,9 +60,10 @@ class InStoreRepairDeviceController extends Controller
      * @param  \App\InStoreRepairDevice  $inStoreRepairDevice
      * @return \Illuminate\Http\Response
      */
-    public function edit(InStoreRepairDevice $inStoreRepairDevice)
+    public function edit($id=0)
     {
-        //
+        $tab=\DB::table('in_store_repair_devices')->where('id',$id)->first();
+        return view('apps.pages.instorerepair.settings.device',compact('tab'));
     }
 
     /**
@@ -67,9 +73,12 @@ class InStoreRepairDeviceController extends Controller
      * @param  \App\InStoreRepairDevice  $inStoreRepairDevice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, InStoreRepairDevice $inStoreRepairDevice)
+    public function update(Request $request,$id=0)
     {
-        //
+        //echo $id; die();
+        $tab=\DB::table('in_store_repair_devices')->where('id',$id)->update(['name'=>$request->device_name,'updated_by'=>$this->sdc->UserID()]);
+        return redirect('settings/instore/device/list')
+                 ->with('success','Device Name Updated Successfully.');
     }
 
     /**
@@ -78,8 +87,10 @@ class InStoreRepairDeviceController extends Controller
      * @param  \App\InStoreRepairDevice  $inStoreRepairDevice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InStoreRepairDevice $inStoreRepairDevice)
+    public function destroy($id=0)
     {
-        //
+        $tab=\DB::table('in_store_repair_devices')->where('id',$id)->delete();
+        return redirect('settings/instore/device/list')
+                 ->with('success','Device Name Deleted Successfully.');
     }
 }

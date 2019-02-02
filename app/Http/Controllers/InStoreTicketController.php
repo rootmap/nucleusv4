@@ -116,7 +116,10 @@ class InStoreTicketController extends Controller
     {
         $tab_customer=Customer::where('store_id',$this->sdc->storeID())->get();
         $problem=InStoreRepairProblem::select('id','name','model_id')->where('store_id',$this->sdc->storeID())->get();
-        $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','ticket')->where('store_id',$this->sdc->storeID())->get();
+        $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','ticket')->where('store_id',$this->sdc->storeID())->get(); 
+
+        \DB::statement("call defaultTicketNRepairCreate('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+        
         return view('apps.pages.ticket.create',
         [
             'customer'=>$tab_customer,
@@ -133,6 +136,13 @@ class InStoreTicketController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'ticket_device_type'=>'required',
+            'ticket_problem_id'=>'required',
+            'ticket_retail_price'=>'required',
+            'ticket_our_cost'=>'required',
+            'ticket_customer_id'=>'required'
+        ]);
         
             $ticket_id=time();
             $problem_id=$request->ticket_problem_id;
@@ -270,12 +280,106 @@ class InStoreTicketController extends Controller
             $tic->store_id=$this->sdc->storeID();
             $tic->created_by=$this->sdc->UserID();
             $tic->save(); 
+            $ticketID=$tic->id; 
 
             $Todaydate=date('Y-m-d');
             \DB::statement("call updateDailyTicket('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
-            return redirect('ticket/create')->with('status', 'Ticket Added Successfully !');
+            return redirect('ticket/view/'.$ticketID)->with('status', 'Ticket Added Successfully !');
 
             //dd($request);
+    }
+
+    public function posInfostore(Request $request)
+    {
+        //dd($request);
+        $ticketArray=$request['ticket'];
+        $product_id=$request['product_id'];
+        $customer_id=$request['customer_id'];
+        $proInfo=Product::find($product_id);
+        $cusInfo=Customer::find($customer_id);
+
+        $problem_id=$ticketArray['ticket_problem_id'];
+        if($problem_id=="TP0001")
+        {
+
+            $checkExProb=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
+                                                ->where('name',$ticketArray['ticket_problem_name'])
+                                                ->count();
+            if($checkExProb==0)
+            {
+                $tab=new InStoreRepairProblem();
+                $tab->used_type="Store";
+                $tab->name=$ticketArray['ticket_problem_name'];
+                $tab->store_id=$this->sdc->storeID();
+                $tab->created_by=$this->sdc->UserID();
+                $tab->save();
+            }
+            else
+            {
+                $tab=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
+                                                ->where('name',$ticketArray['ticket_problem_name'])
+                                                ->first();
+            }
+            
+
+            $problem_id=$tab->id;
+        }
+
+        $problem_info=\DB::table('in_store_repair_problems')->where('id',$problem_id)->first();
+        $problem_name=$problem_info->name;
+
+        //InStoreTicket
+
+
+
+        $tic=new InStoreTicket();
+        $tic->customer_id=$customer_id;
+        $tic->customer_name=$cusInfo->name;
+        $tic->ticket_id=$ticketArray['ticket_id'];
+        $tic->device_type=$ticketArray['ticket_device_type'];
+        $tic->problem_id=$problem_id;
+        $tic->problem_name=$problem_name;
+        $tic->our_cost=$ticketArray['ticket_our_cost'];
+        $tic->retail_price=$ticketArray['ticket_retail_price'];
+        $tic->password=$ticketArray['ticket_password'];
+        $tic->type_n_color=$ticketArray['ticket_type_n_color'];
+        $tic->carrier=$ticketArray['ticket_carrier'];
+        $tic->imei=$ticketArray['ticket_imei'];
+        $tic->how_did_you_hear_about_us=$ticketArray['ticket_how_did_you_hear_about_us'];
+        $tic->isdropoff=$ticketArray['isdropoff'];
+        $tic->tested_before_by=$ticketArray['ticket_tested_before_by'];
+        $tic->tested_after_by=$ticketArray['ticket_tested_after_by'];
+        $tic->tech_notes=$ticketArray['ticket_tech_notes'];
+
+        unset($ticketArray['ticket_id']);
+        unset($ticketArray['ticket_device_type']);
+        unset($ticketArray['ticket_problem_name']);
+        unset($ticketArray['ticket_problem_id']);
+        unset($ticketArray['ticket_our_cost']);
+        unset($ticketArray['ticket_retail_price']);
+        unset($ticketArray['ticket_password']);
+        unset($ticketArray['ticket_type_n_color']);
+        unset($ticketArray['ticket_carrier']);
+        unset($ticketArray['ticket_imei']);
+        unset($ticketArray['ticket_how_did_you_hear_about_us']);
+        unset($ticketArray['isdropoff']);
+        unset($ticketArray['ticket_tested_before_by']);
+        unset($ticketArray['ticket_tested_after_by']);
+        unset($ticketArray['ticket_tech_notes']);
+
+        $ticket_json=json_encode($ticketArray);
+
+        $tic->ticket_json=$ticket_json;
+        $tic->product_id=$product_id;
+        $tic->product_name=$proInfo->name;
+        $tic->store_id=$this->sdc->storeID();
+        $tic->created_by=$this->sdc->UserID();
+        $tic->save();
+        $ticketSysid=$tic->id;
+
+        \DB::statement("call updateDailyTicket('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
+        return response()->json($ticketSysid);
     }
 
     public function ticketAjaxUpdate(Request $request,$id=0)
@@ -437,7 +541,12 @@ class InStoreTicketController extends Controller
                 $report_cpmpany_name = $invInfo->company_name;
                 $report_cpmpany_address = $invInfo->mm_four;
                 $report_cpmpany_phone = $invInfo->c_one;
-                $report_cpmpany_email = $storeUInfo->email;
+                $report_cpmpany_email ="";
+                if(isset($storeUInfo->email))
+                {
+                    $report_cpmpany_email = $storeUInfo->email;
+                }
+                
                 $report_cpmpany_fotter = $invInfo->mm_one;
 
     //logo and tax id end

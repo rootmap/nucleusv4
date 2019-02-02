@@ -167,7 +167,11 @@ class InStoreRepairController extends Controller
         $tab->how_did_you_hear_about_us=$repairArray['repair_how_did_you_hear_about_us'];
         $tab->start_time=$repairArray['repair_start_time'];
         $tab->end_time=$repairArray['repair_end_time'];
-        $tab->salvage_part=$repairArray['repair_salvage_part'];
+        if(isset($repairArray['repair_salvage_part']))
+        {
+            $tab->salvage_part=$repairArray['repair_salvage_part'];
+        }
+        
 
         unset($repairArray['repairPage']);
         unset($repairArray['_token']);
@@ -189,8 +193,10 @@ class InStoreRepairController extends Controller
         unset($repairArray['repair_how_did_you_hear_about_us']);
         unset($repairArray['repair_start_time']);
         unset($repairArray['repair_end_time']);
-        unset($repairArray['repair_salvage_part']);
-
+        if(isset($repairArray['repair_salvage_part']))
+        {
+            unset($repairArray['repair_salvage_part']);
+        }
         $repair_json=json_encode($repairArray);
 
         $productInfo=Product::find($pid);
@@ -205,10 +211,11 @@ class InStoreRepairController extends Controller
         $tab->store_id=$this->sdc->storeID();
         $tab->created_by=$this->sdc->UserID();
         $tab->save();
+        $repairIDs=$tab->id;
 
         \DB::statement("call updateDailyRepair('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
 
-        return redirect('repair/create')->with('status', 'Repair Detail Added Successfully !');
+        return redirect('repair/view/'.$repairIDs)->with('status', 'Repair Detail Added Successfully !');
     }
 
     public function createR()
@@ -229,6 +236,8 @@ class InStoreRepairController extends Controller
         $problem=InStoreRepairProblem::select('id','name','model_id')->where('store_id',$this->sdc->storeID())->get();
         $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','repair')->where('store_id',$this->sdc->storeID())->get();
 
+        \DB::statement("call defaultTicketNRepairCreate('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
         return view('apps.pages.repair.create',
         [
             'customer'=>$tab_customer,
@@ -241,6 +250,99 @@ class InStoreRepairController extends Controller
             'problem'=>$problem,
             'estPrice'=>$estPrice
         ]);
+    }
+
+    public function posInfostore(Request $request)
+    {
+        $repairArray=$request['repair'];
+
+        $product_id=$request['product_id'];
+        $customer_id=$request['customer_id'];
+        $proInfo=Product::find($product_id);
+        $cusInfo=Customer::find($customer_id);
+
+        $device_id=$repairArray['device_id'];
+        $model_id=$repairArray['model_id'];
+        $problem_id=$repairArray['problem_id'];
+
+        $device_info=\DB::table('in_store_repair_devices')->where('id',$device_id)->first();
+        $device_name=$device_info->name;
+
+        $model_info=\DB::table('in_store_repair_models')->where('id',$model_id)->first();
+        $model_name=$model_info->name;
+
+        $problem_info=\DB::table('in_store_repair_problems')->where('id',$problem_id)->first();
+        $problem_name=$problem_info->name;
+
+        $price=0;
+        if(!empty($repairArray['override_repair_price']))
+        {
+            $price=$repairArray['override_repair_price'];
+        }
+        else
+        {
+            $price=$repairArray['repair_price'];
+        }
+
+        $tab=new InStoreRepair();
+        $tab->customer_id=$customer_id;
+        $tab->customer_name=$cusInfo->name;
+        $tab->device_id=$repairArray['device_id'];
+        $tab->device_name=$device_name;
+        $tab->model_id=$repairArray['model_id'];
+        $tab->model_name=$model_name;
+        $tab->problem_id=$repairArray['problem_id'];
+        $tab->problem_name=$problem_name;
+        $tab->price=$price;
+        $tab->repair_price=$repairArray['repair_price'];
+        $tab->override_repair_price=$repairArray['override_repair_price'];
+        $tab->password=$repairArray['repair_password'];
+        $tab->imei=$repairArray['repair_imei'];
+        $tab->tested_before_by=$repairArray['repair_tested_before_by'];
+        $tab->tested_after_by=$repairArray['repair_tested_after_by'];
+        $tab->tech_notes=$repairArray['repair_tech_notes'];
+        $tab->how_did_you_hear_about_us=$repairArray['repair_how_did_you_hear_about_us'];
+        $tab->start_time=$repairArray['repair_start_time'];
+        $tab->end_time=$repairArray['repair_end_time'];
+        if(isset($repairArray['repair_salvage_part']))
+        {
+            $tab->salvage_part=$repairArray['repair_salvage_part'];
+        }
+        
+
+        unset($repairArray['device_id']);
+        unset($repairArray['model_id']);
+        unset($repairArray['problem_id']);
+        unset($repairArray['repair_price']);
+        unset($repairArray['override_repair_price']);
+        unset($repairArray['repair_password']);
+        unset($repairArray['repair_imei']);
+        unset($repairArray['repair_tested_before_by']);
+        unset($repairArray['repair_tested_after_by']);
+        unset($repairArray['repair_tech_notes']);
+        unset($repairArray['repair_how_did_you_hear_about_us']);
+        unset($repairArray['repair_start_time']);
+        unset($repairArray['repair_end_time']);
+        if(isset($repairArray['repair_salvage_part']))
+        {
+            unset($repairArray['repair_salvage_part']);
+        }
+        $repair_json=json_encode($repairArray);
+
+        $our_cost=$proInfo->cost;
+        
+        $tab->repair_json=$repair_json;
+        $tab->product_id=$product_id;
+        $tab->product_name=$proInfo->name;
+        $tab->our_cost=$our_cost;
+        $tab->store_id=$this->sdc->storeID();
+        $tab->created_by=$this->sdc->UserID();
+        $tab->save();
+        $repairSysID=$tab->id;
+
+        \DB::statement("call updateDailyRepair('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+
+        return response()->json($repairSysID);
     }
 
     public function report(Request $request)
@@ -611,6 +713,50 @@ class InStoreRepairController extends Controller
 
     }
 
+    public function deviceList()
+    {
+        $device=\DB::table('in_store_repair_devices')->where('store_id',$this->sdc->storeID())->get();
+        
+        return view('apps.pages.instorerepair.repair.instoredevicelist',compact('device'));
+    }
+
+    public function modelList()
+    {
+        $modelData=\DB::table('in_store_repair_models')
+                      ->where('store_id',$this->sdc->storeID())
+                      ->get();
+        
+        return view('apps.pages.instorerepair.repair.instoremodellist',compact('modelData'));
+    }
+
+    public function problemList()
+    {
+        $problemData=\DB::table('in_store_repair_problems')
+                      ->where('store_id',$this->sdc->storeID())
+                      ->get();
+        
+        return view('apps.pages.instorerepair.repair.instoreproblemlist',compact('problemData'));
+    }
+
+    public function priceList()
+    {
+        $priceData=\DB::table('in_store_repair_prices')
+                        ->where('store_id',$this->sdc->storeID())
+                        ->get();
+        
+        return view('apps.pages.instorerepair.repair.instorepricelist',compact('priceData'));
+    }
+
+    public function productList()
+    {
+        $productData=\DB::table('in_store_repair_products')
+                      ->where('store_id',$this->sdc->storeID())
+                      ->get();
+        
+        return view('apps.pages.instorerepair.repair.instoreproductlist',compact('productData'));
+    }
+
+
     public function mergeDataTostore()
     {
         $search_type="Master";
@@ -841,18 +987,12 @@ class InStoreRepairController extends Controller
 
                     $repair_cid=$categorySQL->id;
                     $cat_name=$categorySQL->name;
-
+                    $x=0;
                     foreach($productSQL as $row)
                     {
 
-                        $productPriceSQL=InStoreRepairPrice::where('used_type',$creation_type)
-                                                           ->where('device_name',$row->device_name)
-                                                           ->where('model_name',$row->model_name)
-                                                           ->where('problem_name',$row->problem_name)
-                                                           ->where('store_id',$request->store_id)
-                                                           ->first();
+                        
 
-                        //dd($productPriceSQL);
 
                         $tab=new Product;
                         $tab->category_id=$repair_cid;
@@ -867,26 +1007,82 @@ class InStoreRepairController extends Controller
                         $tab->created_by=$this->sdc->UserID();
                         $tab->save();
                         $pid=$tab->id;
+                        //dd($productPriceSQL);
+                        $productPriceSQLCount=\DB::table('in_store_repair_prices')
+                                            ->where('used_type',$creation_type)
+                                           ->where('device_name',$row->device_name)
+                                           ->where('model_name',$row->model_name)
+                                           ->where('problem_name',$row->problem_name)
+                                           ->where('store_id',$request->store_id)
+                                           ->count();
+                        $productPriceSQL=\DB::table('in_store_repair_prices')
+                                            ->where('used_type',$creation_type)
+                                           ->where('device_name',$row->device_name)
+                                           ->where('model_name',$row->model_name)
+                                           ->where('problem_name',$row->problem_name)
+                                           ->where('store_id',$request->store_id)
+                                           ->first();
+                                           //dd($productPriceSQL);
+                        
+                        /*if($productPriceSQLCount==0)
+                        {
+                            echo $x; 
+                            echo "<br><hr>"; 
+                            dd($row);
 
-                        $tabProduct=new InStoreRepairProduct;
-                        $tabProduct->product_id=$pid;
-                        $tabProduct->device_id=$productPriceSQL->device_id;
-                        $tabProduct->device_name=$productPriceSQL->device_name;            
-                        $tabProduct->model_id=$productPriceSQL->model_id;
-                        $tabProduct->model_name=$productPriceSQL->model_name;            
-                        $tabProduct->problem_id=$productPriceSQL->problem_id;
-                        $tabProduct->problem_name=$productPriceSQL->problem_name;
-                        $tabProduct->barcode=$row->barcode;
-                        $tabProduct->name=$row->name;
-                        $tabProduct->price=$row->price;
-                        $tabProduct->cost=$row->cost;
-                        $tabProduct->quantity=$row->quantity;
-                        $tabProduct->description=$row->description;
-                        $tabProduct->used_type=$creation_type;
-                        $tabProduct->store_id=$request->store_id;
-                        $tabProduct->created_by=$this->sdc->UserID();
-                        $tabProduct->save();
+                        }
 
+                        $x++;*/
+                        //$sqlInsertInStoreRepairProduct="insert into `lsp_in_store_repair_products` (`product_id`, `device_id`, `device_name`, `model_id`, `model_name`, `problem_id`, `problem_name`, `barcode`, `name`, `price`, `cost`, `quantity`, `descsription`, `used_type`, `store_id`, `created_by`, `updated_by`, `updated_at`, `created_at`) values ('$pid','$productPriceSQL->device_id', '$productPriceSQL->device_name','$productPriceSQL->model_id','$productPriceSQL->model_name', $productPriceSQL->problem_id, '$productPriceSQL->problem_name', '$row->barcode','$row->name', '$row->price','$row->cost','$row->quantity', '$row->description','$creation_type','$request->store_id','".$this->sdc->UserID()."', '".$this->sdc->UserID()."','".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."')";
+
+                        //echo $sqlInsertInStoreRepairProduct; die();
+                        if($productPriceSQLCount==0)
+                        {
+                            $tabProduct=new InStoreRepairProduct;
+                            $tabProduct->product_id=$pid;
+                            $tabProduct->device_id=$row->device_id;
+                            $tabProduct->device_name=$row->device_name;            
+                            $tabProduct->model_id=$row->model_id;
+                            $tabProduct->model_name=$row->model_name;            
+                            $tabProduct->problem_id=$row->problem_id;
+                            $tabProduct->problem_name=$row->problem_name;
+                            $tabProduct->barcode=$row->barcode;
+                            $tabProduct->name=$row->name;
+                            $tabProduct->price=$row->price;
+                            $tabProduct->cost=$row->cost;
+                            $tabProduct->quantity=$row->quantity;
+                            $tabProduct->description=$row->description;
+                            $tabProduct->used_type=$creation_type;
+                            $tabProduct->store_id=$request->store_id;
+                            $tabProduct->created_by=$this->sdc->UserID();
+                            $tabProduct->updated_by=$this->sdc->UserID();
+                            $tabProduct->save();
+                        }
+                        else
+                        {
+                            $tabProduct=new InStoreRepairProduct;
+                            $tabProduct->product_id=$pid;
+                            $tabProduct->device_id=$productPriceSQL->device_id;
+                            $tabProduct->device_name=$productPriceSQL->device_name;            
+                            $tabProduct->model_id=$productPriceSQL->model_id;
+                            $tabProduct->model_name=$productPriceSQL->model_name;            
+                            $tabProduct->problem_id=$productPriceSQL->problem_id;
+                            $tabProduct->problem_name=$productPriceSQL->problem_name;
+                            $tabProduct->barcode=$row->barcode;
+                            $tabProduct->name=$row->name;
+                            $tabProduct->price=$row->price;
+                            $tabProduct->cost=$row->cost;
+                            $tabProduct->quantity=$row->quantity;
+                            $tabProduct->description=$row->description;
+                            $tabProduct->used_type=$creation_type;
+                            $tabProduct->store_id=$request->store_id;
+                            $tabProduct->created_by=$this->sdc->UserID();
+                            $tabProduct->updated_by=$this->sdc->UserID();
+                            $tabProduct->save();
+                        }
+                        
+
+                        //dd($productPriceSQL);
                         $tab_stock=new ProductStockin;
                         $tab_stock->product_id=$pid;
                         $tab_stock->quantity=$row->quantity;
@@ -903,7 +1099,7 @@ class InStoreRepairController extends Controller
                            'product_quantity' => \DB::raw('product_quantity + '.$row->quantity),
                            'stockin_product_quantity' => \DB::raw('stockin_product_quantity + '.$row->quantity),
                         ]);
-
+                        //dd($productPriceSQL);
                         $Todaydate=date('Y-m-d');
                         if(RetailPosSummaryDateWise::where('report_date',$Todaydate)->count()==0)
                         {
@@ -923,6 +1119,8 @@ class InStoreRepairController extends Controller
                                'stockin_product_quantity' => \DB::raw('stockin_product_quantity + '.$row->quantity)
                             ]);
                         }
+
+                        //dd($productPriceSQL);
                     }
                 }
             }
@@ -1079,7 +1277,12 @@ class InStoreRepairController extends Controller
                 $report_cpmpany_name = $invInfo->company_name;
                 $report_cpmpany_address = $invInfo->mm_four;
                 $report_cpmpany_phone = $invInfo->c_one;
-                $report_cpmpany_email = $storeUInfo->email;
+                $report_cpmpany_email="";
+                if(isset($storeUInfo->email))
+                {
+                    $report_cpmpany_email = $storeUInfo->email;
+                }
+                
                 $report_cpmpany_fotter = $invInfo->mm_one;
 
     //logo and tax id end

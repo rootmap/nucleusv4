@@ -69,6 +69,39 @@
 							</div>
 							<div class="form-body">
 	                			<div class="form-group row last">
+	                        		<label class="col-md-4 label-control">Default Tax</label>
+	                        		<div class="col-md-7">
+										<div class="form-group">
+											<label class="col-md-4" style="text-align: center;">
+												<input 
+												@if(isset($ps))
+													@if($ps->pos_defualt_option=="Full Tax")
+														checked="checked"  
+													@endif
+												@endif 
+												 value="Full Tax" type="radio" id="tax_0" class="form-control" name="tax_st"> Full Tax</label>
+						                    <label class="col-md-4" style="text-align: center;">
+						                    	<input 
+						                    	@if(isset($ps))
+													@if($ps->pos_defualt_option=="Part Tax")
+														checked="checked"  
+													@endif
+												@endif  
+						                    	value="Part Tax" type="radio" id="tax_1" class="form-control" name="tax_st"> Part Tax</label>
+						                    <label class="col-md-4" style="text-align: center;">
+						                    	<input 
+						                    	@if(isset($ps))
+													@if($ps->pos_defualt_option=="No Tax")
+														checked="checked"  
+													@endif 
+												@endif  
+						                    	value="No Tax" type="radio" id="tax_2" class="form-control" name="tax_st"> No Tax</label>
+										</div>
+									</div>
+		                        </div>
+							</div>
+							<div class="form-body">
+	                			<div class="form-group row last">
 	                        		<label class="col-md-4 label-control">Discount  (%)</label>
 	                        		<div class="col-md-7">
 										<div class="form-group">

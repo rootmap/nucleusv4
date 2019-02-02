@@ -49,6 +49,7 @@ class InvoiceProductController extends Controller
         $product = Product::find($tab_invoice->product_id);
         $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
         $cart = new Pos($oldCart);
+        $cart->addCustomerID($tab_invoice->customer_id);
         $cart->addCustomRepairPrice($product, $product->id,$tab_invoice->price,$repair_id);
         $request->session()->put('Pos', $cart);
         return redirect('pos')->with('success','Repair Product Added In Cart Successfully.');
@@ -61,9 +62,13 @@ class InvoiceProductController extends Controller
                                   ->where('store_id',$this->sdc->storeID())
                                   ->first();
 
-        $product = Product::find($tab_invoice->product_id);
+        //dd($tab_invoice);
+
+        $product=Product::find($tab_invoice->product_id);
+        //dd($product);
         $oldCart = $request->session()->has('Pos') ?  $request->session()->get('Pos') : null;
         $cart = new Pos($oldCart);
+        $cart->addCustomerID($tab_invoice->customer_id);
         $cart->addCustomTicketPrice($product, $product->id,$tab_invoice->retail_price,$ticket_id);
         $request->session()->put('Pos', $cart);
         return redirect('pos')->with('success','Repair Product Added In Cart Successfully.');

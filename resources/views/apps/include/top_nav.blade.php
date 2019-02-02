@@ -126,7 +126,11 @@ if(!empty($objSite))
           
             <ul class="nav navbar-nav float-xs-right">
               
-
+                <li class="dropdown dropdown-user nav-item  border-left-grey  border-right-grey border-lighten-2" title="Access Old System" data-toggle="tooltip" data-placement="top" data-title="Access Old System" style="padding-left:8px;">
+                  <a href="#" style="" class="nav-link">
+                    <i class="icon-open" style="color: #fff;"></i> ACCESS OLD SYSTEM
+                  </a>
+                </li>
                 <li class="dropdown dropdown-user nav-item  border-left-grey  border-right-grey border-lighten-2" title="Full Screen View" data-toggle="tooltip" data-placement="top" data-title="Fullscreen" style="padding-left:8px;">
                   <a id="fullscreen" title="" style="font-size: 20px" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" data-title="Fullscreen" data-original-title="Fullscreen View" class="nav-link" style=" padding-top: 20px;">
                       <i style="font-size: 25px;  color:#fff;" class="icon-desktop"></i>

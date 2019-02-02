@@ -10,7 +10,7 @@
   <title>
     @yield('title')
      | 
-    Simpleretailpos.com 
+    Nucleus POS 
   </title>
 
   @include('login.include.headercss')
@@ -21,12 +21,21 @@
   <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-dark navbar-shadow">
     <div class="navbar-wrapper">
       <div class="navbar-header">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav float-xs-left">
           <li class="nav-item mobile-menu hidden-md-up float-xs-left"><a class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="icon-menu5 font-large-1"></i></a></li>
           <li class="nav-item"><a href="index.html" class="navbar-brand nav-link"><img alt="branding logo" src="{{url('images/nabLogoNuc.png')}}" data-expand="{{url('images/nabLogoNuc.png')}}" data-collapse="{{url('images/nabLogoNuc.png')}}" class="brand-logo"></a></li>
           <li class="nav-item hidden-md-up float-xs-right"><a data-toggle="collapse" data-target="#navbar-mobile" class="nav-link open-navbar-container"><i class="icon-ellipsis pe-2x fa-rotate-90"></i></a></li>
+          
         </ul>
+
+        
+        
+        
+
       </div>
+        <a href="#" style="margin-top: 12px; float: right; margin-right: 10px;" class="btn btn-green">
+             <i class="icon-open"></i> ACCESS OLD SYSTEM
+        </a>
     </div>
   </nav>
 

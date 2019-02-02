@@ -312,7 +312,7 @@
 				                      <i class="icon-backward"></i> Back
 				                  </button>
 				                  <button type="submit" class="btn btn-green" id="finish" style="display: none; ">
-				                      <i class="icon-forward"></i> Finish &amp; Add to Cart
+				                      <i class="icon-forward"></i> Finish &amp; Add to Repair List
 				                  </button>
 				                  <button type="reset" class="btn btn-green" id="reset_repair" style="display: none; ">
 				                      <i class="icon-clear"></i>Reset

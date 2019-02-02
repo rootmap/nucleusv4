@@ -14,7 +14,7 @@ class RepairTicketAssetController extends Controller
      */
 
 
-    private $moduleName="Customer";
+    private $moduleName="Repair / Ticket Asset ";
     private $sdc;
     public function __construct(){ $this->sdc = new StaticDataController(); }
 
@@ -36,13 +36,13 @@ class RepairTicketAssetController extends Controller
             if($asset=="repair")
             {
 
-                $dataTable=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->get();
+                $dataTable=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->get();
                 //dd($dataTable);
                 return view('apps.pages.instorerepair.settings.asset',compact('asset','dataTable'));       
             }
             elseif($asset=="ticket")
             {
-                $dataTable=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->get();
+                $dataTable=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->get();
                 return view('apps.pages.instorerepair.settings.asset',compact('asset','dataTable'));   
             }
             else
@@ -105,15 +105,15 @@ class RepairTicketAssetController extends Controller
             if($asset=="repair")
             {
 
-                $edit=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->where('id',$id)->first();
-                $dataTable=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->get();
+                $edit=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->where('id',$id)->first();
+                $dataTable=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->get();
                 //dd($dataTable);
                 return view('apps.pages.instorerepair.settings.asset',compact('asset','dataTable','edit'));       
             }
             elseif($asset=="ticket")
             {
-                $edit=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->where('id',$id)->first();
-                $dataTable=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->get();
+                $edit=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->where('id',$id)->first();
+                $dataTable=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->get();
                 return view('apps.pages.instorerepair.settings.asset',compact('asset','dataTable','edit'));   
             }
             else
@@ -141,7 +141,7 @@ class RepairTicketAssetController extends Controller
         ]);
 
 
-        $tab=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->where('id',$id)->update(['name'=>$request->name]);
+        $tab=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->where('id',$id)->update(['name'=>$request->name]);
 
         $this->sdc->log("Asset-".$asset," Updated Successfully.");
 
@@ -156,7 +156,7 @@ class RepairTicketAssetController extends Controller
      */
     public function destroy(RepairTicketAsset $repairTicketAsset,$asset='',$id=0)
     {
-        $tab=\DB::table('repair_ticket_assets')->where('asset_type',$asset)->where('id',$id)->delete();
+        $tab=\DB::table('repair_ticket_assets')->where('store_id',$this->sdc->storeID())->where('asset_type',$asset)->where('id',$id)->delete();
         
 
         $this->sdc->log("Asset ".$asset,$asset." asset deleted.");

@@ -10,6 +10,7 @@
                   </div>
                   <form>
                     <div class="modal-body">
+                        <div id="#NewCustomerDashMSG" class="form-group row"></div>
                         <div class="form-group row">
                             <label class="col-md-4 label-control" for="projectinput1">Name</label>
                             <div class="col-md-8">

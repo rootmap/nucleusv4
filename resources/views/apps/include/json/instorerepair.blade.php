@@ -128,7 +128,7 @@
                   {
                       problem_name=$("select[name=problem_id] option[value="+problem_id+"]").html();
                       new_problem=problem_name.trim();
-                      product_name_string +=", "+new_problem;
+                      product_name_string +=" - "+new_problem;
                   }
                 }
                 else

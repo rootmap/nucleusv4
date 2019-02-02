@@ -5,7 +5,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="myModalLabel35"> <i class="icon-cogs"></i> In Store Reapir</h4>
+          <h4 class="modal-title" id="myModalLabel35"> <i class="icon-cogs"></i> In Store Repair</h4>
       </div>
           <div class="modal-body">
               <div class="col-md-12" id="InstoreMSG"></div>
@@ -192,8 +192,8 @@
               <div class="form-group row" style="margin-top: 30px;">
                 <div class="clearfix"></div>
                 <hr>
-                <label class="col-md-2 label-control" for="Description">&nbsp;</label>
-                <div class="col-md-8">
+                <label class="col-md-1 label-control" for="Description">&nbsp;</label>
+                <div class="col-md-9">
                   <button type="button" class="btn btn-green" id="step1">
                       <i class="icon-step-forward"></i> Next
                   </button>
@@ -203,8 +203,11 @@
                   <button type="button" class="btn btn-green" id="step2_override" style="display: none;">
                       <i class="icon-step-forward"></i> Override Price
                   </button>
-                  <button type="button" class="btn btn-green" id="step3" style="display: none; ">
+                  <button type="button" class="btn btn-green btn-darken-1" id="step3" style="display: none; ">
                       <i class="icon-step-forward"></i> Finish &amp; Add to Cart
+                  </button>
+                  <button type="button" class="btn btn-green btn-darken-3" id="step3_list" style="display: none; ">
+                      <i class="icon-step-forward"></i> Finish &amp; Add to Repair List
                   </button>
                   <button type="reset" class="btn btn-green" id="reset_repair" style="display: none; ">
                       <i class="icon-step-forward"></i>Reset

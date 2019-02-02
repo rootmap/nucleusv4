@@ -2,6 +2,14 @@
     $dataMenuAssigned=array();
     $dataMenuAssigned=StaticDataController::dataMenuAssigned();
     //dd($dataMenuAssigned);
+    if(empty($dataMenuAssigned))
+    {
+        ?>
+        <script type="text/javascript">
+            logoutFRM();
+        </script>
+        <?php
+    }
 ?>
 
 <aside id="sidebar-left" class="sidebar-circle">
@@ -127,7 +135,7 @@
             </li>
             @endif  --}}
 
-            @if(in_array('customermain', $dataMenuAssigned))
+            @if(in_array('sprepairnticket', $dataMenuAssigned))
             <!-- Start navigation - frontend themes -->
             <li class="submenu">
                 <a href="javascript:void(0);">
@@ -140,10 +148,18 @@
                     <span class="arrow"></span>
                 </a>
                 <ul>
+                    @if(in_array('repair/create', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'repair/create' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('repair/create')}}" class="menu-item">Add New Repair</a></li>
+                    @endif
+                    @if(in_array('repair/list', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'repair/list' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('repair/list')}}" class="menu-item">Repair List</a></li>
+                    @endif
+                    @if(in_array('ticket/create', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'ticket/create' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('ticket/create')}}" class="menu-item">Add New Ticket</a></li>
+                    @endif
+                    @if(in_array('ticket/list', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'ticket/list' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('ticket/list')}}" class="menu-item">Ticket List</a></li>
+                    @endif
                 </ul>
             </li>
             @endif 
@@ -269,8 +285,15 @@
                     <span class="arrow"></span>
                 </a>
                 <ul>
+                    @if(in_array('attendance/punch/report', $dataMenuAssigned))
+                    <li class="{{ Request::path() == 'attendance/punch/report' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('attendance/punch/report')}}" class="menu-item">Attendance Punch Report</a></li>
+                    @endif 
+
                     @if(in_array('authorize/net/payment/history', $dataMenuAssigned))
                     <li class="{{ Request::path() == '/authorize/net/payment/history' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/authorize/net/payment/history')}}" class="menu-item">Authorize Payment Card History</a></li>
+                    @endif 
+                    @if(in_array('paypal/payment/report', $dataMenuAssigned))
+                    <li class="{{ Request::path() == '/report/buyback' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/report/buyback')}}" class="menu-item">Buyback Report</a></li>
                     @endif 
                     @if(in_array('expense/voucher/report', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'expense/voucher/report' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/expense/voucher/report')}}" class="menu-item">Expense Voucher Report</a></li>
@@ -308,17 +331,10 @@
                     @if(in_array('salvage/report', $dataMenuAssigned))
                     <li class="{{ Request::path() == '/salvage/report' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/salvage/report')}}" class="menu-item">Salvage Part Report</a></li>
                     @endif 
-                    @if(in_array('paypal/payment/report', $dataMenuAssigned))
-                    <li class="{{ Request::path() == '/ticket/report' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/ticket/report')}}" class="menu-item">Ticket Report</a></li>
-                    @endif 
-                    @if(in_array('paypal/payment/report', $dataMenuAssigned))
-                    <li class="{{ Request::path() == '/report/buyback' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/report/buyback')}}" class="menu-item">Buyback Report</a></li>
-                    @endif 
+                    
+                    
                     @if(in_array('paypal/payment/report', $dataMenuAssigned))
                     <li class="{{ Request::path() == '/store/close/report' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/store/close/report')}}" class="menu-item">Store Close Report</a></li>
-                    @endif
-                    @if(in_array('paypal/payment/report', $dataMenuAssigned))
-                    <li class="{{ Request::path() == '/report/tender' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/report/tender')}}" class="menu-item">Tender Report</a></li>
                     @endif 
                     @if(in_array('product/stock/in/report', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'product/stock/in/report' ? 'active' : '' }} border-bottom-purple"><a href="{{url('product/stock/in/report')}}" class="menu-item">Stock Received Report</a></li>
@@ -326,10 +342,15 @@
                     @if(in_array('sales/report', $dataMenuAssigned))
                     <li class="{{ Request::path() == 'sales/report' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('sales/report')}}" class="menu-item">Sales Report</a></li>
                     @endif 
-
-                    @if(in_array('attendance/punch/report', $dataMenuAssigned))
-                    <li class="{{ Request::path() == 'attendance/punch/report' ? 'active' : '' }}  border-bottom-purple"><a href="{{url('attendance/punch/report')}}" class="menu-item">Attendance Punch Report</a></li>
+                    @if(in_array('paypal/payment/report', $dataMenuAssigned))
+                    <li class="{{ Request::path() == '/report/tender' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/report/tender')}}" class="menu-item">Tender Report</a></li>
                     @endif 
+                    @if(in_array('paypal/payment/report', $dataMenuAssigned))
+                    <li class="{{ Request::path() == '/ticket/report' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/ticket/report')}}" class="menu-item">Ticket Report</a></li>
+                    @endif 
+                    
+
+                    
                     
                     
                 </ul>
@@ -350,7 +371,9 @@
                     <li class="{{ Request::path() == 'authorize/net/payment/setting' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/authorize/net/payment/setting')}}" class="menu-item">AuthorizeNet Account </a></li>
                     @endif 
                     
+                    @if(in_array('settings/barcode', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'settings/barcode' ? 'active' : '' }} border-bottom-purple"><a href="{{url('settings/barcode')}}" class="menu-item">Barcode Print</a></li>
+                    @endif 
                     
                     @if(in_array('category', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'category' ? 'active' : '' }} border-bottom-purple"><a href="{{url('category')}}" class="menu-item">Category</a></li>
@@ -362,26 +385,27 @@
                     <li class="{{ Request::path() == '/settings/invoice/email' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/settings/invoice/email')}}" class="menu-item">Invoice email template</a></li>
                     @endif  
 
+                    @if(in_array('spInstoreRepairSettings', $dataMenuAssigned))
                     <li class="submenu">
                         <a href="javascript:void(0);" class="menu-item">
                         In-Store Repair Settings
                         </a>
                         <ul>
-                            @if(in_array('sales/return/create', $dataMenuAssigned))
+                            @if(in_array('settings/instorerepair', $dataMenuAssigned))
                             <li  class="{{ Request::path() == 'settings/instorerepair' ? 'active' : '' }}">
                                 <a href="{{url('settings/instorerepair')}}" class="menu-item">
-                                    New Instore Repair Product
+                                    New Instore Repair
                                 </a>
                             </li>
                             @endif 
-                            @if(in_array('sales/return/list', $dataMenuAssigned))
+                            @if(in_array('settings/instore/merge/repair/data', $dataMenuAssigned))
                             <li  class="{{ Request::path() == 'settings/instore/merge/repair/data' ? 'active' : '' }}">
                                 <a href="{{url('settings/instore/merge/repair/data')}}" class="menu-item">
                                     In-Store Repair Data Merge
                                 </a>
                             </li>
                             @endif
-                            @if(in_array('sales/return/list', $dataMenuAssigned))
+                            @if(in_array('settings/instore/asset/repair/create', $dataMenuAssigned))
                             <li  class="{{ Request::path() == 'settings/instore/asset/repair/create' ? 'active' : '' }}">
                                 <a href="{{url('settings/instore/asset/repair/create')}}" class="menu-item">
                                     In-Store Repair Asset 
@@ -390,6 +414,45 @@
                             @endif 
                         </ul>
                     </li>
+                    @endif 
+                    
+                    @if(in_array('settingsInStoreRepairInfo', $dataMenuAssigned)) 
+                    <li class="submenu">
+                        <a href="javascript:void(0);" class="menu-item">
+                        In-Store Repair Info
+                        </a>
+                        <ul>
+                            @if(in_array('settings/instore/device/list', $dataMenuAssigned))
+                            <li  class="{{ Request::path() == 'settings/instore/device/list' ? 'active' : '' }}">
+                                <a href="{{url('settings/instore/device/list')}}" class="menu-item">
+                                    Instore Device List
+                                </a>
+                            </li>
+                            @endif 
+                            @if(in_array('settings/instore/model/list', $dataMenuAssigned))
+                            <li  class="{{ Request::path() == 'settings/instore/model/list' ? 'active' : '' }}">
+                                <a href="{{url('settings/instore/model/list')}}" class="menu-item">
+                                    Instore Model List
+                                </a>
+                            </li>
+                            @endif
+                            @if(in_array('settings/instore/problem/list', $dataMenuAssigned))
+                            <li  class="{{ Request::path() == 'settings/instore/problem/list' ? 'active' : '' }}">
+                                <a href="{{url('settings/instore/problem/list')}}" class="menu-item">
+                                    Instore Problem List
+                                </a>
+                            </li>
+                            @endif 
+                            @if(in_array('settings/instore/price/list', $dataMenuAssigned))
+                            <li  class="{{ Request::path() == 'settings/instore/price/list' ? 'active' : '' }}">
+                                <a href="{{url('settings/instore/price/list')}}" class="menu-item">
+                                    Instore Price List
+                                </a>
+                            </li>
+                            @endif 
+                        </ul>
+                    </li>
+                    @endif
                     
                     @if(in_array('site/navigation', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'site/navigation' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/site/navigation')}}" class="menu-item">Navigation Setting</a></li>
@@ -401,8 +464,8 @@
                     <li class="{{ Request::path() == '/setting/printer/print-paper/size' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/setting/printer/print-paper/size')}}" class="menu-item">Printer Paper Size</a></li>
                     @endif 
 
-                    @if(in_array('setting/printer/print-paper/size', $dataMenuAssigned)) 
-                    <li class="{{ Request::path() == '/setting/tax' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/setting/tax')}}" class="menu-item">Tax Settings</a></li>
+                    @if(in_array('tax/settings', $dataMenuAssigned)) 
+                    <li class="{{ Request::path() == '/tax/settings' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/tax/settings')}}" class="menu-item">Tax Settings</a></li>
                     @endif 
                     
                     {{-- <li class="{{ Request::path() == 'site/color' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/site/color')}}" class="menu-item">Color Plate</a></li> --}} 

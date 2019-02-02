@@ -1,4 +1,65 @@
 <script type="text/javascript">
+    function addToRepairList(repairFidAr,customerID,productID,price)
+    {
+        //-------------Ajax Instore Repair Product POS End--------------//
+         var AddPOSUrl="{{url('repair/info/pos/ajax')}}";
+         $.ajax({
+            'async': true,
+            'type': "POST",
+            'global': true,
+            'dataType': 'json',
+            'url': AddPOSUrl,
+            'data': {'customer_id':customerID,'product_id':productID,'price':price,'repair':repairFidAr,'_token':"{{csrf_token()}}"},
+            'success': function (data) {
+                //tmp = data;
+                var PrintLocation="{{url('repair/list')}}";
+                        //window.location.href=PrintLocation;
+
+                var win = window.open(PrintLocation);
+                if (win) {
+                    //Browser has allowed it to be opened
+                    win.focus();
+                    window.location.href=window.location.href;
+                } else {
+                    alert('Please allow popups for this website');
+                }
+                $("#cartMessageProShow").html(successMessage("Repair info successfully added to Repair List."));
+                console.log("Instore Repair Product Info Added Processing : "+data);
+            }
+         });
+         //------------Ajax Instore Repair Product End---------------//
+    }
+
+    function addToTicketList(repairFidAr,customerID,productID,price)
+    {
+        //-------------Ajax Instore Repair Product POS End--------------//
+         var AddPOSUrl="{{url('ticket/info/pos/ajax')}}";
+         $.ajax({
+            'async': true,
+            'type': "POST",
+            'global': true,
+            'dataType': 'json',
+            'url': AddPOSUrl,
+            'data': {'customer_id':customerID,'product_id':productID,'price':price,'ticket':repairFidAr,'_token':"{{csrf_token()}}"},
+            'success': function (data) {
+                //tmp = data;
+                var PrintLocation="{{url('ticket/list')}}";
+                        //window.location.href=PrintLocation;
+
+                var win = window.open(PrintLocation);
+                if (win) {
+                    //Browser has allowed it to be opened
+                    win.focus();
+                    window.location.href=window.location.href;
+                } else {
+                    alert('Please allow popups for this website');
+                }
+                $("#cartMessageProShow").html(successMessage("Ticket info successfully added to Ticket List."));
+                console.log("Ticket Product Info Added Processing : "+data);
+            }
+         });
+         //------------Ajax Instore Repair Product End---------------//
+    }
 	//---------------------Test Ajax New Product Start---------------------//
 	$(document).ready(function(){
 
@@ -119,6 +180,71 @@
                 $("#step2_step1").show();
             });
 
+            $("#step2_override").click(function(){
+
+                if($("input[name=repairPage]"))
+                {
+                    var custCHeck=$('select[name=customer_id]').val();
+                    if(custCHeck.length==0)
+                    {
+                        $("#InstoreMSG").html(warningMessage("Please Select a customer."));
+                        return false;
+                    }
+                    else if(custCHeck=="CR000")
+                    {
+                        var full_name=$("input[name=full_name]").val();
+                        if(full_name.length==0)
+                        {
+                            $("#InstoreMSG").html(warningMessage("Please Enter Customer Full Name."));
+                            return false;
+                        }
+
+                        var address=$("input[name=address]").val();
+                        if(address.length==0)
+                        {
+                            $("#InstoreMSG").html(warningMessage("Please Enter Customer Address."));
+                            return false;
+                        }
+
+                        var phone=$("input[name=phone]").val();
+                        if(phone.length==0)
+                        {
+                            $("#InstoreMSG").html(warningMessage("Please Enter Customer Phone Number."));
+                            return false;
+                        }
+
+                        var email=$("input[name=email]").val();
+                        if(email.length==0)
+                        {
+                            $("#InstoreMSG").html(warningMessage("Please Enter Customer Email."));
+                            return false;
+                        }
+                    }
+                }
+
+                $("#step1").hide();
+                $(".step1").hide();
+                $("#step2").hide();
+                $("#step2_override").hide();
+                $(".step2").hide();
+                $(".step3").show();
+                $("#step3").show();
+                $("#step3_list").show();
+                if($("#finish"))
+                {
+                    $("#finish").show();
+                }
+
+                if($("#step2_step1"))
+                {
+                    $("#step2_step1").hide();
+                }
+
+                $("#step3_step2").show();
+                $(".step2_repair_new_customer").hide();
+               //$('select[name=customer_id]').val('').select2();
+            });
+
             $("#step2").click(function(){
 
                 if($("input[name=repairPage]"))
@@ -168,7 +294,7 @@
                 $(".step2").hide();
                 $(".step3").show();
                 $("#step3").show();
-
+                $("#step3_list").show();
                 if($("#finish"))
                 {
                     $("#finish").show();
@@ -198,6 +324,7 @@
                 $(".step2").hide();
                 $(".step3").hide();
                 $("#step3").hide();
+                $("#step3_list").hide();
                 $("#step3_step2").hide();
 
                 if($("#finish"))
@@ -224,6 +351,7 @@
                 $(".step2").show();
                 $(".step3").hide();
                 $("#step3").hide();
+                $("#step3_list").hide();
                 $("#step3_step2").hide();
 
                 if($("#finish"))
@@ -239,7 +367,8 @@
             });
 
             $("#step3").click(function(){
-                
+                //alert("Working with Step 3");
+                //return false;
                 var device_id=$("select[name=device_id]").val();
                 var model_id=$("select[name=model_id]").val();
                 var problem_id=$("select[name=problem_id]").val();
@@ -264,6 +393,13 @@
                 {
                       var problem_name=$("select[name=problem_id] option[value="+problem_id+"]").html();
                       new_problem=problem_name.trim();
+                }
+
+                var customer_id=$("select[name=customer_id]").val();
+                if(customer_id.length==0)
+                {
+                    $("#InstoreTicketMSG").html(warningMessage("Please select a customer first."));
+                    return false;
                 }
 
                 var productName=new_device+", "+new_model+" - "+new_problem;
@@ -291,16 +427,50 @@
                     repairFidAr[field.name] = field.value;
                 });
 
-                //console.log(repairFidAr);
-
+                console.log(productName);
+                console.log("checking product json");
+                var x=0;
                 $.each(productJson,function(index,row){
-                    if(row.category_name=="Repair" && row.name==productName)
+                    if(row.category_name=="Repair" && row.name==productName && x==0)
                     {
+                        x=1;
                         add_pos_cart(row.id,proPrice,row.name,repairFidAr);
-                        console.log(row);
+                        //console.log(row);
+                        console.log('Found in product json');
                     }
                     
                 });
+
+
+                if(x==0)
+                {
+                     if(proPrice<=0)
+                     {
+                        alert("Please Mention a repair price.");
+                        $("#InstoreMSG").html(warningMessage("Please Mention a repair price."));
+                        return false;
+                     }
+
+                     var productID=0;
+                     //-------------Ajax Instore Repair Product POS End--------------//
+                     var AddPOSUrl="{{url('repair/product/ajax')}}";
+                     $.ajax({
+                        'async': true,
+                        'type': "POST",
+                        'global': true,
+                        'dataType': 'json',
+                        'url': AddPOSUrl,
+                        'data': {'name':productName,'price':proPrice,'cost_price':proPrice,'_token':"{{csrf_token()}}"},
+                        'success': function (data) {
+                            //tmp = data;
+                            productID=data;
+                            console.log("Instore Repair Product Processing : "+data);
+                            add_pos_cart(productID,proPrice,productName,repairFidAr);
+                        }
+                     });
+                     //------------Ajax Instore Repair Product End---------------//
+                     //repairProductAjaxUpdate
+                }
 
                 //alert(productName);
                 //productJson
@@ -312,6 +482,7 @@
                 $(".step2").hide();
                 $(".step3").hide();
                 $("#step3").hide();
+                $("#step3_list").hide();
                 $("#reset_repair").click();
 
 
@@ -329,7 +500,157 @@
 
                 $('.repair_checkbox').removeAttr('checked');
 
-                $('#instoreRepairModal').modal('hide');
+                $('#instoreRepairModal').modal('hide'); 
+
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+            });
+
+            
+
+            $("#step3_list").click(function(){
+                //alert("Working with Step 3");
+                //return false;
+                var device_id=$("select[name=device_id]").val();
+                var model_id=$("select[name=model_id]").val();
+                var problem_id=$("select[name=problem_id]").val();
+
+                var new_device="";
+                var new_model="";
+                var new_problem="";
+                if(device_id.length>0)
+                {
+                      var device_name=$("select[name=device_id] option[value="+device_id+"]").html();
+                      new_device=device_name.trim();
+                }
+
+
+                if(model_id.length>0)
+                {
+                      var model_name=$("select[name=model_id] option[value="+model_id+"]").html();
+                      new_model=model_name.trim();
+                }
+
+                if(problem_id.length>0)
+                {
+                      var problem_name=$("select[name=problem_id] option[value="+problem_id+"]").html();
+                      new_problem=problem_name.trim();
+                }
+
+                var customer_id=$("select[name=customer_id]").val();
+                if(customer_id.length==0)
+                {
+                    $("#InstoreTicketMSG").html(warningMessage("Please select a customer first."));
+                    return false;
+                }
+
+                var productName=new_device+", "+new_model+" - "+new_problem;
+
+                var repair_price=$("input[name=repair_price]").val();
+                var override_repair_price=$("input[name=override_repair_price]").val();
+
+                var proPrice=repair_price;
+
+                if(override_repair_price.length>0)
+                {
+                    if(override_repair_price==0)
+                    {
+                        proPrice=repair_price;
+                    }
+                    else
+                    {
+                        proPrice=override_repair_price;
+                    }
+                    
+                }
+
+                var repairFidAr = {};
+                $.each($('#repairForm').serializeArray(), function(i, field) {
+                    repairFidAr[field.name] = field.value;
+                });
+
+                console.log(productName);
+                console.log("checking product json");
+                var x=0;
+                $.each(productJson,function(index,row){
+                    if(row.category_name=="Repair" && row.name==productName && x==0)
+                    {
+                        x=1;
+                        //add_pos_cart(row.id,proPrice,row.name,repairFidAr);
+                        //console.log(row);
+                        //console.log('Found in product json');
+                        addToRepairList(repairFidAr,customer_id,row.id,proPrice);
+                        $("#cartMessageProShow").html(successMessage("Repair info successfully added to Repair List."));
+                    }
+                    
+                });
+
+
+                if(x==0)
+                {
+                     if(proPrice<=0)
+                     {
+                        alert("Please Mention a repair price.");
+                        $("#InstoreMSG").html(warningMessage("Please Mention a repair price."));
+                        return false;
+                     }
+
+                     var productID=0;
+                     //-------------Ajax Instore Repair Product POS End--------------//
+                     var AddPOSUrl="{{url('repair/product/ajax')}}";
+                     $.ajax({
+                        'async': true,
+                        'type': "POST",
+                        'global': true,
+                        'dataType': 'json',
+                        'url': AddPOSUrl,
+                        'data': {'name':productName,'price':proPrice,'cost_price':proPrice,'_token':"{{csrf_token()}}"},
+                        'success': function (data) {
+                            //tmp = data;
+                            productID=data;
+                            //var customerID=$("select[name=customer_id]").val();
+                            //console.log("Instore Repair Product Processing : "+data);
+                            //addToTicketList(repairFidAr,customerID,productID,proPrice);
+                            //add_pos_cart(productID,proPrice,productName,repairFidAr);
+                            addToRepairList(repairFidAr,customer_id,productID,proPrice);
+                            
+                        }
+                     });
+                     //------------Ajax Instore Repair Product End---------------//
+                     //repairProductAjaxUpdate
+                }
+
+                //alert(productName);
+                //productJson
+
+                $("#step1").show();
+                $(".step1").show();
+                $("#step2").hide();
+                $("#step2_override").hide();
+                $(".step2").hide();
+                $(".step3").hide();
+                $("#step3").hide();
+                $("#step3_list").hide();
+                $("#reset_repair").click();
+
+
+                $('select[name=device_id]').val('').select2();
+                $('select[name=model_id]').val('').select2();
+                $('select[name=problem_id]').val('').select2();
+                $("input[name=override_repair_price]").val("0");
+                $("input[name=repair_imei]").val("");
+                $("input[name=repair_tested_before_by]").val("");
+                $("input[name=repair_tested_after_by]").val("");
+                $("input[name=repair_tech_notes]").val("");
+                $("input[name=repair_how_did_you_hear_about_us]").val("");
+                $("input[name=repair_start_time]").val("");
+                $("input[name=repair_end_time]").val("");
+
+                $('.repair_checkbox').removeAttr('checked');
+
+                $('#instoreRepairModal').modal('hide'); 
+
+                $("html, body").animate({ scrollTop: 0 }, "slow");
 
             });
 
@@ -357,6 +678,13 @@
 			$("input[name=ticket_id]").val(timestamp);
 
             $("#ticketstep1").click(function(){
+
+                var customer_id=$("select[name=customer_id]").val();
+                if(customer_id.length==0)
+                {
+                    $("#InstoreTicketMSG").html(warningMessage("Please select a customer first."));
+                    return false;
+                }
 
             	var ticket_device_type=$("input[name=ticket_device_type]").val();
             	if(ticket_device_type.length==0)
@@ -408,6 +736,7 @@
 
             	$(".ticketstep2").show();
             	$("#ticketstep2").show();
+                $("#ticketstep2_list").show();
             	$("#ticketstep2_to_ticketstep1").show();
             });
 
@@ -417,13 +746,20 @@
 
             	$(".ticketstep2").hide();
             	$("#ticketstep2").hide();
+                $("#ticketstep2_list").hide();
             	$("#ticketstep2_to_ticketstep1").hide();
             });
 
             $("#ticketstep2").click(function(){
 
             	var ticket_device_type=$("input[name=ticket_device_type]").val();
-            	var ticket_id=$("input[name=ticket_id]").val();
+                var ticket_id=$("input[name=ticket_id]").val();
+            	var customer_id=$("select[name=customer_id]").val();
+                if(customer_id.length==0)
+                {
+                    $("#InstoreTicketMSG").html(warningMessage("Please select a customer first."));
+                    return false;
+                }
             	var ProductName=ticket_device_type+" - "+ticket_id;
             	var ticket_our_cost=$("input[name=ticket_our_cost]").val();
             	var ticket_retail_price=$("input[name=ticket_retail_price]").val();
@@ -461,7 +797,9 @@
             	$("#ticketstep1").show();            	
 
             	$(".ticketstep2").hide();
-            	$("#ticketstep2").hide();
+                $("#ticketstep2").hide();
+            	$("#ticketstep2_list").hide();
+
             	$("#ticketstep2_to_ticketstep1").hide();
             	$("#reset_ticket").click();
 
@@ -469,7 +807,74 @@
 				var timestamp = date.getTime();
 
 				$("#label_ticket_id").html(timestamp);
-				$("input[name=ticket_id]").val(timestamp);
+				$("input[name=ticket_id]").val(timestamp); 
+
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            });
+
+            $("#ticketstep2_list").click(function(){
+
+                var customer_id=$("select[name=customer_id]").val();
+                if(customer_id.length==0)
+                {
+                    $("#InstoreTicketMSG").html(warningMessage("Please select a customer first."));
+                    return false;
+                }
+
+                var ticket_device_type=$("input[name=ticket_device_type]").val();
+                var ticket_id=$("input[name=ticket_id]").val();
+                var ProductName=ticket_device_type+" - "+ticket_id;
+                var ticket_our_cost=$("input[name=ticket_our_cost]").val();
+                var ticket_retail_price=$("input[name=ticket_retail_price]").val();
+                var repairFidAr = {};
+                $.each($('#TicketForm').serializeArray(), function(i, field) {
+                    repairFidAr[field.name] = field.value;
+                });
+
+                var ProductID=""; 
+                var AddProductUrl="{{url('product/ajax/ticket/save')}}";
+                $.ajax({
+                    'async': false,
+                    'type': "POST",
+                    'global': false,
+                    'dataType': 'json',
+                    'url': AddProductUrl,
+                    'data': {'name':ProductName,'price':ticket_retail_price,'cost_price':ticket_our_cost,'detail':ProductName,'_token':"{{csrf_token()}}"},
+                    'success': function (data) {
+                        ProductID=data; 
+                        addToTicketList(repairFidAr,customer_id,ProductID,ticket_retail_price);
+                    }
+                });
+
+                //add_pos_cart(ProductID,ticket_retail_price,ProductName,repairFidAr,'ticket');
+
+                //
+                //console.log(ProductID);
+                //yreturn false;
+
+                $("#instoreTicketModal").modal('hide');
+                $("select[name=ticket_problem_id]").parent().children("span").show();
+                $('select[name=ticket_problem_id]').val('').select2();
+                $("input[name=ticket_problem_name]").hide();
+
+
+                $(".ticketstep1").show();
+                $("#ticketstep1").show();               
+
+                $(".ticketstep2").hide();
+                $("#ticketstep2").hide();
+                $("#ticketstep2_list").hide();
+                $("#ticketstep2_to_ticketstep1").hide();
+                $("#reset_ticket").click();
+
+                var date = new Date();
+                var timestamp = date.getTime();
+
+                $("#label_ticket_id").html(timestamp);
+                $("input[name=ticket_id]").val(timestamp);
+
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+
             });
 
 	});
