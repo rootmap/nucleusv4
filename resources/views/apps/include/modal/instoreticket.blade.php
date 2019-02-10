@@ -165,7 +165,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="projectinput2">Additional green</label>
+                        <label for="projectinput2">Additional Info</label>
                         <div class="form-control" style="clear: both; display: block; height: 150px; overflow-x: auto;">
                             @if(isset($ticketAsset))
                               @foreach($ticketAsset as $rep)

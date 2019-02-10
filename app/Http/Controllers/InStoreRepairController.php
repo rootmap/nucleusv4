@@ -133,6 +133,8 @@ class InStoreRepairController extends Controller
             $cusInfo->address=$request->address;
             $cusInfo->phone=$request->phone;
             $cusInfo->email=$request->email;
+            $cusInfo->store_id=$this->sdc->storeID();
+            $cusInfo->created_by=$this->sdc->UserID();
             $cusInfo->save();
             $customer_id=$cusInfo->id;
         }

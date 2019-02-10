@@ -213,6 +213,7 @@ class WarrantyController extends Controller
         $request->session()->put('cart', $cart);*/
 
         $p_one=Product::find($request->old_product);
+        //dd($p_one);
         $p_one_name=$p_one->name;
 
         $p_two=Product::find($request->new_product);

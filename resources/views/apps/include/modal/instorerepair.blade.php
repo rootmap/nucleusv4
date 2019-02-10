@@ -168,19 +168,29 @@
                         <label for="projectinput1"><input type="checkbox" id="projectinput1" name="repair_salvage_part"  /> Salvage Part </label>
                       </div>
                     </div>
-
-                    @if(isset($ticketAsset))
-                      @foreach($ticketAsset as $rep)
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="projectinput2"><input type="checkbox" id="projectinput2" class="repair_checkbox" name="repair_{{strtolower(preg_replace('/[^a-zA-Z0-9]/', "",$rep->name))}}" /> {{$rep->name}} </label>
-                          </div>
-                        </div>
-                      @endforeach
-                    @endif
-
                   </div>
                 </div>
+
+
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="projectinput2">Additional Info</label>
+                        <div class="form-control" style="clear: both; display: block; height: 150px; overflow-x: auto;">
+                            @if(isset($ticketAsset))
+                              @foreach($ticketAsset as $rep)
+                                <div class="col-md-12">
+                                  <input type="checkbox" id="projectinput2" class="repair_checkbox" name="repair_{{strtolower(preg_replace('/[^a-zA-Z0-9]/', "",$rep->name))}}" /> {{$rep->name}} 
+                                  <div class="clearfix"></div>
+                                </div>
+                              @endforeach
+                            @endif
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
 
 
          

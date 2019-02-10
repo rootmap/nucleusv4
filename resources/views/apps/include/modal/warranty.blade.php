@@ -1,33 +1,23 @@
-<div class="modal fade text-xs-left" id="salesReturn" tabindex="-2" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+<div class="modal fade text-xs-left" id="warranty" tabindex="-2" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
-          <h3 class="modal-title" id="myModalLabel35"> Sales Return Form</h3>
+          <h3 class="modal-title" id="myModalLabel35"><i class="icon-ribbon-b"></i> Create Warranty</h3>
       </div>
           <div class="modal-body">
 
-              <div class="col-md-12" id="salesReturnMSG"></div>
-              
-              <div class="form-group row">
-                  <label class="col-md-4 label-control" for="projectinput1">
-                      Customer Name
-                  </label>
-                  <div class="col-md-8">
-                      <select style="width: 100%;" class="select2 form-control" name="sales_return_customer_id">
-                                 
-                      </select>
-                  </div>
-              </div>
+              <div class="col-md-12" id="warrantyMSG"></div>
+
 
               <div class="form-group row">
                   <label class="col-md-4 label-control" for="projectinput1">
-                      Sales Invoice ID
+                      Invoice ID
                   </label>
                   <div class="col-md-8">
-                      <select style="width: 100%;" class="select2 form-control" name="sales_return_sales_invoice_id">
+                      <select style="width: 100%;" class="select2 form-control" name="warranty_sales_invoice_id">
                           <option  selected="selected"  value="">Select a Invoice</option>                      
                       </select>
                   </div>
@@ -35,36 +25,40 @@
 
               <div class="form-group row">
                   <label class="col-md-4 label-control" for="projectinput1">
-                      Sales Amount
+                      Invoice Total Amount
                   </label>
                   <div class="col-md-8">
-                      <input type="text" readonly="readonly" class="form-control" placeholder="Sales Amount" name="sales_return_sales_amount">
+                      <input type="text" readonly="readonly" class="form-control" placeholder="Sales Amount" name="warranty_sales_amount">
                   </div>
               </div>
 
               <div class="form-group row">
                   <label class="col-md-4 label-control" for="projectinput1">
-                      Return Amount
+                      old product
                   </label>
                   <div class="col-md-8">
-                      <input type="text"  class="form-control" placeholder="Return Amount" name="sales_return_return_amount">
+                      <select style="width: 100%;" class="select2 form-control" name="warranty_ex_product_id">
+                          <option  selected="selected"  value="">Select a Product</option>                      
+                      </select>
                   </div>
               </div>
 
               <div class="form-group row">
                   <label class="col-md-4 label-control" for="projectinput1">
-                      Sales Return Note
+                      New product
                   </label>
                   <div class="col-md-8">
-                      <input type="text"  class="form-control" placeholder="Sales Return Note" name="sales_return_note">
+                      <select style="width: 100%;" class="select2 form-control" name="warranty_new_product_id">
+                          <option  selected="selected"  value="">Select a Product</option>                      
+                      </select>
                   </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-md-4 label-control" for="Description">&nbsp;</label>
                 <div class="col-md-8">
-                  <button type="button" class="btn btn-green saveSalesReturnSave">
-                      <i class="icon-check2"></i> Save Sales Return
+                  <button type="button" class="btn btn-green saveWarrantySave">
+                      <i class="icon-check2"></i> Save Warranty
                   </button>
                 </div>
               </div>

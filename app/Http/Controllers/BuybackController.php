@@ -144,6 +144,63 @@ class BuybackController extends Controller
         return redirect('buyback/create')->with('status', $this->moduleName.' Created Successfully !');
     }
 
+    public function storeFromPOS(Request $request)
+    {
+
+            if(empty($request->buyback_customer_id))
+            {
+                $arrayReturn=array('status'=>0,'msg'=>'Please Select a Customer.');
+            }
+            elseif(empty($request->buyback_model))
+            {
+                $arrayReturn=array('status'=>0,'msg'=>'Please Type Model.');
+            }
+            elseif(empty($request->buyback_keep_this_on))
+            {
+                $arrayReturn=array('status'=>0,'msg'=>'Please Select Keep this on Parts/Sale.');
+            }
+            elseif(empty($request->buyback_price))
+            {
+                $arrayReturn=array('status'=>0,'msg'=>'Please Type Price.');
+            }
+            elseif(empty($request->buyback_payment_method))
+            {
+                $arrayReturn=array('status'=>0,'msg'=>'Please Select Payment Method.');
+            }
+            else
+            {
+                $cus=Customer::find($request->buyback_customer_id);
+                $ten=Tender::find($request->buyback_payment_method);
+                //dd($request->payment_method_id);
+                $tab=new Buyback;
+                $tab->customer_id=$request->buyback_customer_id;
+                $tab->customer_name=$cus->name;
+                $tab->model=$request->buyback_model;
+                $tab->carrier=$request->buyback_carrier;
+                $tab->imei=$request->buyback_imei;
+                $tab->type_and_color=$request->buyback_type_and_color;
+                $tab->memory=$request->buyback_memory;
+                $tab->keep_this_on=$request->buyback_keep_this_on;
+                $tab->condition=$request->buyback_condition;
+                $tab->price=$request->buyback_price;
+                $tab->payment_method_id=$request->buyback_payment_method;
+                $tab->payment_method_name=$ten->name;
+                $tab->store_id=$this->sdc->storeID();
+                $tab->created_by=$this->sdc->UserID();
+                $tab->save();
+
+                \DB::statement("call updateDailyBuyback('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
+            
+                $this->sdc->log("Buyback","New Buyback Has Been Created.");
+                $arrayReturn=array('status'=>1);
+            }
+
+            return response()->json($arrayReturn);
+        
+            
+        //return redirect('buyback/create')->with('status', $this->moduleName.' Created Successfully !');
+    }
+
     /**
      * Display the specified resource.
      *

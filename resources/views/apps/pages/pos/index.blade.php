@@ -389,7 +389,7 @@
                             {
                                 font-weight: bolder !important;
                                 text-align: center !important;
-                                font-size: 28px !important;
+                                font-size: 22px !important;
                             }
                         </style>
                         <div class="col-xs-12 button-group">
@@ -407,82 +407,15 @@
 
                                         <option value="0">CREATE NEW CUSTOMER</option>
 
-
-                                        @if(isset($customerData))
-                                        @foreach($customerData as $cus)
-                                        <option 
-                                        @if(isset($cart->customerID))
-                                        @if($cart->customerID==$cus->id)
-                                        selected="selected" 
-                                        @endif
-                                        @endif
-                                        value="{{$cus->id}}">{{$cus->name}}</option>
-                                        @endforeach
-                                        @endif                          
+                      
                                     </select>
                                 </div>
                             </div>
                              
-                            <style type="text/css">
-                                .dropdown-toggle::after
-                                {
-                                    top: -7px !important;
-                                }
-
-                                .spfontcartfotter
-                                {
-                                    font-size: 28px !important; font-weight: 700;
-                                }
-                            </style>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6 checkDrawer">
-                                
-                                <button id="btn-payment-modal_init" data-toggle="modal" data-target="#payModal"  type="button" class="btn btn-green btn-darken-2 btn-responsive btn1  spfontcartfotter" style="font-size: 15px !important; font-weight: 600;">     
-                                   <i class="icon-cash"></i> Make Payment
-                                </button>
-                            </div>
-
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button1 btn-group checkDrawer">
-                                <button  type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-green btn-darken-3 btn-responsive btn1  dropdown-toggle spfontcartfotter" style="font-size: 15px !important; font-weight: 600;"><i class="icon-printer4"></i> Print Invoice &nbsp;</button>      
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item printncompleteSale" data-id="pos" href="javascript:void(0);"><i class="icon-printer4"></i> Default Print</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item printncompleteSale"  data-id="thermal"  href="javascript:void(0);"><i class="icon-ios-printer-outline"></i> Thermal Print</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item printncompleteSale"  data-id="barcode" href="javascript:void(0);"><i class="icon-barcode2"></i> Barcode Print</a>
-                                    </div>
-
-                            </div>   
-
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6 checkDrawer">
-                                <button id="completesale" type="button" class="btn btn-green btn-darken-4 btn-responsive btn1 spfontcartfotter" style="font-size: 15px !important; font-weight: 600;">     
-                                   <i class="icon-circle-check"></i>  Complete Sale
-                                </button>
-                            </div>
+                            @include('apps.include.modal.pos_quick_link')
                             
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6">
-                                <button id="changeSalesView" type="button" class="btn btn-green btn-responsive btn1 spfontcartfotter" style="font-size: 15px !important; font-weight: 600;">     
-                                    <i class="icon-stack3"></i> Change Sales View
-                                </button>
-                            </div>
-                            
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6">
-                                <button type="button" class="btn btn-green btn-responsive btn1 spfontcartfotter"  data-toggle="modal" data-target="#salesReturn" style="font-size: 15px !important; font-weight: 600;">     
-                                    <i class="icon-document"></i> Sales Return
-                                </button>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 button button6">
-                                <button id="counterStatusChange" type="button" class="btn btn-green btn-darken-2 btn-responsive btn1 spfontcartfotter" style="font-size: 14px !important; font-weight: 600;"> <i class="icon-air-play"></i>  
-                                    @if(isset($CounterDisplay))
-                                        @if($CounterDisplay==1)   
-                                            <span>Turn-off Your Counter Display</span>
-                                        @else
-                                            <span>Start Your Counter Display</span>
-                                        @endif
-                                    @else
-                                        <span>Start Your Counter Display</span>
-                                    @endif
-                                </button>
-                            </div>
+
+
                         </div>
                         <div class="clearfix"></div>
                         
@@ -512,6 +445,7 @@
            @include('apps.include.modal.discountModal')
            @include('apps.include.modal.taxModal',compact('ps'))
            @include('apps.include.modal.CustomerCardModal')
+           {{-- @include('apps.include.modal.CustomerPartialCardModal') --}}
            @include('apps.include.modal.paymodal')
            @include('apps.include.modal.open-drawer')
            @include('apps.include.modal.close-drawer')
@@ -519,6 +453,9 @@
            @include('apps.include.modal.instorerepair',compact('ticketAsset'))
            @include('apps.include.modal.instoreticket',compact('ticketAsset','problem'))
            @include('apps.include.modal.salesReturn')
+           @include('apps.include.modal.warranty')
+           @include('apps.include.modal.buyback')
+           @include('apps.include.modal.pospaymentpartial')
 
 
         </div>
@@ -584,8 +521,53 @@
     var modelJson=<?php echo json_encode($model); ?>;
     var problemJson=<?php echo json_encode($problem); ?>;
     var estPriceJson=<?php echo json_encode($estPrice); ?>;
+    var cusObjData=<?php echo json_encode($customerData); ?>;
     //
 
+    function loadCustomerList()
+    {
+        var ff="<option ";
+        var fff="<option ";
+    
+        @if(!isset($cart->customerID))
+            @if(empty($cart->customerID))
+                ff+="selected='selected' "; 
+                fff+="selected='selected' "; 
+            @endif
+        @endif
+
+        ff+=" value=''>SELECT CUSTOMER</option>";
+        fff+=" value=''>SELECT CUSTOMER</option>";
+        ff+='<option value="0">CREATE NEW CUSTOMER</option>';
+        var defCusID=0;
+        @if(isset($cart->customerID))
+                defCusID="<?php echo $cart->customerID; ?>";
+        @endif
+
+        $.each(cusObjData,function(index,row){
+            //console.log(row);  
+
+            if(defCusID==row.id)
+            {
+                ff+="<option selected='selected' value='"+row.id+"'>"+row.name+"</option>";
+                fff+="<option selected='selected' value='"+row.id+"'>"+row.name+"</option>";
+            }
+            else
+            {
+                ff+="<option value='"+row.id+"'>"+row.name+"</option>";
+                fff+="<option value='"+row.id+"'>"+row.name+"</option>";
+            }
+
+            
+        });
+
+        $("select[name=customer_id]").html(ff);
+        $("select[name=sales_return_customer_id]").html(fff);
+        $("select[name=buyback_customer_id]").html(fff);
+        //$("select[name=partialpay_customer_id]").html(fff);
+        ff="";
+        fff="";
+    }
 
     function liveRowCartEdit(rowID)
     {
@@ -997,7 +979,9 @@
         {
             $(".cash_register_collapse").click();
         }*/
+        loadCustomerList();
         $("body").addClass("page-sidebar-minimize menu-collapsed");
+
         alignProductLine();
         genarateSalesTotalCart();
         paginationPerfect();
@@ -1411,6 +1395,8 @@
 
 
         });
+
+        
 
         $(".authorize_card_refund").click(function(){
             alert('Refund');
@@ -2232,6 +2218,18 @@ function editRowLive(id)
 
 {{-- Punch js * Start  --}}
 @include('apps.include.json.salesreturn')
+{{-- Punch js * End  --}}
+
+{{-- Punch js * Start  --}}
+@include('apps.include.json.warranty')
+{{-- Punch js * End  --}}
+
+{{-- Punch js * Start  --}}
+@include('apps.include.json.posbuyback')
+{{-- Punch js * End  --}}
+
+{{-- Punch js * Start  --}}
+@include('apps.include.json.pospaymentpartial')
 {{-- Punch js * End  --}}
 @endsection
 

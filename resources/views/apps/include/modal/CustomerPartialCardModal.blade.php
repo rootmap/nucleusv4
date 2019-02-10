@@ -1,4 +1,4 @@
-<div class="modal fade text-xs-left" id="CustomerCard" tabindex="-3" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+<div class="modal fade text-xs-left" id="CustomerPartialPayCard" tabindex="-3" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,7 +14,7 @@
                             <div class="col-xl-6 col-lg-12">
                                 <div class='card-wrapper'></div>
                                 <div class="col-xl-12 col-lg-12 col-md-12 pt-1" style="text-align: center;">
-                                    <code class="payableUsingCard"><h3>Total Payable : $<span class="card-pay-due-amount">0.00</span></h3></code>
+                                    <code class="payableUsingCard"><h3>Total Payable : $<span class="card-partial-pay-due-amount">0.00</span></h3></code>
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md-12 pt-2 message-place-authorizenet" style="text-align: center;">
                                     
@@ -60,24 +60,13 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                                <div class="form-actions center defualtCapture">
+                                <div class="form-actions center">
                                     <button type="button" class="btn btn-green btn-lighten-2 mr-1 close-authorize-payment-modal">
                                         <i class="icon-cross2"></i> Close 
                                     </button>
                                     
                                     <button type="button" class="btn btn-green btn-darken-2 card-pay-authorizenet">
                                         <i class="icon-check2"></i> Capture Payment
-                                    </button>
-                                    
-                                </div>
-
-                                <div class="form-actions center ManualAutorizeCapture" style="display: none;">
-                                    <button type="button" class="btn btn-green btn-lighten-2 mr-1 close-authorize-payment-modal">
-                                        <i class="icon-cross2"></i> Close 
-                                    </button>
-                                    
-                                    <button type="button" class="btn btn-green btn-darken-2 card-pay-authorizenetmanual">
-                                        <i class="icon-check2"></i> Capture Partial Payment
                                     </button>
                                     
                                 </div>

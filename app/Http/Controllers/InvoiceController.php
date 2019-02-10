@@ -603,6 +603,122 @@ class InvoiceController extends Controller
 
     }
 
+    public function getPOSPartialPaymentStatusPaypal(Request $request,$invoice_id=0,$payment_id=0,$paid_amount=0,$status='fahad')
+    {
+        //dd($invoice_id);
+        $payment_id=\Session::get('paypal_payment_id');
+                    \Session::forget('paypal_payment_id');
+
+        if(empty($request->PayerID) || empty($request->token))
+        {
+            \Session::put('error','Failed token mismatch, Please tryagain');
+            return redirect('pos');
+        }
+
+        $payment=Payment::get($payment_id,$this->_api_content);
+        $excution=new PaymentExecution();
+        $excution->setPayerId($request->PayerID);
+
+        $result=$payment->execute($excution,$this->_api_content);
+        //dd($invoice_id);
+        if($result->getState()=='approved')
+        {
+            $trans=$result->getTransactions();
+            //$amtAr=$trans->getAmount();
+            $amountPaid=$trans[0]->getAmount()->getTotal();
+            //dd($amountPaid);
+
+            $tenderData=Tender::where('paypal',1)->first();
+
+            $loadInvoices=Invoice::join('customers','invoices.customer_id','=','customers.id')
+                                  ->select(
+                                    'invoices.id',
+                                    'invoices.invoice_id',
+                                    'invoices.total_amount',
+                                    'invoices.paid_amount',
+                                    'customers.name as customer_name',
+                                    \DB::Raw('CASE WHEN lsp_invoices.paid_amount = 0 THEN 
+                                        (SELECT SUM(paid_amount) FROM lsp_invoice_payments WHERE lsp_invoice_payments.invoice_id=lsp_invoices.invoice_id)
+                                    ELSE lsp_invoices.paid_amount END AS absPaid'),
+                                    'invoices.created_at')
+                                  ->where('invoices.store_id',$this->sdc->storeID())
+                                  ->where('invoices.invoice_id',$invoice_id)
+                                  ->whereRaw("lsp_invoices.invoice_status!='Paid'")
+                                  ->first();
+
+            $invoice=Invoice::where('invoice_id',$invoice_id)->first();
+            //dd($invoiceData);
+
+
+
+            $cusInfo=Customer::find($invoice->customer_id);
+
+            $load_total_amount=$loadInvoices->total_amount;
+            $load_absPaid=$loadInvoices->absPaid+$paid_amount;
+            $load_due=$load_total_amount-$load_absPaid;
+            if($load_due>0)
+            {
+                $load_invoice_status="Partial";
+            }
+            elseif($load_due<=0)
+            {
+                $load_invoice_status="Paid";
+                $load_due="0.00";
+            }
+            else
+            {
+                $load_invoice_status="Partial";
+            }
+
+            if(empty($invoice->tender_id))
+            {
+                $tender=Tender::find($request->payment_method_id);
+                $tender_name=$tender->name;
+                $tender_id=$tender->id;
+
+                $invoice->tender_id=$tender_id;
+                $invoice->tender_name=$tender_name;
+                $invoice->save();
+            }
+            else
+            {
+                $tender_id=$invoice->tender_id;
+                $tender=Tender::find($tender_id);
+                $tender_name=$tender->name;
+                $invoice->save();
+            }
+
+            $invoicePay=new InvoicePayment;
+            $invoicePay->invoice_id=$invoice_id;
+            $invoicePay->customer_id=$invoice->customer_id;
+            $invoicePay->customer_name=$cusInfo->name;
+            $invoicePay->tender_id=$tenderData->id;
+            $invoicePay->tender_name=$tenderData->name;
+            $invoicePay->total_amount=$invoice->total_amount;
+            $invoicePay->paid_amount=$amountPaid;
+            $invoicePay->store_id=$this->sdc->storeID();
+            $invoicePay->created_by=$this->sdc->UserID();
+            $invoicePay->save();
+
+            if($load_due<=0)
+            {
+                $invoice->due_amount="0.00";
+            }
+            
+            $invoice->invoice_status=$load_invoice_status;
+            $invoice->save();
+            
+            \Session::put('success','Paypal Partial payment successfully accepted.');
+            return redirect('pos'); die();
+        }
+        else
+        {
+            \Session::put('error','Failed To Accept Partial Payment, Please try again');
+           return redirect('pos'); die();
+        }
+
+    }
+
 
     public function getCounterPOSPaymentStatusPaypal(Request $request,$invoice_id=0,$status='fahad')
     {
@@ -1128,6 +1244,92 @@ class InvoiceController extends Controller
             \Session::put('error','No item in cart, Please try again.!!!!!');
             return redirect('pos');
        }
+    }
+
+    public function partialPayPaypal($invoice_id=0,$payment_id=0,$paid_amount=0)
+    {
+
+
+        $nidInfo=Invoice::where('invoice_id',$invoice_id)->first();
+        $nid=$nidInfo->id;  
+            
+            $payer = new Payer();
+            $payer->setPaymentMethod("paypal");
+
+            $item1 = new Item();
+            $item1->setName('Invoice - '.$invoice_id)
+                    ->setCurrency('USD')
+                    ->setQuantity(1)
+                    ->setSku($nid) // Similar to `item_number` in Classic API
+                    ->setPrice($paid_amount);
+            
+
+
+            $itemList = new ItemList();
+            $itemList->setItems(array($item1));   
+
+            $details = new Details();
+            $details->setSubtotal($paid_amount); 
+
+            $amount = new Amount();
+            $amount->setCurrency("USD")
+                    ->setTotal($paid_amount)
+                    ->setDetails($details);   
+            
+            $transaction = new Transaction();
+            $transaction->setAmount($amount)
+                ->setItemList($itemList)
+                ->setDescription("Invoice Partial Payment description")
+                ->setInvoiceNumber(uniqid()); 
+
+            //$baseUrl = url();
+            $redirectUrls = new RedirectUrls();
+            $redirectUrls->setReturnUrl(url('partial/payment/paypal/'.$invoice_id.'/'.$payment_id.'/'.$paid_amount.'/success'))
+                ->setCancelUrl(url('partial/payment/paypal/'.$invoice_id.'/'.$payment_id.'/'.$paid_amount.'/cancel'));
+
+            $payment = new Payment();
+            $payment->setIntent("sale")
+                    ->setPayer($payer)
+                    ->setRedirectUrls($redirectUrls)
+                    ->setTransactions(array($transaction));
+
+
+            try {
+
+                $payment->create($this->_api_content);
+            } catch (\PayPal\Exception\PPConnectionException $ex) {
+
+                dd($ex);
+                if(\Config::get('app.debug'))
+                {
+                    \Session::put('error','Connection has timeout.!!!!, Please try again.');
+                    return redirect('pos');
+                }
+                else
+                {
+                    \Session::put('error','Something went wrong.!!!!, Please try again.');
+                    return redirect('pos');
+                }
+            }
+
+
+            foreach($payment->getLinks() as $link){
+                if($link->getRel()=='approval_url')
+                {
+                    $redirect_url=$link->getHref();
+                    break;
+                }
+            }
+
+            \Session::put('paypal_payment_id',$payment->getId());
+
+            if(isset($redirect_url))
+            {
+                return redirect($redirect_url);
+            }
+
+            \Session::put('error','Unknown error occured, Please try again.!!!!!');
+            return redirect('pos');
     }
 
     public function posCounterPayPaypal()
@@ -2049,6 +2251,157 @@ class InvoiceController extends Controller
         return response()->json($retData);
     }
 
+    public function AuthorizenetCardPartialPayment(Request $request)
+    {
+
+        $invoice_id=$request->invoice_id;
+        $refId=$invoice_id;
+        $cardNumber=trim(str_replace(" ","",$request->cardNumber)); 
+        $expireDateStr=trim($request->cardExpire);
+        $expireDate=$this->convertDateFromCard($expireDateStr);
+
+        if(!$expireDate)
+        {
+           return response()->json(['status'=>0,'message'=>'Card Expire date invalid.']);
+        }
+
+        if(empty($request->amountToPay))
+        {
+            return response()->json(['status'=>0,'message'=>'Pay amount should not be empty.']);
+        }
+
+        //dd($request->amountToPay);
+
+        $retData=$this->authorizenet->captureCardPayment($refId,$cardNumber,$expireDate,$request->amountToPay);
+
+        if($retData['status']==1)
+        {
+
+            /*$cardInfoData=new CardInfo;
+            $cardInfoData->card_info=$retData['CardType'];
+            $cardInfoData->card_number=$cardNumber;
+            $cardInfoData->card_name=$request->cardHName;
+            $cardInfoData->expriy_date=$expireDate;
+            $cardInfoData->pin_number=$request->cardcvc;
+            $cardInfoData->store_id=$this->sdc->storeID();
+            $cardInfoData->created_by=$this->sdc->UserID();
+            $cardInfoData->save();*/
+
+            $tab=new AuthorizeNetPaymentHistory;
+            $tab->invoice_id=$refId;
+            $tab->card_number=$cardNumber;
+            $tab->card_holder_name=$request->cardHName;
+            $tab->card_expire_date=$expireDate;
+            $tab->card_cvc=$request->cardcvc;
+            $tab->paid_amount=$request->amountToPay;
+
+            $tab->refTransID=$retData['refTransID'];
+
+            $tab->authCode=$retData['authCode'];
+            $tab->transactionID=$retData['transactionID'];
+            $tab->CardType=$retData['CardType'];
+            $tab->transactionHash=$retData['transactionHash'];
+            $tab->message=$retData['message'];
+
+            $tab->store_id=$this->sdc->storeID();
+            $tab->created_by=$this->sdc->UserID();
+            $tab->save();
+
+
+            $trans=$result->getTransactions();
+            //$amtAr=$trans->getAmount();
+            $amountPaid=$trans[0]->getAmount()->getTotal();
+            //dd($amountPaid);
+
+            $tenderData=Tender::where('Card Payment',1)->first();
+
+            $loadInvoices=Invoice::join('customers','invoices.customer_id','=','customers.id')
+                                  ->select(
+                                    'invoices.id',
+                                    'invoices.invoice_id',
+                                    'invoices.total_amount',
+                                    'invoices.paid_amount',
+                                    'customers.name as customer_name',
+                                    \DB::Raw('CASE WHEN lsp_invoices.paid_amount = 0 THEN 
+                                        (SELECT SUM(paid_amount) FROM lsp_invoice_payments WHERE lsp_invoice_payments.invoice_id=lsp_invoices.invoice_id)
+                                    ELSE lsp_invoices.paid_amount END AS absPaid'),
+                                    'invoices.created_at')
+                                  ->where('invoices.store_id',$this->sdc->storeID())
+                                  ->where('invoices.invoice_id',$invoice_id)
+                                  ->whereRaw("lsp_invoices.invoice_status!='Paid'")
+                                  ->first();
+
+            $invoice=Invoice::where('invoice_id',$invoice_id)->first();
+            //dd($invoiceData);
+
+
+
+            $cusInfo=Customer::find($invoice->customer_id);
+
+            $load_total_amount=$loadInvoices->total_amount;
+            $load_absPaid=$loadInvoices->absPaid+$paid_amount;
+            $load_due=$load_total_amount-$load_absPaid;
+            if($load_due>0)
+            {
+                $load_invoice_status="Partial";
+            }
+            elseif($load_due<=0)
+            {
+                $load_invoice_status="Paid";
+                $load_due="0.00";
+            }
+            else
+            {
+                $load_invoice_status="Partial";
+            }
+
+            if(empty($invoice->tender_id))
+            {
+                $tender=Tender::find($request->payment_method_id);
+                $tender_name=$tender->name;
+                $tender_id=$tender->id;
+
+                $invoice->tender_id=$tender_id;
+                $invoice->tender_name=$tender_name;
+                $invoice->save();
+            }
+            else
+            {
+                $tender_id=$invoice->tender_id;
+                $tender=Tender::find($tender_id);
+                $tender_name=$tender->name;
+                $invoice->save();
+            }
+
+            $invoicePay=new InvoicePayment;
+            $invoicePay->invoice_id=$invoice_id;
+            $invoicePay->customer_id=$invoice->customer_id;
+            $invoicePay->customer_name=$cusInfo->name;
+            $invoicePay->tender_id=$tenderData->id;
+            $invoicePay->tender_name=$tenderData->name;
+            $invoicePay->total_amount=$invoice->total_amount;
+            $invoicePay->paid_amount=$amountPaid;
+            $invoicePay->store_id=$this->sdc->storeID();
+            $invoicePay->created_by=$this->sdc->UserID();
+            $invoicePay->save();
+
+            if($load_due<=0)
+            {
+                $invoice->due_amount="0.00";
+            }
+            
+            $invoice->invoice_status=$load_invoice_status;
+            $invoice->save();
+
+
+
+
+            
+        }
+        
+        return response()->json($retData);
+    }
+
     public function AuthorizenetCardPaymentPublic(Request $request)
     {
 
@@ -2142,7 +2495,7 @@ class InvoiceController extends Controller
 
         $this->getSalesCartTokenID();
         $filter=$this->GenaratePageDataFilter();
-        $tab_customer=Customer::where('store_id',$this->sdc->storeID())->get();
+        $tab_customer=Customer::select('id','name')->where('store_id',$this->sdc->storeID())->get();
         $Cart = $request->session()->has('Pos') ? $request->session()->get('Pos') : null;
         if(isset($Cart))
         {
@@ -4593,6 +4946,112 @@ class InvoiceController extends Controller
        }
     }
 
+    public function savePartialPaidInvoice(Request $request)
+    {
+        $invoice_id=$request->invoice_id;
+        $paid_amount=$request->paid_amount;
+        if(empty($invoice_id))
+        {
+            $returnArray=array('status'=>0,'msg'=>'Please Select a Invoice');
+        }
+        elseif(empty($request->payment_method_id))
+        {
+            $returnArray=array('status'=>0,'msg'=>'Please Select a Payment Method');
+        }
+        elseif(empty($paid_amount))
+        {
+            $returnArray=array('status'=>0,'msg'=>'Please Type a Today Paid Amount.');
+        }
+        else
+        {
+
+            $loadInvoices=Invoice::join('customers','invoices.customer_id','=','customers.id')
+                                  ->select(
+                                    'invoices.id',
+                                    'invoices.invoice_id',
+                                    'invoices.total_amount',
+                                    'invoices.paid_amount',
+                                    'customers.name as customer_name',
+                                    \DB::Raw('CASE WHEN lsp_invoices.paid_amount = 0 THEN 
+                                        (SELECT SUM(paid_amount) FROM lsp_invoice_payments WHERE lsp_invoice_payments.invoice_id=lsp_invoices.invoice_id)
+                                    ELSE lsp_invoices.paid_amount END AS absPaid'),
+                                    'invoices.created_at')
+                                  ->where('invoices.store_id',$this->sdc->storeID())
+                                  ->where('invoices.invoice_id',$invoice_id)
+                                  ->whereRaw("lsp_invoices.invoice_status!='Paid'")
+                                  ->first();
+
+            $invoice=Invoice::where('invoice_id',$request->invoice_id)->first();
+            $customer_id=$invoice->customer_id;
+            $customer=Customer::find($customer_id);
+            $customer_name=$customer->name;
+
+            $load_total_amount=$loadInvoices->total_amount;
+            $load_absPaid=$loadInvoices->absPaid+$paid_amount;
+            $load_due=$load_total_amount-$load_absPaid;
+            if($load_due>0)
+            {
+                $load_invoice_status="Partial";
+            }
+            elseif($load_due<=0)
+            {
+                $load_invoice_status="Paid";
+                $load_due="0.00";
+            }
+            else
+            {
+                $load_invoice_status="Partial";
+            }
+
+            if(empty($invoice->tender_id))
+            {
+                $tender=Tender::find($request->payment_method_id);
+                $tender_name=$tender->name;
+                $tender_id=$tender->id;
+
+                $invoice->tender_id=$tender_id;
+                $invoice->tender_name=$tender_name;
+                $invoice->save();
+            }
+            else
+            {
+                $tender_id=$invoice->tender_id;
+                $tender=Tender::find($tender_id);
+                $tender_name=$tender->name;
+                $invoice->save();
+            }
+
+            $total_amount_invoice=$invoice->total_amount;
+
+            $tabInPay=new InvoicePayment;
+            $tabInPay->invoice_id=$invoice_id;
+            $tabInPay->customer_id=$customer_id;
+            $tabInPay->customer_name=$customer_name;
+            $tabInPay->tender_id=$tender_id;
+            $tabInPay->tender_name=$tender_name;
+            $tabInPay->total_amount=$total_amount_invoice;
+            $tabInPay->paid_amount=$paid_amount;
+            $tabInPay->store_id=$this->sdc->storeID();
+            $tabInPay->created_by=$this->sdc->UserID();
+            $tabInPay->save();
+
+            if($load_due<=0)
+            {
+                $invoice->due_amount="0.00";
+            }
+            
+            $invoice->invoice_status=$load_invoice_status;
+            $invoice->save();
+
+            $this->sdc->log("sales","Invoice Partial Payment Saved Invoice - ".$invoice_id.", Paid Amount - ".$paid_amount);
+
+            $returnArray=array('status'=>1);
+        }
+
+        return response()->json($returnArray);
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -5174,6 +5633,83 @@ class InvoiceController extends Controller
         $loadInvoices=Invoice::where('customer_id',$customer_id)->where('store_id',$this->sdc->storeID())->get();
 
         return response()->json($loadInvoices);
+    }
+
+    public function loadInvoiceOnly()
+    {
+        $loadInvoices=Invoice::select('id','invoice_id','total_amount','created_at')->where('store_id',$this->sdc->storeID())->get();
+
+        return response()->json($loadInvoices);
+    }
+
+    public function loadPartialPaidInvoiceOnly()
+    {
+        $loadInvoices=Invoice::join('customers','invoices.customer_id','=','customers.id')
+                              ->select(
+                                'invoices.id',
+                                'invoices.invoice_id',
+                                'invoices.total_amount',
+                                'invoices.paid_amount',
+                                'customers.name as customer_name',
+                                \DB::Raw('CASE WHEN lsp_invoices.paid_amount = 0 THEN 
+                                    IFNULL((SELECT SUM(paid_amount) FROM lsp_invoice_payments WHERE lsp_invoice_payments.invoice_id=lsp_invoices.invoice_id),0)
+                                ELSE IFNULL(lsp_invoices.paid_amount,0) END AS absPaid'),
+                                'invoices.created_at')
+                              ->where('invoices.store_id',$this->sdc->storeID())
+                              ->whereRaw("lsp_invoices.invoice_status!='Paid'")
+                              ->get();
+
+        return response()->json($loadInvoices);
+    }
+
+    public function loadWarrantyProductInvoice(Request $request)
+    {
+        $invoice_id=$request->invoice_id;
+        if(!empty($invoice_id))
+        {
+
+
+            $oldCart = Session::has('cart') ? Session::get('cart') : null;
+
+            //dd();
+            $arrayExProduct=array();
+            $cartItems=array();
+            if(!empty($oldCart))
+            {
+                if(count($oldCart->items)>0)
+                {
+                    foreach($oldCart->items as $cat):
+                        $oldPID=$cat['old_product_id'];
+                        array_push($arrayExProduct,$oldPID);
+                    endforeach;
+                }
+
+                $cartItems=$oldCart->items;
+            }
+            
+
+            //dd($arrayExProduct);
+
+            $tabInvoiceProduct=InvoiceProduct::select('invoice_products.*','products.name as product_name')
+                         ->join('products','invoice_products.product_id','=','products.id')
+                         ->where('invoice_products.invoice_id',$invoice_id)
+                         ->where('invoice_products.store_id',$this->sdc->storeID())
+                         ->when($arrayExProduct, function ($query) use ($arrayExProduct) {
+                                return $query->whereNotIn('invoice_products.product_id', $arrayExProduct);
+                         })
+                         ->get();
+
+            
+            $loadProducts=Product::select('id','name')->where('store_id',$this->sdc->storeID())->get();
+
+            $retArray=array('status'=>1,'invProduct'=>$tabInvoiceProduct,'product'=>$loadProducts);
+        }
+        else
+        {
+            $retArray=array('status'=>0);
+        }
+
+        return response()->json($retArray);
     }
 
     /**

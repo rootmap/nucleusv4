@@ -91,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('/buyback', 'BuybackController');
 	Route::post('/buyback/ajax/{id}', 'BuybackController@buybackAjaxUpdate');
 	Route::get('/buyback/print/{id}', 'BuybackController@buybackPrint');
+	Route::post('/buyback/pos/ajax', 'BuybackController@storeFromPOS');
 
 	Route::get('/report/buyback', 'BuybackController@report');
 	Route::post('/report/buyback', 'BuybackController@report');
@@ -341,8 +342,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/close/print/store/{closing_id}', 'InvoiceController@printCloseStore');
 	Route::post('/transaction/store', 'InvoiceController@transactionStore');
 	Route::get('/invoice/pos/pay/paypal', 'InvoiceController@posPayPaypal');
+	Route::get('/partial/pay/paypal/{invoice_id}/{payment_id}/{paid_amount}', 'InvoiceController@partialPayPaypal');
 	Route::get('/invoice/counter-pos/pay/paypal', 'InvoiceController@posCounterPayPaypal');
 	Route::get('/pos/payment/paypal/{invoice_id}/{status}', 'InvoiceController@getPOSPaymentStatusPaypal');
+	Route::get('/partial/payment/paypal/{invoice_id}/{payment_id}/{paid_amount}/{status}', 'InvoiceController@getPOSPartialPaymentStatusPaypal');
 	Route::get('/counter-pos/payment/paypal/{invoice_id}/{status}', 'InvoiceController@getCounterPOSPaymentStatusPaypal');
 	Route::get('/sales/report', 'InvoiceController@show');
 	Route::get('/sales/invoice/{invoice_id}', 'InvoiceController@invoiceShow');
@@ -354,6 +357,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sales/delete/{id}', 'InvoiceController@destroy');
 	Route::post('/sales/modify/{id}', 'InvoiceController@update');
 	Route::post('/sales/return/invoice/ajax', 'InvoiceController@loadCustomerInvoice');
+	Route::get('/warranty/invoice/ajax', 'InvoiceController@loadInvoiceOnly');
+	Route::get('/partialpay/invoice/ajax', 'InvoiceController@loadPartialPaidInvoiceOnly');
+	Route::post('/partialpay/invoice/ajax', 'InvoiceController@savePartialPaidInvoice');
+	Route::post('/warranty/invoice/product/ajax', 'InvoiceController@loadWarrantyProductInvoice');
 	Route::post('/sales/return/save/ajax', 'InvoiceController@SaveSalesReturnInvoice');
 
 	// Route::get('/sales/excel/report', 'InvoiceController@exportExcel');
@@ -631,6 +638,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//----------------Authorize.net Payment Route Start-----------------------------//
 	Route::get('/authorize/net/payment/test','AuthorizeNetPaymentController@index');
 	Route::post('/authorize/net/capture/pos/payment','InvoiceController@AuthorizenetCardPayment');
+	Route::post('/authorize/net/capture/pos/partial/payment','InvoiceController@AuthorizenetCardPartialPayment');
 	Route::get('/authorize/net/payment/history','AuthorizeNetPaymentHistoryController@index');
 	Route::post('/authorize/net/payment/refund','InvoiceController@refund');
 
