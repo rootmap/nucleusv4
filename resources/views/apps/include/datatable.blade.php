@@ -441,56 +441,52 @@
 	            }
 
     		});
+
+    		$(".save-new-customer").click(function(){
+    			//alert("hhh");
+	            var name=$.trim($("input[name=new_customer_name]").val());
+	            var phone=$.trim($("input[name=new_customer_phone]").val());
+	            var email=$.trim($("input[name=new_customer_email]").val());
+	            var address=$.trim($("input[name=new_customer_address]").val());
+	            //console.log(name,phone,email,address);
+	            if(name.length==0)
+	            {
+	                alert("Please select a customer Name.");
+	                return false;
+	            }
+	            else if(phone.length==0)
+	            {
+	            	alert("Please select a customer Phone Number.");
+	                return false;
+	            }
+	            
+	            alert("Processing please wait.....");
+	            //------------------------Ajax Customer Start-------------------------//
+	            var AddNewCustomerUrl="{{url('customer/pos/ajax/add')}}";
+	            $.ajax({
+	                'async': false,
+	                'type': "POST",
+	                'global': false,
+	                'dataType': 'json',
+	                'url': AddNewCustomerUrl,
+	                'data': {'name':name,'phone':phone,'email':email,'address':address,'_token':"{{csrf_token()}}"},
+	                'success': function (data) {
+	                    $("select[name=ticket_customer_id]").append('<option value="'+data+'">'+name+'</option>');
+	                    $("select[name=ticket_customer_id] option[value='"+data+"']").prop("selected",true);
+	                    
+	                    $("#ticketMSG").html(successMessage("Successfully Saved Customer Info."));
+	                    alert("Successfully Saved Customer Info.");
+	                    $("#NewCustomerDash").modal('hide');
+	                }
+	            });
+	            //------------------------Ajax Customer End---------------------------//
+	        });
+
+
+
     	});
 
-    	$(".save-new-customer").click(function(){
-
-            var name=$.trim($("input[name=new_customer_name]").val());
-            var phone=$.trim($("input[name=new_customer_phone]").val());
-            var email=$.trim($("input[name=new_customer_email]").val());
-            var address=$.trim($("input[name=new_customer_address]").val());
-            //console.log(name,phone,email,address);
-            if(name.length==0)
-            {
-                $("#NewCustomerDashMSG").html(warningMessage("Please select a customer Name."));
-                return false;
-            }
-            else if(phone.length==0)
-            {
-            	$("#NewCustomerDashMSG").html(warningMessage("Please select a customer Phone Number."));
-                return false;
-            }
-            /*else if(email.length==0)
-            {
-                alert("Please select a customer Email.");
-                return false;
-            }
-            else if(address.length==0)
-            {
-                alert("Please select a customer Address.");
-                return false;
-            }*/
-            $("#NewCustomerDashMSG").html(warningMessage("Processing please wait....."));
-            //------------------------Ajax Customer Start-------------------------//
-            var AddNewCustomerUrl="{{url('customer/pos/ajax/add')}}";
-            $.ajax({
-                'async': false,
-                'type': "POST",
-                'global': false,
-                'dataType': 'json',
-                'url': AddNewCustomerUrl,
-                'data': {'name':name,'phone':phone,'email':email,'address':address,'_token':"{{csrf_token()}}"},
-                'success': function (data) {
-                    $("select[name=ticket_customer_id]").append('<option value="'+data+'">'+name+'</option>');
-                    $("select[name=ticket_customer_id] option[value='"+data+"']").prop("selected",true);
-                    
-                    $("#ticketMSG").html(successMessage("Successfully Saved Customer Info."));
-                    $("#NewCustomerDashMSG").html(successMessage("Successfully Saved Customer Info."));
-                    $("#NewCustomerDash").modal('hide');
-                }
-            });
-            //------------------------Ajax Customer End---------------------------//
-        });
+    	
 
 
 

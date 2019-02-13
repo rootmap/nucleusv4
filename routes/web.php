@@ -131,6 +131,13 @@ Route::group(['middleware' => 'auth'], function () {
 	//Route::get('/special/parts/delete/{id}', 'SpecialPartsOrderController@destroy');
 
 	//category 
+	Route::get('/settings/ticket/problem', 'TicketProblemController@index');
+	Route::post('/settings/ticket/problem/save', 'TicketProblemController@store');
+	Route::get('/settings/ticket/problem/edit/{id}', 'TicketProblemController@edit');
+	Route::get('/settings/ticket/problem/delete/{id}', 'TicketProblemController@destroy');
+	Route::post('/settings/ticket/problem/modify/{id}', 'TicketProblemController@update');
+	
+	//category 
 	Route::get('/category', 'CategoryController@index');
 	Route::post('/category/save', 'CategoryController@store');
 	Route::get('/category/edit/{id}', 'CategoryController@edit');

@@ -412,6 +412,7 @@
                                 </a>
                             </li>
                             @endif 
+                            
                         </ul>
                     </li>
                     @endif 
@@ -457,6 +458,17 @@
                     @if(in_array('site/navigation', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == 'site/navigation' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/site/navigation')}}" class="menu-item">Navigation Setting</a></li>
                     @endif 
+
+                    @if(in_array('settings/instore/asset/ticket/create', $dataMenuAssigned)) 
+                    <li class="{{ Request::path() == 'settings/instore/asset/ticket/create' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/settings/instore/asset/ticket/create')}}" class="menu-item">Ticket Asset </a></li>
+                    @endif 
+                    
+                    @if(in_array('settings/ticket/problem', $dataMenuAssigned)) 
+                    <li class="{{ Request::path() == 'settings/ticket/problem' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/settings/ticket/problem')}}" class="menu-item">
+                    Ticket Problem
+                    </a></li>
+                    @endif 
+                    
                     @if(in_array('pos/settings', $dataMenuAssigned)) 
                     <li class="{{ Request::path() == '/pos/settings' ? 'active' : '' }} border-bottom-purple"><a href="{{url('/pos/settings')}}" class="menu-item">POS Setting</a></li>
                     @endif 

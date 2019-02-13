@@ -2229,7 +2229,7 @@ function editRowLive(id)
 {{-- Punch js * End  --}}
 
 {{-- Punch js * Start  --}}
-@include('apps.include.json.pospaymentpartial')
+@include('apps.include.json.pospaymentpartial',compact('addPartialPayment'))
 {{-- Punch js * End  --}}
 @endsection
 

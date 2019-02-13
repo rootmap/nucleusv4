@@ -123,9 +123,9 @@ class InStoreRepairController extends Controller
         {
             $this->validate($request,[
                 'full_name'=>'required',
-                'address'=>'required',
+                //'address'=>'required',
                 'phone'=>'required',
-                'email'=>'required'
+                //'email'=>'required'
             ]);
 
             $cusInfo=new Customer;

@@ -178,8 +178,8 @@
                       <div class="form-group">
                         <label for="projectinput2">Additional Info</label>
                         <div class="form-control" style="clear: both; display: block; height: 150px; overflow-x: auto;">
-                            @if(isset($ticketAsset))
-                              @foreach($ticketAsset as $rep)
+                            @if(isset($repairAsset))
+                              @foreach($repairAsset as $rep)
                                 <div class="col-md-12">
                                   <input type="checkbox" id="projectinput2" class="repair_checkbox" name="repair_{{strtolower(preg_replace('/[^a-zA-Z0-9]/', "",$rep->name))}}" /> {{$rep->name}} 
                                   <div class="clearfix"></div>

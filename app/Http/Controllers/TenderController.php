@@ -247,27 +247,24 @@ class TenderController extends Controller
         $dateString='';
         if(!empty($start_date) && !empty($end_date))
         {
-            $dateString="CAST(lsp_invoices.created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+            $dateString="CAST(created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
         }
 
-        $tab=$invoice::Leftjoin('customers','invoices.customer_id','=','customers.id')
-                     ->select('invoices.*','customers.name as customer_name')
-                     ->where('invoices.store_id',$this->sdc->storeID())
-                     ->where('invoices.invoice_status','=','Paid')
-                     ->when($invoice_id, function ($query) use ($invoice_id) {
-                            return $query->where('invoices.invoice_id','=', $invoice_id);
-                     })
-                     ->when($tender_id, function ($query) use ($tender_id) {
-                            return $query->where('invoices.tender_id','=', $tender_id);
-                     })
-                     ->when($customer_id, function ($query) use ($customer_id) {
-                            return $query->where('invoices.customer_id','=', $customer_id);
-                     })
-                     ->when($dateString, function ($query) use ($dateString) {
-                            return $query->whereRaw($dateString);
-                     })
-                     ->orderBy("invoices.id","DESC")
-                     ->get();
+        $tab=InvoicePayment::where('store_id',$this->sdc->storeID())
+                             ->when($invoice_id, function ($query) use ($invoice_id) {
+                                    return $query->where('invoice_id','=', $invoice_id);
+                             })
+                             ->when($tender_id, function ($query) use ($tender_id) {
+                                    return $query->where('tender_id','=', $tender_id);
+                             })
+                             ->when($customer_id, function ($query) use ($customer_id) {
+                                    return $query->where('customer_id','=', $customer_id);
+                             })
+                             ->when($dateString, function ($query) use ($dateString) {
+                                    return $query->whereRaw($dateString);
+                             })
+                             ->orderBy("id","DESC")
+                             ->get();
          //dd($tab);      
         $tab_customer=Customer::where('store_id',$this->sdc->storeID())->get();            
         $tab_tender=Tender::whereRaw("store_id='".$this->sdc->storeID()."' OR store_id='0'")->get();            
@@ -329,21 +326,18 @@ class TenderController extends Controller
         $dateString='';
         if(!empty($start_date) && !empty($end_date))
         {
-            $dateString="CAST(lsp_invoices.created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
+            $dateString="CAST(created_at as date) BETWEEN '".$start_date."' AND '".$end_date."'";
         }
 
-        $tab=Invoice::Leftjoin('customers','invoices.customer_id','=','customers.id')
-                     ->select('invoices.*','customers.name as customer_name')
-                     ->where('invoices.store_id',$this->sdc->storeID())
-                     ->where('invoices.invoice_status','=', 'Paid')
+        $tab=InvoicePayment::where('store_id',$this->sdc->storeID())
                      ->when($invoice_id, function ($query) use ($invoice_id) {
-                            return $query->where('invoices.invoice_id','=', $invoice_id);
+                            return $query->where('invoice_id','=', $invoice_id);
                      })
                      ->when($tender_id, function ($query) use ($tender_id) {
-                            return $query->where('invoices.tender_id','=', $tender_id);
+                            return $query->where('tender_id','=', $tender_id);
                      })
                      ->when($customer_id, function ($query) use ($customer_id) {
-                            return $query->where('invoices.customer_id','=', $customer_id);
+                            return $query->where('customer_id','=', $customer_id);
                      })
                      ->when($dateString, function ($query) use ($dateString) {
                             return $query->whereRaw($dateString);
@@ -366,11 +360,11 @@ class TenderController extends Controller
         // dd($request);
         //excel 
         $data=array();
-        $array_column=array('Invoice ID','Sold To','Tender','Status','Invoice Total Amount','Invoice Date');
+        $array_column=array('Invoice ID','Sold To','Tender','Paid Amount','Invoice Date');
         array_push($data, $array_column);
         $inv=$this->TenderReport($request);
         foreach($inv as $voi):
-            $inv_arry=array($voi->invoice_id,$voi->customer_name,$voi->tender_name,$voi->invoice_status,$voi->total_amount,$voi->created_at);
+            $inv_arry=array($voi->invoice_id,$voi->customer_name,$voi->tender_name,$voi->paid_amount,$voi->created_at);
             array_push($data, $inv_arry);
         endforeach;
 
@@ -414,8 +408,7 @@ class TenderController extends Controller
                 <th class="text-center" style="font-size:12px;" >Invoice ID</th>
                 <th class="text-center" style="font-size:12px;" >Sold To</th>
                 <th class="text-center" style="font-size:12px;" >Tender</th>
-                <th class="text-center" style="font-size:12px;" >Status</th>
-                <th class="text-center" style="font-size:12px;" >Invoice Total Amount</th>
+                <th class="text-center" style="font-size:12px;" >Paid Amount</th>
                 <th class="text-center" style="font-size:12px;" >Invoice Date</th>
                 </tr>
                 </thead>
@@ -430,8 +423,7 @@ class TenderController extends Controller
                         <td>'.$voi->invoice_id.'</td>
                         <td>'.$voi->customer_name.'</td>
                         <td>'.$voi->tender_name.'</td>
-                        <td>'.$voi->invoice_status.'</td>
-                        <td align="center">'.$voi->total_amount.'</td>
+                        <td align="center">'.$voi->paid_amount.'</td>
                         <td>'.date('Y-m-d',strtotime($voi->created_at)).'</td>
                         </tr>';
 

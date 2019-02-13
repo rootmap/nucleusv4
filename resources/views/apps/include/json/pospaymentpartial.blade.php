@@ -52,6 +52,39 @@
 	//---------------------Test Ajax New Product Start---------------------//
 	$(document).ready(function(){
 
+            @if($addPartialPayment==1)
+                $("#addPartialPayment").modal("show");
+
+                    $("#partialpayMSG").html(loadingOrProcessing("Please wait, loading invoices."));
+
+                    //------------------------Ajax Customer Start-------------------------//
+                     var AddHowMowKhaoUrl="{{url('partialpay/invoice/ajax')}}";
+                     $.ajax({
+                        'async': true,
+                        'type': "GET",
+                        'global': true,
+                        'dataType': 'json',
+                        'url': AddHowMowKhaoUrl,
+                        'data': {'_token':"{{csrf_token()}}"},
+                        'success': function (data) 
+                        {
+                            $("#partialpayMSG").html(successMessage("Invoices loaded successfully, Please select a invoice."));
+                            var ff="<option value=''>Select A Invoice</option>";
+                            $.each(data,function(index,row){
+                                //console.log(row);
+                                if(row.total_amount>row.absPaid)
+                                {
+                                    ff+="<option data-customer='"+row.customer_name+"' data-paid='"+row.absPaid+"' data-total='"+row.total_amount+"' value='"+row.invoice_id+"'>"+row.invoice_id+" - "+row.created_at+"</option>";
+                                }
+                                
+                            });
+
+                            $("select[name=partialpay_invoice_id]").html(ff);
+                        }
+                    });
+                    //------------------------Ajax Customer End---------------------------//
+            @endif
+
             $(".addPartialPayment").click(function(){
                 $("#addPartialPayment").modal("show");
 

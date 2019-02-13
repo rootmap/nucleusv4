@@ -29,8 +29,8 @@
                         <select  name="ticket_problem_id" id="ticket_problem_id" class="select2 form-control" style="width: 100%;"> 
                           <option value="">Please Select</option>
                           <option value="TP0001">Create New Problem</option>
-                          @if(isset($problem))
-                            @foreach($problem as $pro)
+                          @if(isset($ticketProblem))
+                            @foreach($ticketProblem as $pro)
                             <option  value="{{$pro->id}}">
                               {{$pro->name}}
                             </option>

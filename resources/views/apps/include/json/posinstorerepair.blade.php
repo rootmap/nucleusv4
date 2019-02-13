@@ -200,11 +200,11 @@
                         }
 
                         var address=$("input[name=address]").val();
-                        if(address.length==0)
+                        /*if(address.length==0)
                         {
                             $("#InstoreMSG").html(warningMessage("Please Enter Customer Address."));
                             return false;
-                        }
+                        }*/
 
                         var phone=$("input[name=phone]").val();
                         if(phone.length==0)
@@ -214,11 +214,11 @@
                         }
 
                         var email=$("input[name=email]").val();
-                        if(email.length==0)
+                        /*if(email.length==0)
                         {
                             $("#InstoreMSG").html(warningMessage("Please Enter Customer Email."));
                             return false;
-                        }
+                        }*/
                     }
                 }
 
@@ -265,11 +265,11 @@
                         }
 
                         var address=$("input[name=address]").val();
-                        if(address.length==0)
+                        /*if(address.length==0)
                         {
                             $("#InstoreMSG").html(warningMessage("Please Enter Customer Address."));
                             return false;
-                        }
+                        }*/
 
                         var phone=$("input[name=phone]").val();
                         if(phone.length==0)
@@ -279,11 +279,11 @@
                         }
 
                         var email=$("input[name=email]").val();
-                        if(email.length==0)
+                        /*if(email.length==0)
                         {
                             $("#InstoreMSG").html(warningMessage("Please Enter Customer Email."));
                             return false;
-                        }
+                        }*/
                     }
                 }
 

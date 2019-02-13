@@ -139,8 +139,8 @@
                                 <th>Invoice Date</th>
                                 <th>Sold To</th>
                                 <th>Tender</th>
-                                <th>Status</th>
-                                <th>Invoice Total Amount</th>
+                                {{-- <th>Status</th> --}}
+                                <th>Paid Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -156,16 +156,16 @@
                                 <td>{{$row->customer_name}}</td>
                                 <td>{{$row->tender_name}}</td>
                                 {{-- <td>{{$row->invoice_status}}</td> --}}
-                                <td>
+                                {{-- <td>
                                     @if($row->invoice_status=="Paid")
                                         <span class="btn btn-green btn-lighten-1">{{$row->invoice_status}}</span>
                                     @endif
-                                </td>
-                                <td>{{$row->total_amount}}</td>
+                                </td> --}}
+                                <td>{{number_format($row->paid_amount,2)}}</td>
                                 
                             </tr>
                             <?php 
-                                $paid_amount+=$row->total_amount;
+                                $paid_amount+=$row->paid_amount;
                                 ?>
                             @endforeach
                             @else

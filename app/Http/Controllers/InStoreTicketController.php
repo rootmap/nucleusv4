@@ -7,6 +7,7 @@ use App\Customer;
 use App\Category;
 use App\Invoice;
 use App\InvoicePayment;
+use App\TicketProblem;
 use App\Product;
 use App\InStoreRepairProblem;
 use App\RetailPosSummaryDateWise;
@@ -115,7 +116,7 @@ class InStoreTicketController extends Controller
     public function create()
     {
         $tab_customer=Customer::where('store_id',$this->sdc->storeID())->get();
-        $problem=InStoreRepairProblem::select('id','name','model_id')->where('store_id',$this->sdc->storeID())->get();
+        $problem=TicketProblem::select('id','name')->where('store_id',$this->sdc->storeID())->get();
         $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','ticket')->where('store_id',$this->sdc->storeID())->get(); 
 
         \DB::statement("call defaultTicketNRepairCreate('".$this->sdc->UserID()."','".$this->sdc->storeID()."')");
@@ -149,13 +150,12 @@ class InStoreTicketController extends Controller
             if($problem_id=="TP0001")
             {
 
-                $checkExProb=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
-                                                    ->where('name',$request->ticket_problem_name)
-                                                    ->count();
+                $checkExProb=TicketProblem::where('store_id',$this->sdc->storeID())
+                                          ->where('name',$request->ticket_problem_name)
+                                          ->count();
                 if($checkExProb==0)
                 {
-                    $tab=new InStoreRepairProblem();
-                    $tab->used_type="Store";
+                    $tab=new TicketProblem();
                     $tab->name=$request->ticket_problem_name;
                     $tab->store_id=$this->sdc->storeID();
                     $tab->created_by=$this->sdc->UserID();
@@ -163,9 +163,9 @@ class InStoreTicketController extends Controller
                 }
                 else
                 {
-                    $tab=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
-                                                    ->where('name',$request->ticket_problem_name)
-                                                    ->first();
+                    $tab=TicketProblem::where('store_id',$this->sdc->storeID())
+                                      ->where('name',$request->ticket_problem_name)
+                                      ->first();
                 }
                 
 
@@ -302,13 +302,12 @@ class InStoreTicketController extends Controller
         if($problem_id=="TP0001")
         {
 
-            $checkExProb=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
-                                                ->where('name',$ticketArray['ticket_problem_name'])
-                                                ->count();
+            $checkExProb=TicketProblem::where('store_id',$this->sdc->storeID())
+                                        ->where('name',$ticketArray['ticket_problem_name'])
+                                        ->count();
             if($checkExProb==0)
             {
-                $tab=new InStoreRepairProblem();
-                $tab->used_type="Store";
+                $tab=new TicketProblem();
                 $tab->name=$ticketArray['ticket_problem_name'];
                 $tab->store_id=$this->sdc->storeID();
                 $tab->created_by=$this->sdc->UserID();
@@ -316,16 +315,16 @@ class InStoreTicketController extends Controller
             }
             else
             {
-                $tab=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
-                                                ->where('name',$ticketArray['ticket_problem_name'])
-                                                ->first();
+                $tab=TicketProblem::where('store_id',$this->sdc->storeID())
+                                ->where('name',$ticketArray['ticket_problem_name'])
+                                ->first();
             }
             
 
             $problem_id=$tab->id;
         }
 
-        $problem_info=\DB::table('in_store_repair_problems')->where('id',$problem_id)->first();
+        $problem_info=TicketProblem::where('id',$problem_id)->first();
         $problem_name=$problem_info->name;
 
         //InStoreTicket

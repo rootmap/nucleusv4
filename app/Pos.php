@@ -43,8 +43,8 @@ class Pos {
 
            // dd($this->store_id);
 
-            if($oldCart->TaxRate==0)
-            {
+            //if($oldCart->TaxRate==0)
+            //{
                     $store_id=app('App\Http\Controllers\StaticDataController')->storeID();
                     $tabCount=PosSetting::where('store_id',$this->store_id)->count();
                     if($tabCount>0)
@@ -63,6 +63,11 @@ class Pos {
                                 $this->TaxType=$tab->pos_defualt_option;
                             }
                         }
+                        else
+                        {
+                            $this->TaxRate=0;
+                            $this->TaxType=$tab->pos_defualt_option;
+                        }
 
 
                         if($this->TaxType=="Full Tax")
@@ -80,13 +85,15 @@ class Pos {
                     }
                     else
                     {
+                        $this->TaxType="No Tax";
                         $this->TaxRate=0;
                     }
-            }
+            /*}
             else
             {
+                $this->TaxType="No Tax";
                 $this->TaxRate=$oldCart->TaxRate;
-            }
+            }*/
 
             if($oldCart->discount_type==0)
             {

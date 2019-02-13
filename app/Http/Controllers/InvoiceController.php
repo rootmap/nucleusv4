@@ -12,6 +12,7 @@ use App\AuthorizeNetPayment;
 use App\User;
 use App\InvoiceProduct;
 use App\InvoicePayment;
+use App\TicketProblem;
 use App\RetailPosSummary;
 use App\RetailPosSummaryDateWise;
 use App\PosSetting;
@@ -73,14 +74,17 @@ class InvoiceController extends Controller
         $this->authorizenet = new AuthorizeNetPaymentController(); 
     }
 
-    public function salesPartialAdd()
+    public function salesPartialAdd(Request $request)
     {
-        $tab=\DB::table('menu_pages')->orderBy('id','DESC')->get();
+        /*$tab=\DB::table('menu_pages')->orderBy('id','DESC')->get();
         return view('apps.pages.sales.addPayment',
                         [
                             'dataTable'=>$tab
                         ]
-                    );
+                    );*/
+
+        Session::put('addPartialPayment',1);
+        return redirect(url('pos'));
     }
 
     public function posclear(Request $request)
@@ -2047,17 +2051,17 @@ class InvoiceController extends Controller
             $opening_amount=$storeInfo->opening_amount;
             $getStoreCloseDateTime=date('Y-m-d H:i:s');
 
-            $totalSales=Invoice::where('store_id',$this->sdc->storeID())
+            $totalSales=InvoicePayment::where('store_id',$this->sdc->storeID())
                             ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
-                            ->sum('total_amount');
+                            ->sum('paid_amount');
 
             $totalTax=Invoice::where('store_id',$this->sdc->storeID())
                             ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
                             ->sum('total_tax');
 
-            $totalSalesTender=Invoice::where('store_id',$this->sdc->storeID())
+            $totalSalesTender=InvoicePayment::where('store_id',$this->sdc->storeID())
                             ->whereRaw("created_at >= CAST('".$getStoreDateTime."' as datetime) AND  created_at <=CAST('".$getStoreCloseDateTime."' as datetime)")
-                            ->select('tender_id','tender_name',\DB::Raw('SUM(total_amount) as tender_total'))
+                            ->select('tender_id','tender_name',\DB::Raw('SUM(paid_amount) as tender_total'))
                             ->groupBy('tender_id')
                             ->orderBy('tender_name','ASC')
                             ->get();
@@ -2308,9 +2312,8 @@ class InvoiceController extends Controller
             $tab->save();
 
 
-            $trans=$result->getTransactions();
-            //$amtAr=$trans->getAmount();
-            $amountPaid=$trans[0]->getAmount()->getTotal();
+
+            $amountPaid=$request->amountToPay;
             //dd($amountPaid);
 
             $tenderData=Tender::where('Card Payment',1)->first();
@@ -2396,7 +2399,7 @@ class InvoiceController extends Controller
 
 
 
-            
+
         }
         
         return response()->json($retData);
@@ -2556,7 +2559,17 @@ class InvoiceController extends Controller
         $model=InStoreRepairModel::select('id','name','device_id')->where('store_id',$this->sdc->storeID())->get();
         $problem=InStoreRepairProblem::select('id','name','model_id')->where('store_id',$this->sdc->storeID())->get();
         $estPrice=InStoreRepairPrice::select('id','price','device_id','model_id','problem_id','device_name','model_name','problem_name')->where('store_id',$this->sdc->storeID())->get();
-        $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','repair')->where('store_id',$this->sdc->storeID())->get();
+        $ticketAsset=\DB::table('repair_ticket_assets')->where('asset_type','ticket')->where('store_id',$this->sdc->storeID())->get();
+        $repairAsset=\DB::table('repair_ticket_assets')->where('asset_type','repair')->where('store_id',$this->sdc->storeID())->get();
+
+        $ticketProblem=TicketProblem::select('id','name')->where('store_id',$this->sdc->storeID())->get();
+
+        $addPartialPayment=0;
+        if(Session::get('addPartialPayment')==1)
+        {
+            $addPartialPayment=1;
+            Session::put('addPartialPayment',0);
+        }
 
         return view('apps.pages.pos.index',
             [
@@ -2574,7 +2587,10 @@ class InvoiceController extends Controller
                 'device'=>$device,
                 'model'=>$model,
                 'problem'=>$problem,
+                'addPartialPayment'=>$addPartialPayment,
+                'ticketProblem'=>$ticketProblem,
                 'estPrice'=>$estPrice,
+                'repairAsset'=>$repairAsset,
                 'ticketAsset'=>$ticketAsset,
                 'ticket_id'=>time()
             ]);
@@ -4680,13 +4696,12 @@ class InvoiceController extends Controller
                     if($problem_id=="TP0001")
                     {
 
-                        $checkExProb=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
+                        $checkExProb=TicketProblem::where('store_id',$this->sdc->storeID())
                                                             ->where('name',$ticketArray['ticket_problem_name'])
                                                             ->count();
                         if($checkExProb==0)
                         {
-                            $tab=new InStoreRepairProblem();
-                            $tab->used_type="Store";
+                            $tab=new TicketProblem();
                             $tab->name=$ticketArray['ticket_problem_name'];
                             $tab->store_id=$this->sdc->storeID();
                             $tab->created_by=$this->sdc->UserID();
@@ -4694,7 +4709,7 @@ class InvoiceController extends Controller
                         }
                         else
                         {
-                            $tab=InStoreRepairProblem::where('store_id',$this->sdc->storeID())
+                            $tab=TicketProblem::where('store_id',$this->sdc->storeID())
                                                             ->where('name',$ticketArray['ticket_problem_name'])
                                                             ->first();
                         }
@@ -4703,7 +4718,7 @@ class InvoiceController extends Controller
                         $problem_id=$tab->id;
                     }
 
-                    $problem_info=\DB::table('in_store_repair_problems')->where('id',$problem_id)->first();
+                    $problem_info=TicketProblem::where('id',$problem_id)->first();
                     $problem_name=$problem_info->name;
 
                     //InStoreTicket
